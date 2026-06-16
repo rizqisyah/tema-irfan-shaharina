@@ -1,0 +1,279 @@
+import { defineStore } from "pinia";
+import { ref, computed } from "vue";
+import { useRoute } from "vue-router";
+
+interface ThemeColorsConfig {
+  primary: string;
+  secondary: string;
+  accent: string;
+  text_dark: string;
+  text_light: string;
+  text_body: string;
+  bg_body: string;
+}
+
+interface ThemeFontsConfig {
+  headline: string;
+  body: string;
+  accent: string;
+  script: string;
+  italic: string;
+}
+
+interface ThemeBackgroundsConfig {
+  cover: string;
+  main_bg: string;
+  spouse_section: string;
+  footer_bg: string;
+  countdown_bg: string;
+}
+
+interface ThemeImagesConfig {
+  logo_mempelai: string;
+  ornament_divider: string;
+  header_events: string;
+  building_icon: string;
+}
+
+interface ThemeWordsConfig {
+  quote_text?: string;
+  quote_verse?: string;
+  opening_message?: string;
+  hashtag?: string;
+}
+
+interface ThemeConfig {
+  colors?: Partial<ThemeColorsConfig>;
+  fonts?: Partial<ThemeFontsConfig>;
+  backgrounds?: Partial<ThemeBackgroundsConfig>;
+  images?: Partial<ThemeImagesConfig>;
+  words?: Partial<ThemeWordsConfig>;
+}
+
+interface WeddingData {
+  id?: string;
+  client_id?: string;
+  slug?: string;
+  title?: string;
+  theme_code?: string;
+  theme_version?: number;
+  theme_override?: Record<string, any>;
+  countdown_date?: string | null;
+  music_url?: string | null;
+  video_url?: string | null;
+  image_cover?: string | null;
+  image_bg1?: string | null;
+  image_bg2?: string | null;
+  image_spouse?: string | null;
+  image_logo?: string | null;
+  logo_mempelai?: string | null;
+  theme_name?: string | null;
+  order_groom_first?: boolean;
+  seo_settings?: Record<string, any>;
+  is_active?: boolean;
+  lang?: string | null;
+}
+
+const DEFAULT_COLORS: ThemeColorsConfig = {
+  primary: "#6D735B",
+  secondary: "#F5F3F1",
+  accent: "#D4AF37",
+  text_dark: "#1F1C1F",
+  text_light: "#FFFFFF",
+  text_body: "#424242",
+  bg_body: "#F5F3F1",
+};
+
+const DEFAULT_FONTS: ThemeFontsConfig = {
+  headline: "'Bon Vivant Family Serif'",
+  body: "'Noto Sans', sans-serif",
+  accent: "'Wonderia'",
+  script: "'FormaleScript'",
+  italic: "'Cormorant Garamond'",
+};
+
+const DEFAULT_BACKGROUND_URLS: Record<string, string> = {
+  cover: "",
+  main_bg: "",
+  spouse_section: "",
+  footer_bg: "",
+  countdown_bg: "",
+};
+
+const DEFAULT_IMAGE_URLS: Record<string, string> = {
+  logo_mempelai: "",
+  ornament_divider: "",
+  header_events: "",
+  building_icon: "",
+};
+
+export const useThemeStore = defineStore("theme", () => {
+  const themeConfig = ref<ThemeConfig | null>(null);
+  const wedding = ref<WeddingData | null>(null);
+
+  const bgCover = computed(() => {
+    const override = (wedding.value?.theme_override as ThemeConfig)?.backgrounds?.cover;
+    const fromWedding = wedding.value?.image_cover;
+    const fromTheme = themeConfig.value?.backgrounds?.cover;
+    const url = fromWedding || override || fromTheme || DEFAULT_BACKGROUND_URLS.cover;
+    return url ? `url(${url})` : "";
+  });
+
+  const bgMain = computed(() => {
+    const override = (wedding.value?.theme_override as ThemeConfig)?.backgrounds?.main_bg;
+    const fromWedding = wedding.value?.image_bg1;
+    const fromTheme = themeConfig.value?.backgrounds?.main_bg;
+    const url = fromWedding || override || fromTheme || DEFAULT_BACKGROUND_URLS.main_bg;
+    return url ? `url(${url})` : "";
+  });
+
+  const bgSpouse = computed(() => {
+    const override = (wedding.value?.theme_override as ThemeConfig)?.backgrounds?.spouse_section;
+    const fromWedding = wedding.value?.image_bg2;
+    const fromTheme = themeConfig.value?.backgrounds?.spouse_section;
+    const url = fromWedding || override || fromTheme || DEFAULT_BACKGROUND_URLS.spouse_section;
+    return url ? `url(${url})` : "";
+  });
+
+  const bgFooter = computed(() => {
+    const override = (wedding.value?.theme_override as ThemeConfig)?.backgrounds?.footer_bg;
+    const fromTheme = themeConfig.value?.backgrounds?.footer_bg;
+    const url = override || fromTheme || DEFAULT_BACKGROUND_URLS.footer_bg;
+    return url ? `url(${url})` : "";
+  });
+
+  const bgCountdown = computed(() => {
+    const override = (wedding.value?.theme_override as ThemeConfig)?.backgrounds?.countdown_bg;
+    const fromTheme = themeConfig.value?.backgrounds?.countdown_bg;
+    const url = override || fromTheme || DEFAULT_BACKGROUND_URLS.countdown_bg;
+    return url ? `url(${url})` : "";
+  });
+
+  const imgLogo = computed(() => {
+    const override = (wedding.value?.theme_override as ThemeConfig)?.images?.logo_mempelai;
+    const fromWedding = wedding.value?.image_logo;
+    const fromTheme = themeConfig.value?.images?.logo_mempelai;
+    const url = fromWedding || override || fromTheme || DEFAULT_IMAGE_URLS.logo_mempelai;
+    return url ? `url(${url})` : "";
+  });
+
+  const imgOrnament = computed(() => {
+    const override = (wedding.value?.theme_override as ThemeConfig)?.images?.ornament_divider;
+    const fromTheme = themeConfig.value?.images?.ornament_divider;
+    const url = override || fromTheme || DEFAULT_IMAGE_URLS.ornament_divider;
+    return url ? `url(${url})` : "";
+  });
+
+  const imgHeaderEvents = computed(() => {
+    const override = (wedding.value?.theme_override as ThemeConfig)?.images?.header_events;
+    const fromTheme = themeConfig.value?.images?.header_events;
+    const url = override || fromTheme || DEFAULT_IMAGE_URLS.header_events;
+    return url ? `url(${url})` : "";
+  });
+
+  const imgBuilding = computed(() => {
+    const override = (wedding.value?.theme_override as ThemeConfig)?.images?.building_icon;
+    const fromTheme = themeConfig.value?.images?.building_icon;
+    const url = override || fromTheme || DEFAULT_IMAGE_URLS.building_icon;
+    return url ? `url(${url})` : "";
+  });
+
+  const isEnglish = computed(() => {
+    let queryLang: string | undefined;
+    try {
+      const route = useRoute();
+      queryLang = route?.query?.lang as string | undefined;
+    } catch (e) {
+      // route not defined or outside router context
+    }
+    if (queryLang) {
+      return ["en", "english"].includes(queryLang.toLowerCase().trim());
+    }
+
+    const dbLang = wedding.value?.lang;
+    if (dbLang) {
+      return ["en", "english"].includes(dbLang.toLowerCase().trim());
+    }
+
+    return false;
+  });
+
+  function setTheme(theme: any) {
+    themeConfig.value = theme?.theme_config || null;
+  }
+
+  function setWedding(data: any) {
+    wedding.value = data || null;
+  }
+
+  function applyTheme() {
+    const root = document.documentElement;
+    const cfg = themeConfig.value;
+    // theme_override dari wedding — priority tertinggi
+    const override: ThemeConfig = (wedding.value?.theme_override as ThemeConfig) || {};
+
+    // Colors: DEFAULT < theme_config < theme_override
+    const colors = {
+      ...DEFAULT_COLORS,
+      ...(cfg?.colors || {}),
+      ...(override.colors || {}),
+    };
+    Object.entries(colors).forEach(([key, value]) => {
+      if (value) root.style.setProperty(`--color-${key.replace(/_/g, "-")}`, value);
+    });
+
+    // Fonts: DEFAULT < theme_config < theme_override
+    const fonts = {
+      ...DEFAULT_FONTS,
+      ...(cfg?.fonts || {}),
+      ...(override.fonts || {}),
+    };
+    Object.entries(fonts).forEach(([key, value]) => {
+      if (value) root.style.setProperty(`--font-${key}`, value);
+    });
+
+    // Backgrounds: DEFAULT < theme_config < theme_override.backgrounds < wedding.image_*
+    const bgDefaults = { ...DEFAULT_BACKGROUND_URLS, ...(cfg?.backgrounds || {}), ...(override.backgrounds || {}) };
+    const imgDefaults = { ...DEFAULT_IMAGE_URLS, ...(cfg?.images || {}), ...(override.images || {}) };
+
+    const resolvedBgs: Record<string, string> = {
+      cover:          wedding.value?.image_cover  || bgDefaults.cover          || "",
+      main_bg:        wedding.value?.image_bg1    || bgDefaults.main_bg        || "",
+      spouse_section: wedding.value?.image_bg2    || bgDefaults.spouse_section || "",
+      footer_bg:      bgDefaults.footer_bg    || "",
+      countdown_bg:   bgDefaults.countdown_bg  || "",
+    };
+    Object.entries(resolvedBgs).forEach(([key, url]) => {
+      if (url) root.style.setProperty(`--bg-${key.replace(/_/g, "-")}`, `url(${url})`);
+    });
+
+    // Images: DEFAULT < theme_config < theme_override < wedding.image_logo
+    const resolvedImgs: Record<string, string> = {
+      logo_mempelai:    wedding.value?.image_logo || imgDefaults.logo_mempelai    || "",
+      ornament_divider: imgDefaults.ornament_divider || "",
+      header_events:    imgDefaults.header_events    || "",
+      building_icon:    imgDefaults.building_icon    || "",
+    };
+    Object.entries(resolvedImgs).forEach(([key, url]) => {
+      if (url) root.style.setProperty(`--img-${key.replace(/_/g, "-")}`, `url(${url})`);
+    });
+  }
+
+  return {
+    themeConfig,
+    wedding,
+    bgCover,
+    bgMain,
+    bgSpouse,
+    bgFooter,
+    bgCountdown,
+    imgLogo,
+    imgOrnament,
+    imgHeaderEvents,
+    imgBuilding,
+    isEnglish,
+    setTheme,
+    setWedding,
+    applyTheme,
+  };
+});

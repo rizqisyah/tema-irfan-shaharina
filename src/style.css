@@ -1,0 +1,31 @@
+:root {
+  --color-primary: #6D735B;
+  --color-secondary: #F5F3F1;
+  --color-accent: #D4AF37;
+  --color-text-dark: #1F1C1F;
+  --color-text-light: #FFFFFF;
+  --color-text-body: #424242;
+  --color-bg-body: #F5F3F1;
+
+  --font-headline: 'Bon Vivant Family Serif';
+  --font-body: 'Noto Sans', sans-serif;
+  --font-accent: 'Wonderia';
+  --font-script: 'FormaleScript';
+  --font-italic: 'Cormorant Garamond';
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  background-color: var(--color-bg-body);
+}
+
+.bg-container-shadow {
+  background-image: var(--img-logo-mempelai);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+}

@@ -1,0 +1,412 @@
+.caption-1 {
+  font-family: "Noto Sans", sans-serif;
+  /* font-style: normal; */
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.caption-2 {
+  font-family: "Noto Sans", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.caption-3 {
+  font-family: "Noto Sans", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+}
+
+.caption-4 {
+  font-family: "Noto Sans", sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.caption-5 {
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+.caption-6 {
+  font-family: "Cormorant Garamond";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 21px;
+  letter-spacing: 1.8px;
+}
+
+.caption-7 {
+  font-family: "Noto Sans", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 13px;
+}
+
+.caption-8 {
+  font-family: "Noto Sans", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.caption-9 {
+  font-family: "Noto Sans", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.caption-10 {
+  font-family: "Monesta Bpld";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 19px;
+}
+
+.caption-11 {
+  font-family: "Cormorant Garamond";
+  font-style: italic;
+  font-weight: 700;
+  font-size: 20.8px;
+  line-height: 27px;
+  letter-spacing: 0.2px;
+}
+
+.caption-12 {
+  font-family: "Cormorant Garamond";
+  font-style: italic;
+  font-weight: 400;
+  font-size: 12.8px;
+  line-height: 13px;
+}
+
+.caption-13 {
+  font-family: "Cormorant Garamond";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.caption-14 {
+  font-family: "Cormorant Garamond";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.body-1 {
+  font-family: "Noto Sans", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 19px;
+  /* identical to box height */
+
+  letter-spacing: 0.1em;
+}
+
+.body-2 {
+  font-family: "Noto Sans", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.body-3 {
+  font-family: "Noto Sans", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19px;
+  text-align: center;
+}
+
+.body-4 {
+  font-family: "Cormorant Garamond", "cursive";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.body-5 {
+  font-family: "Cormorant Garamond";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 30px;
+}
+
+.body-6 {
+  font-family: "Cormorant Garamond";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12.8px;
+  line-height: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.body-7 {
+  font-family: "Cormorant Garamond";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 19.2px;
+  line-height: 25px;
+  letter-spacing: 1px;
+}
+
+.body-777 {
+  font-family: "Aston Script";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 19.2px;
+  line-height: 25px;
+  letter-spacing: 1px;
+}
+
+.body-77 {
+  font-family: "Cormorant Garamond";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12.2px;
+  line-height: 25px;
+  letter-spacing: 0.1px;
+}
+
+.body-8 {
+  font-family: "Cormorant Garamond";
+  font-style: italic;
+  font-weight: 400;
+  font-size: 14.4px;
+  line-height: 22px;
+}
+
+.body-9 {
+  font-family: "Cormorant Garamond";
+  font-style: italic;
+  font-weight: 600;
+  font-size: 19.2px;
+  line-height: 25px;
+  letter-spacing: 1px;
+}
+
+.headline-1 {
+  font-family: "Rankings Caps", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 29px;
+  letter-spacing: 0.1em;
+}
+
+.headline-2 {
+  font-family: "Dream Avenue";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 48px;
+}
+
+.headline-3 {
+  font-family: "Rankings Caps", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 13px;
+  letter-spacing: 0.1em;
+}
+
+.headline-4 {
+  font-family: "North Avellion", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 35px;
+  line-height: 39px;
+  /* identical to box height */
+
+  letter-spacing: 0.05em;
+}
+
+.headline-5 {
+  font-family: "North Avellion", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 22px;
+}
+
+.headline-6 {
+  font-family: "Geshana";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 39px;
+}
+
+.headline-wish {
+  font-family: 'Bon Vivant Family Reguler';
+  font-style: italic;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 42px;
+}
+
+.headline-7 {
+  font-family: "Monesta";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 28px;
+  line-height: 34px;
+}
+
+.headline-8 {
+  font-family: "Times New Roman", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.headline-9 {
+  font-family: "Cormorant Garamond";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14.4px;
+  line-height: 19px;
+  letter-spacing: 1.8px;
+}
+
+.headline-99 {
+  font-family: 'Bon Vivant Family Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 52px;
+}
+
+.headline-10 {
+  font-family: "Rolasan Signature", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 48px;
+}
+
+.headline-11 {
+  font-family: 'Bon Vivant Family Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 52px;
+}
+
+.headline-12 {
+  font-family: "Cormorant Garamond";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 0.1px;
+}
+
+.headline-13 {
+  font-family: "Monesta", sans-serif;
+  font-style: normal;
+
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: 0.1em;
+}
+
+.headline-14 {
+  font-family: "Monesta", sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.headline-15 {
+  font-family: "Dream Avenue", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 30px;
+}
+
+.headline-16 {
+  font-family: "Inter";
+  font-weight: 100;
+  font-size: 21.8px;
+  line-height: 37px;
+}
+
+.headline-17 {
+  font-family: 'Abenda Bold';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 63px;
+}
+
+.headline-18 {
+  font-family: 'Bon Vivant Family Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 27px;
+}
+
+.headline-188 {
+  font-family: 'Bon Vivant Family Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 27px;
+}
+
+.headline-20 {
+  font-family: 'Bon Vivant Family Reguler';
+  font-style: italic;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 31px;
+}
+
+.headline-20 {
+  font-family: 'Tempting';
+  font-style: italic;
+  font-weight: 400;
+  font-size: 31.8px;
+  line-height: 58px;
+}
+
+.headline-21 {
+  font-family: 'Bon Vivant Family Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 29px;
+  line-height: 22px;
+}

@@ -1,0 +1,222 @@
+<script setup lang="ts">
+import { computed } from "vue";
+import { useThemeStore } from "@/stores/theme";
+import defaultHeaderEvents from "../../assets/images/IMG_4981.png";
+import defaultBuildingIcon from "../../assets/images/img-building.png";
+
+const themeStore = useThemeStore();
+
+const headerEventsUrl = computed(() => {
+  const override = themeStore.wedding?.theme_override?.images?.header_events;
+  const fromTheme = themeStore.themeConfig?.images?.header_events;
+  const logoOverride = themeStore.wedding?.theme_override?.images?.logo_mempelai;
+  const logoFromTheme = themeStore.themeConfig?.images?.logo_mempelai;
+  return override || fromTheme || logoOverride || logoFromTheme || defaultHeaderEvents;
+});
+
+const buildingIconUrl = computed(() => {
+  const override = themeStore.wedding?.theme_override?.images?.building_icon;
+  const fromTheme = themeStore.themeConfig?.images?.building_icon;
+  return override || fromTheme || defaultBuildingIcon;
+});
+
+const openingMessage = computed(() => {
+  return themeStore.wedding?.theme_override?.words?.opening_message || 
+    "Dengan segala kerendahan hati dan dengan ucapan syukur atas karunia Tuhan, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk hadir di acara pernikahan kami yang akan dilaksanakan pada:";
+});
+
+type acaraTypes = {
+  id: string;
+  wedding_id: string;
+  title: string;
+  event_date: string;
+  location_name: string;
+  address: string;
+  maps_url: string;
+  sort_order: number;
+  created_at: string;
+  event_time?: string;
+  google_calendar_url?: string;
+  // Fallbacks for compatibility
+  alamat?: string;
+  lokasi?: string;
+  namaAcara?: string;
+  tanggal?: string;
+  urlMap?: string;
+  waktuMulai?: string;
+  waktuSelesai?: string;
+  ingatkanAcara?: string;
+};
+
+type acaraPropsTypes = {
+  acara: Array<acaraTypes>;
+};
+
+const props = defineProps<acaraPropsTypes>();
+
+const formattedEvents = computed(() => {
+  return props.acara.map((e: acaraTypes) => {
+    const rawDate = e.event_date || e.tanggal;
+    let formattedDate = rawDate || "";
+    // Format the date if it's a valid date string and has not been formatted yet (does not contain comma)
+    if (rawDate && !isNaN(Date.parse(rawDate)) && !rawDate.includes(",")) {
+      try {
+        formattedDate = new Date(rawDate).toLocaleDateString("id-ID", {
+          weekday: "long",
+          day: "2-digit",
+          month: "long",
+          year: "numeric",
+        });
+      } catch (err) {
+        console.error("Error formatting date:", err);
+      }
+    }
+
+    const parts = formattedDate ? formattedDate.split(",") : ["", ""];
+    const hari = parts[0] ? parts[0].trim() : "";
+    const tanggal = parts[1] ? parts[1].trim() : (parts[0] || "");
+
+    const rawJamSelesai = e.waktuSelesai
+      ?.split(":")
+      .splice(0, 2)
+      .join(":");
+    const jamSelesai =
+      rawJamSelesai === "23:59" || rawJamSelesai === "00:00"
+        ? "Selesai"
+        : rawJamSelesai;
+
+    return {
+      ...e,
+      hari,
+      tanggal,
+      jamMulai: e.waktuMulai?.split(":").splice(0, 2).join(":"),
+      jamSelesai,
+    };
+  });
+});
+
+const openMap = (e: any): void => {
+  const url = e.maps_url || e.urlMap;
+  if (url) {
+    window.open(url);
+  }
+};
+
+const openAcara = (e: any): void => {
+  const url = e.google_calendar_url || e.ingatkanAcara;
+  if (url) {
+    window.open(url);
+  }
+};
+</script>
+
+<template>
+  <div class="flex flex-col items-center px-4 pt-16 pb-5">
+    <div
+      data-aos="zoom-in-up"
+      data-aos-duration="1000"
+      class="flex flex-col pt-20 pb-48 bg-[#d1dcd8] bg-container-shadow rounded-tema-jawa mb-10"
+    >
+      <div class="flex flex-col items-center">
+        <img
+          data-aos="zoom-in-up"
+          data-aos-duration="2000"
+          :src="headerEventsUrl"
+          alt="Qinvi Header Events"
+          class="mb-1"
+          width="75%"
+        />
+        <p
+          data-aos="zoom-in-up"
+          data-aos-duration="2000"
+          class="headline-20 text-black"
+        >
+          With Love
+        </p>
+        <hr class="border-black my-4" style="width: 40%" />
+        <p
+          data-aos="zoom-in-up"
+          data-aos-duration="2000"
+          class="caption-14 text-black text-center mx-7 mb-4"
+        >
+          {{ openingMessage }}
+        </p>
+      </div>
+
+      <!-- Events Loop -->
+      <div
+        v-for="(item, index) in formattedEvents"
+        :key="item.id || index"
+        data-aos="zoom-in-up"
+        data-aos-duration="2000"
+        class="flex flex-col mt-2.5 items-center rounded-xl py-10 mx-8"
+      >
+        <p class="headline-21 text-black mt-2 uppercase text-center">
+          {{ item.title || item.namaAcara }}<br />
+        </p>
+        <hr class="border-gold-10 mt-5 mb-7" style="width: 40%" />
+        <p class="body-777 text-black my-2">{{ item.hari }}</p>
+        <p class="body-7 text-black my-5">{{ item.tanggal }}</p>
+        <p class="text-black my-2" v-if="item.event_time">
+          {{ item.event_time }}
+        </p>
+        <p class="text-black my-2" v-else-if="item.jamMulai">
+          {{ item.jamMulai }} WITA <span v-if="item.jamSelesai">- {{ item.jamSelesai }}</span>
+        </p>
+
+        <img
+          data-aos="zoom-in-up"
+          data-aos-duration="2000"
+           src="../../assets/images/img-building.png"
+          width="128"
+          alt="Qinvi Header Events"
+          class="my-7"
+        />
+        <p
+          class="body-7 text-black text-center mt-2 mb-6"
+          style="max-width: 300px"
+        >
+          {{ item.location_name || item.lokasi }}
+        </p>
+        <p
+          class="body-77 text-black text-center mt-2 mb-6"
+          style="max-width: 300px"
+        >
+          {{ item.address || item.alamat }}
+        </p>
+
+        <div
+          data-aos="zoom-in-up"
+          data-aos-duration="2000"
+          class="flex flex-col items-center"
+        >
+          <button
+            @click="openMap(item)"
+            class="button-date bg-linear-btn px-8 py-4 rounded-3xl flex flex-row justify-center items-center space-x-2.5 transition-all my-4 mx-6"
+          >
+            <p class="body-6 text-white">{{ themeStore.isEnglish ? 'Open Map' : 'Lihat Peta' }}</p>
+          </button>
+          <button
+            v-if="item.google_calendar_url || item.ingatkanAcara"
+            @click="openAcara(item)"
+            data-aos="zoom-in-up"
+            data-aos-duration="2000"
+            class="button-date bg-linear-btn px-8 py-4 rounded-3xl flex flex-row justify-center items-center space-x-2.5 transition-all my-4 mx-6"
+          >
+            <p class="body-6 text-white">{{ themeStore.isEnglish ? 'Save to Calendar' : 'Simpan ke Kalender' }}</p>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.bg-container-shadow {
+  background-size: 100% 100%;
+}
+
+.bg-linear-btn {
+  background: linear-gradient(282.22deg, #000000 0%, #a98466 100%);
+}
+</style>

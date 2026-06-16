@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+
+# Allow all Facebook crawlers
+User-agent: facebookexternalhit/*
+Allow: /
+
+# Allow Facebook's link preview bot
+User-agent: Facebot
+Allow: /
+
+# Sitemap location
+Sitemap: /sitemap.xml

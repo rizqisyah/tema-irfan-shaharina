@@ -1,0 +1,49 @@
+1.Rubah Tulisan ini di index.html
+https://ik.imagekit.io/qinviVideo/3d/2026/Jan26/MuthiaEgo/Tangkapan%20Layar%202026-01-17%20pada%2009.58.00.jpeg.webp
+menjadi
+https://ik.imagekit.io/qinviVideo/3d/2026/Jan26/LewiDini/Tangkapan%20Layar%202026-01-23%20pada%2009.19.34.jpeg.webp
+
+2.Rubah Tulisan ini di index.html
+Muthia & Ego Menjadi Lewi & Dini
+
+3.Rubah Tulisan ini di vite.config.ts 
+Tema3dMuthiaEgo menjadi Tema3dLewiDini
+
+4.Rubah Tulisan ini 
+"https://ik.imagekit.io/qinviVideo/3d/2026/Jan26/MuthiaEgo/Tangkapan%20Layar%202026-01-17%20pada%2009.55.55.jpeg.webp"
+menjadi
+"https://ik.imagekit.io/qinviVideo/3d/2026/Jan26/LewiDini/Tangkapan%20Layar%202026-01-23%20pada%2009.18.05.jpeg.webp"
+
+5.Rubah Tulisan Ini 
+
+"https://ik.imagekit.io/qinviVideo/3d/2026/Jan26/LewiDini/Tangkapan%20Layar%202026-01-23%20pada%2009.15.38.jpeg.webp" 
+menjadi
+"https://ik.imagekit.io/qinviVideo/3d/2026/Jan26/LewiDini/Tangkapan%20Layar%202026-01-23%20pada%2009.15.38.jpeg.webp"
+
+6.Rubah tulisan ini yang berada do WelcomeSection.vue
+
+"February 01, 2026 11:00:00" Menjadi February 01, 2026 12:00:00
+
+7. Rubah Tulisan ini
+"https://ik.imagekit.io/qinviVideo/3d/2026/Jan26/MuthiaEgo/IMG_4574.webp" menjadi
+"https://ik.imagekit.io/qinviVideo/3d/2026/Jan26/LewiDini/Tak%20berjudul683_20260123094313.webp"
+menjadi
+
+8.Rubah Tulisan ini yang ada di IntroductionFamilies.vue
+
+Putri Pertama Menjadi Putri Pertama
+Putra Ke Empat menjadi Putra Kedua
+
+9. Rubah tulisan ini di VideoSection.vue
+https://qinvi-worker.kesone01.workers.dev/zz.mp4
+Menjadi 
+https://qinvi-worker.kesone01.workers.dev/2026/lewidini.mp4
+
+10.rubah tulisan ini di MenusFloating.vue
+https://qinvi-worker.kesone01.workers.dev/BUNGONG JEUMPA - Cipt. IBRAHIM ABDUH _ Versi Orchestra Megah & Cerah by Symphony Nusantara 🌺✨.mp3
+menjadi
+https://qinvi-worker.kesone01.workers.dev/2026/Forever and Ever and Always (The Softer Version).mp3
+
+10. Rubah VITE_SECURE_ID=d2ff1db9-fcf1-4380-835b-ed03ad776f1e
+Menjadi 
+VITE_SECURE_ID=d2ff1db9-fcf1-4380-835b-ed03ad776f1e

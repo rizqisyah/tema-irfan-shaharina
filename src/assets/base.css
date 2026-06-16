@@ -1,0 +1,164 @@
+@font-face {
+  font-family: "North Avellion";
+  src: url("./fonts/North-Avellion.otf");
+}
+
+@font-face {
+  font-family: "Rankings Caps";
+  src: url("./fonts/Rankings-Caps.otf");
+}
+
+@font-face {
+  font-family: "Geshana";
+  src: url("./fonts/Geshana.ttf");
+}
+
+@font-face {
+  font-family: "Times New Roman";
+  src: url("./fonts/Times-New-Roman.ttf");
+}
+
+@font-face {
+  font-family: "Abenda Bold";
+  src: url("./fonts/Abenda-Bold.ttf");
+}
+
+@font-face {
+  font-family: "Rolasan Signature";
+  src: url("./fonts/Rolasan-Signature.ttf");
+}
+
+@font-face {
+  font-family: "Dream Avenue";
+  src: url("./fonts/Dream-Avenue.ttf");
+}
+
+@font-face {
+  font-family: "Bon Vivant Family Serif";
+  src: url("./fonts/BonVivantSerif.ttf");
+}
+
+@font-face {
+  font-family: "Bon Vivant Family Reguler";
+  src: url("./fonts/BonVivant-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Monesta";
+  src: url("./fonts/Monesta.otf");
+}
+
+@font-face {
+  font-family: "AphroditeSlimPro";
+  src: url("./fonts/AphroditeSlimPro.otf");
+}
+
+@font-face {
+  font-family: "Tempting";
+  src: url("./fonts/Tempting - PERSONAL USE ONLY.otf");
+}
+
+@font-face {
+  font-family: "Tempting";
+  src: url("./fonts/Hello Bride Script.ttf");
+}
+
+@font-face {
+  font-family: "Aston Script";
+  src: url("./fonts/Aston Script.ttf");
+}
+
+@font-face {
+  font-family: "Wonderia";
+  src: url("./fonts/Wonderia Font_D  by 7NTypes.otf");
+}
+
+@font-face {
+  font-family: "Cochin Italic";
+  src: url("./fonts/Cochin Italic.otf");
+}
+
+@font-face {
+  font-family: "Florilane Cardillac";
+  src: url("./fonts/Florilane Cardillac.ttf");
+}
+
+@font-face {
+  font-family: "FormaleScript";
+  src: url("./fonts/FormaleScript_PERSONAL_USE_ONLY.otf");
+}
+
+/* color palette from <https://github.com/vuejs/theme> */
+:root {
+  color-scheme: light only;
+  --vt-c-white: #ffffff;
+  --vt-c-white-soft: #f8f8f8;
+  --vt-c-white-mute: #f2f2f2;
+
+  --vt-c-black: #181818;
+  --vt-c-black-soft: #222222;
+  --vt-c-black-mute: #282828;
+
+  --vt-c-indigo: #2c3e50;
+
+  --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
+  --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
+  --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
+  --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
+
+  --vt-c-text-light-1: var(--vt-c-indigo);
+  --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
+  --vt-c-text-dark-1: var(--vt-c-white);
+  --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+}
+
+/* semantic color variables for this project */
+:root {
+  --color-background: var(--vt-c-white);
+  --color-background-soft: var(--vt-c-white-soft);
+  --color-background-mute: var(--vt-c-white-mute);
+
+  --color-border: var(--vt-c-divider-light-2);
+  --color-border-hover: var(--vt-c-divider-light-1);
+
+  --color-heading: var(--vt-c-text-light-1);
+  --color-text: var(--vt-c-text-light-1);
+
+  --section-gap: 160px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: var(--vt-c-black);
+    --color-background-soft: var(--vt-c-black-soft);
+    --color-background-mute: var(--vt-c-black-mute);
+
+    --color-border: var(--vt-c-divider-dark-2);
+    --color-border-hover: var(--vt-c-divider-dark-1);
+
+    --color-heading: var(--vt-c-text-dark-1);
+    --color-text: var(--vt-c-text-dark-2);
+  }
+}
+
+body {
+  min-height: 100vh;
+  color: var(--color-text);
+  background: var(--color-background);
+  transition: color 0.5s, background-color 0.5s;
+  line-height: 1.6;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-size: 15px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.rounded-tema-jawa {
+  border-top-left-radius: 350px;
+  border-top-right-radius: 350px;
+  border-bottom-left-radius: 35px;
+  border-bottom-right-radius: 35px;
+}
