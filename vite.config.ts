@@ -5,22 +5,24 @@ import { createHtmlPlugin } from 'vite-plugin-html';
 import type { OutputChunk, OutputAsset } from 'rollup';
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [
-    vue(),
-    createHtmlPlugin({
-      minify: true,
-      inject: {
-        data: {
-          title: 'The Wedding  Of  Clevert & Ivana',
-          description: 'We joyfully invite you to attend our wedding',
-          image: 'https://ik.imagekit.io/qinvi/3d/2026/juni2026/ClevertIvana/Screenshot%202026-06-12%20at%2013.35.31.webp?updatedAt=1781262749583',
-          url: 'https://qinvi.id/'
+export default defineConfig(({ mode }) => {
+  const isProd = mode === 'production';
+  return {
+    plugins: [
+      vue(),
+      createHtmlPlugin({
+        minify: true,
+        inject: {
+          data: {
+            title: 'The Wedding  Of  Clevert & Ivana',
+            description: 'We joyfully invite you to attend our wedding',
+            image: 'https://ik.imagekit.io/qinvi/3d/2026/juni2026/ClevertIvana/Screenshot%202026-06-12%20at%2013.35.31.webp?updatedAt=1781262749583',
+            url: 'https://qinvi.id/'
+          }
         }
-      }
-    })
-  ],
-  base: "/",
+      })
+    ],
+    base: isProd ? "/themes-assets/" : "/",
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
@@ -51,4 +53,5 @@ export default defineConfig({
       'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
     },
   },
+  };
 });
