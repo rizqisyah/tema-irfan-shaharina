@@ -10,8 +10,10 @@ const logoUrl = computed(() => {
 });
 
 const hashtag = computed(() => {
-  const raw = themeStore.wedding?.theme_override?.words?.hashtag || "#ClevtoIvy";
-  return raw.startsWith("#") ? raw : `#${raw}`;
+  const raw = themeStore.wedding?.theme_override?.words?.hashtag;
+  if (raw === "" || raw === null) return "";
+  const val = raw || "#ClevtoIvy";
+  return val.startsWith("#") ? val : `#${val}`;
 });
 
 const handleIg = (): void => {
@@ -43,7 +45,7 @@ const handleWa = (): void => {
        <p>
         Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu kepada kedua mempelai. Terima kasih atas doa restu dan dukungannya.
       </p>
-      <p class="mt-4 font-bold tracking-widest" :style="{ color: 'var(--color-primary)', fontFamily: 'Wonderia', fontSize: '24px' }">{{ hashtag }}</p>
+      <p v-if="hashtag" class="mt-4 font-bold tracking-widest" :style="{ color: 'var(--color-primary)', fontFamily: 'Wonderia', fontSize: '24px' }">{{ hashtag }}</p>
     </div>
     <div class="flex flex-row space-x-2 mb-8 mt-6">
       <img src="../../assets/icons/icon-ig.png" 
