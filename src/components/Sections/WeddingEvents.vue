@@ -9,9 +9,8 @@ const themeStore = useThemeStore();
 const headerEventsUrl = computed(() => {
   const override = themeStore.wedding?.theme_override?.images?.header_events;
   const fromTheme = themeStore.themeConfig?.images?.header_events;
-  const logoOverride = themeStore.wedding?.theme_override?.images?.logo_mempelai;
   const logoFromTheme = themeStore.themeConfig?.images?.logo_mempelai;
-  return override || fromTheme || logoOverride || logoFromTheme || defaultHeaderEvents;
+  return override || fromTheme || logoFromTheme || defaultHeaderEvents;
 });
 
 const buildingIconUrl = computed(() => {

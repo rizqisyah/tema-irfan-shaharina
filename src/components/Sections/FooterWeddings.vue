@@ -36,8 +36,8 @@ const handleWa = (): void => {
       <img
         data-aos="fade-up"
         data-aos-duration="2500"
-        width="150"
-        height="150"
+        width="100"
+        height="100"
         :src="logoUrl"
         alt="Qinvi Wedding Icon"
         class="mb-6"
