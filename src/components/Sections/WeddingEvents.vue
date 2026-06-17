@@ -115,7 +115,7 @@ const openAcara = (e: any): void => {
     <div
       data-aos="zoom-in-up"
       data-aos-duration="1000"
-      class="flex flex-col pt-20 pb-48 bg-[#d1dcd8] bg-container-shadow rounded-tema-jawa mb-10"
+      class="flex flex-col pt-20 pb-48  bg-container-shadow rounded-tema-jawa mb-10"
     >
       <div class="flex flex-col items-center">
         <img
