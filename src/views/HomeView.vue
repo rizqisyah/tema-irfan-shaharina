@@ -475,7 +475,7 @@ watch(
       class="flex flex-col mx-none md:mx-auto relative z-10"
       style="max-width: 480px"
     >
-    <VideoSection />
+    <VideoSection v-if="weddingData?.video_url" />
       <WelcomeSection v-if="dataPernikahan.acara && dataPernikahan.acara.length > 0" :acara="dataPernikahan.acara" :countdownDate="countdownDate" id="welcomeSection" />
       <IntroductionFamilies
         v-if="dataPernikahan.pengantin && dataPernikahan.pengantin.length > 0"

@@ -80,7 +80,7 @@ const handleIgW = (): void => {
 
 <template>
   <div class="flex flex-col">
-    <div class="flex flex-col items-center p-8 bg-quotes relative">
+    <div class="flex flex-col items-center p-8 bg-quotes relative" :style="themeStore.bgSpouse ? { backgroundImage: themeStore.bgSpouse } : {}">
       <div
         data-aos="zoom-in-up"
         data-aos-duration="1000"
@@ -131,7 +131,7 @@ const handleIgW = (): void => {
         
       </div>
     </div>
-    <div class="flex flex-col pt-7 pb-9 bg-events relative" :style="themeStore.imgLogo ? { backgroundImage: themeStore.imgLogo } : {}">
+    <div class="flex flex-col pt-7 pb-9 bg-events relative" :style="themeStore.bgSpouse ? { backgroundImage: themeStore.bgSpouse } : {}">
       <div
         data-aos="zoom-in-up"
         data-aos-duration="1000"
