@@ -123,10 +123,18 @@ const mempelaiWanita: Ref<string> = ref("-");
 
 const route = useRoute();
 
+const capitalize = (text: string): string => {
+  if (!text) return "";
+  return text
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};
+
 const splittingUsername = (username: string): void => {
   const result = username.split("-");
-  mempelaiPria.value = result[0];
-  mempelaiWanita.value = result[1];
+  mempelaiPria.value = capitalize(result[0]);
+  mempelaiWanita.value = capitalize(result[1]);
 };
 
 onMounted(() => {

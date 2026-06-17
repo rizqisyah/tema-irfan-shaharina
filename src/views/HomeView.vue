@@ -299,12 +299,20 @@ const handleClick = (): void => {
     .finally(() => (loading.value = false));
 };
 
+const capitalize = (text: string): string => {
+  if (!text) return "";
+  return text
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};
+
 const splittingUsername = (username: string): string => {
   const result = username.split("-");
-  mempelaiPria.value = result[0];
-  mempelaiWanita.value = result[1];
+  mempelaiPria.value = capitalize(result[0]);
+  mempelaiWanita.value = capitalize(result[1]);
 
-  return `The Wedding  Of  ${result[0]} and ${result[1]}`;
+  return `The Wedding  Of  ${mempelaiPria.value} and ${mempelaiWanita.value}`;
 };
 
 const handleMenuClick = (e: string): void => {
