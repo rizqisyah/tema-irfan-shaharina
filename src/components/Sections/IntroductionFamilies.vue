@@ -80,7 +80,7 @@ const handleIgW = (): void => {
 
 <template>
   <div class="flex flex-col">
-    <div class="flex flex-col items-center p-8 bg-quotes relative" :style="themeStore.bgMain ? { backgroundImage: themeStore.bgMain } : {}">
+    <div class="flex flex-col items-center p-8 bg-quotes relative">
       <div
         data-aos="zoom-in-up"
         data-aos-duration="1000"
