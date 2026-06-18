@@ -7,7 +7,10 @@ const themeStore = useThemeStore();
 
 const isPlay: Ref<boolean> = ref(false);
 const usedAudio = computed(() => {
-  return themeStore.wedding?.music_url || "https://qinvi-worker.kesone01.workers.dev/Music/Brian McKnight - Back At One (Lyrics) (mp3cut.net).mp3";
+  return (
+    themeStore.wedding?.music_url ||
+    "https://qinvi-worker.kesone01.workers.dev/Music/Brian McKnight - Back At One (Lyrics) (mp3cut.net).mp3"
+  );
 });
 const emit = defineEmits<{
   (e: "fnClick", value: string): void;
@@ -21,7 +24,7 @@ const audioPlayer = ref<HTMLAudioElement | null>(null);
 
 const onAudioLoaded = (event: Event) => {
   const audio = event.target as HTMLAudioElement;
-  audio.currentTime = 0; 
+  audio.currentTime = 0;
 };
 
 const changeStatePlay = (): void => {
@@ -32,7 +35,7 @@ const changeStatePlay = (): void => {
       audioPlayer.value.play();
     }
     // isPlay state will be updated by the @play/@pause event listeners on the audio element
-    emit('fnClick', 'playMusic');
+    emit("fnClick", "playMusic");
   }
 };
 </script>

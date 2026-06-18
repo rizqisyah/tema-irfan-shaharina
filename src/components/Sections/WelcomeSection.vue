@@ -46,7 +46,10 @@ const props = defineProps<CoverInvitationProps>();
 const themeStore = useThemeStore();
 
 const spouseImgUrl = computed(() => {
-  return themeStore.wedding?.image_spouse || "https://ik.imagekit.io/qinvi/3d/2026/juni2026/ClevertIvana/Untitled1057_20260612144610.webp?updatedAt=1781262749609";
+  return (
+    themeStore.wedding?.image_spouse ||
+    "https://ik.imagekit.io/qinvi/3d/2026/juni2026/ClevertIvana/Untitled1057_20260612144610.webp?updatedAt=1781262749609"
+  );
 });
 
 const tanggalResepsi: Ref<string> = ref("");
@@ -61,19 +64,25 @@ const intervalId = ref<ReturnType<typeof setInterval> | null>(null);
 
 const bindingData = (): void => {
   if (props.countdownDate) {
-    tanggalResepsi.value = new Date(props.countdownDate).toLocaleDateString("id-ID", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
+    tanggalResepsi.value = new Date(props.countdownDate).toLocaleDateString(
+      "id-ID",
+      {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      }
+    );
     return;
   }
   let found = false;
   props.acara.forEach((e: acaraTypes) => {
     const title = e.title || e.namaAcara || "";
     const rawDate = e.event_date || e.tanggal;
-    if (title.toLowerCase().includes("akad") || title.toLowerCase().includes("pemberkatan")) {
+    if (
+      title.toLowerCase().includes("akad") ||
+      title.toLowerCase().includes("pemberkatan")
+    ) {
       if (rawDate) {
         tanggalResepsi.value = new Date(rawDate).toLocaleDateString("id-ID", {
           weekday: "long",
@@ -107,10 +116,18 @@ const startCountDownResepsi = (): void => {
     const distance = countDownDate - now;
 
     if (distance > 0) {
-      CountDownResepsi.value.days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      CountDownResepsi.value.hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      CountDownResepsi.value.minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      CountDownResepsi.value.seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      CountDownResepsi.value.days = Math.floor(
+        distance / (1000 * 60 * 60 * 24)
+      );
+      CountDownResepsi.value.hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      CountDownResepsi.value.minutes = Math.floor(
+        (distance % (1000 * 60 * 60)) / (1000 * 60)
+      );
+      CountDownResepsi.value.seconds = Math.floor(
+        (distance % (1000 * 60)) / 1000
+      );
     } else {
       clearInterval(intervalId.value!);
       intervalId.value = null;
@@ -158,20 +175,18 @@ watch(
 </script>
 
 <template>
-  <div
-    class="flex flex-col w-full text-center justify-center text-white py-6"
-  >
+  <div class="flex flex-col w-full text-center justify-center text-white py-6">
     <div
       data-aos="zoom-in-up"
       data-aos-duration="1000"
-      class="flex flex-col  mx-9 pb-10 pt-24 bg-container-shadow rounded-tema-jawa px-7"
+      class="flex flex-col mx-9 pb-10 pt-24 bg-container-shadow rounded-tema-jawa px-7"
     >
       <p
         data-aos="zoom-in-up"
         data-aos-duration="2000"
         class="headline-99 mb-4 text-black"
       >
-      The Wedding  Of 
+        The Wedding Of
       </p>
       <p
         data-aos="zoom-in-up"
@@ -180,13 +195,13 @@ watch(
       >
         {{ mempelaiPria }}
       </p>
-     
+
       <p
         data-aos="zoom-in-up"
         data-aos-duration="2000"
         class="headline-11 mb-10"
       >
-         & 
+        &
       </p>
       <p
         data-aos="zoom-in-up"
@@ -215,10 +230,10 @@ watch(
 </template>
 
 <style scoped>
-.headline-16{
+.headline-16 {
   color: #1f1c1f;
 }
-.headline-11{
+.headline-11 {
   color: #424242;
 }
 .background-linear {

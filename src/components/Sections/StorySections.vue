@@ -35,7 +35,10 @@ const dateFilter = computed(() => {
 </script>
 
 <template>
-  <div class="flex flex-col items-center px-8 py-10 text-center" id="storySection">
+  <div
+    class="flex flex-col items-center px-8 py-10 text-center"
+    id="storySection"
+  >
     <div
       data-aos="zoom-in-up"
       data-aos-duration="2000"
@@ -48,7 +51,7 @@ const dateFilter = computed(() => {
         data-aos="zoom-in-up"
         data-aos-duration="2000"
         class="text-[#6D735B] mb-8 relative z-10"
-        style="font-family: 'Wonderia'; font-size: 32px;"
+        style="font-family: 'Wonderia'; font-size: 32px"
       >
         Kisah Cinta
       </p>
@@ -64,26 +67,34 @@ const dateFilter = computed(() => {
                 class="w-4 flex items-center justify-center"
                 :class="{ 'h-full': i !== props.ceritaCinta.length - 1 }"
               >
-                <div class="h-full w-0.5 bg-[#6D735B] opacity-30 pointer-events-none"></div>
+                <div
+                  class="h-full w-0.5 bg-[#6D735B] opacity-30 pointer-events-none"
+                ></div>
               </div>
               <div
                 class="w-4 h-4 absolute top-1 -mt-3 rounded-full bg-[#6D735B] shadow text-center flex items-center justify-center"
               >
-                <i class="fas fa-heart text-white" style="font-size: 8px;"></i>
+                <i class="fas fa-heart text-white" style="font-size: 8px"></i>
               </div>
             </div>
             <div class="col-start-4 col-end-12 rounded-xl mb-6 mr-auto w-full">
               <p
                 v-if="e.event_date || e.tanggal"
                 class="text-xs text-[#6D735B] font-semibold opacity-75 mb-0.5"
-                style="font-family: 'Cochin', serif;"
+                style="font-family: 'Cochin', serif"
               >
                 {{ dateFilter(e.event_date || e.tanggal || "") }}
               </p>
-              <p class="text-[#6D735B] font-bold mb-1" style="font-family: 'Cochin', serif; font-size: 18px;">
+              <p
+                class="text-[#6D735B] font-bold mb-1"
+                style="font-family: 'Cochin', serif; font-size: 18px"
+              >
                 {{ e.title || e.judul }}
               </p>
-              <p class="text-gray-700 leading-relaxed" style="font-family: 'Cochin', serif; font-size: 15px;">
+              <p
+                class="text-gray-700 leading-relaxed"
+                style="font-family: 'Cochin', serif; font-size: 15px"
+              >
                 {{ e.description || e.isiCerita }}
               </p>
             </div>
@@ -96,7 +107,10 @@ const dateFilter = computed(() => {
 
 <style scoped>
 .bg-container-shadow {
-  background-image: var(--img-logo-mempelai, url("@/assets/images/logo-mempelai.png"));
+  background-image: var(
+    --img-logo-mempelai,
+    url("@/assets/images/logo-mempelai.png")
+  );
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -110,7 +124,7 @@ const dateFilter = computed(() => {
   left: 10px;
   right: 10px;
   bottom: 10px;
-  border: 1.5px solid #D4AF37;
+  border: 1.5px solid #d4af37;
   border-top-left-radius: 340px;
   border-top-right-radius: 340px;
   border-bottom-left-radius: 25px;

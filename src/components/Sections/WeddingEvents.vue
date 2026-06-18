@@ -20,8 +20,10 @@ const buildingIconUrl = computed(() => {
 });
 
 const openingMessage = computed(() => {
-  return themeStore.wedding?.theme_override?.words?.opening_message || 
-    "Dengan segala kerendahan hati dan dengan ucapan syukur atas karunia Tuhan, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk hadir di acara pernikahan kami yang akan dilaksanakan pada:";
+  return (
+    themeStore.wedding?.theme_override?.words?.opening_message ||
+    "Dengan segala kerendahan hati dan dengan ucapan syukur atas karunia Tuhan, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk hadir di acara pernikahan kami yang akan dilaksanakan pada:"
+  );
 });
 
 type acaraTypes = {
@@ -73,12 +75,9 @@ const formattedEvents = computed(() => {
 
     const parts = formattedDate ? formattedDate.split(",") : ["", ""];
     const hari = parts[0] ? parts[0].trim() : "";
-    const tanggal = parts[1] ? parts[1].trim() : (parts[0] || "");
+    const tanggal = parts[1] ? parts[1].trim() : parts[0] || "";
 
-    const rawJamSelesai = e.waktuSelesai
-      ?.split(":")
-      .splice(0, 2)
-      .join(":");
+    const rawJamSelesai = e.waktuSelesai?.split(":").splice(0, 2).join(":");
     const jamSelesai =
       rawJamSelesai === "23:59" || rawJamSelesai === "00:00"
         ? "Selesai"
@@ -114,7 +113,7 @@ const openAcara = (e: any): void => {
     <div
       data-aos="zoom-in-up"
       data-aos-duration="1000"
-      class="flex flex-col pt-20 pb-48  bg-container-shadow rounded-tema-jawa mb-10"
+      class="flex flex-col pt-20 pb-48 bg-container-shadow rounded-tema-jawa mb-10"
     >
       <div class="flex flex-col items-center">
         <img
@@ -160,13 +159,14 @@ const openAcara = (e: any): void => {
           {{ item.event_time }}
         </p>
         <p class="text-black my-2" v-else-if="item.jamMulai">
-          {{ item.jamMulai }} WITA <span v-if="item.jamSelesai">- {{ item.jamSelesai }}</span>
+          {{ item.jamMulai }} WITA
+          <span v-if="item.jamSelesai">- {{ item.jamSelesai }}</span>
         </p>
 
         <img
           data-aos="zoom-in-up"
           data-aos-duration="2000"
-           src="../../assets/images/img-building.png"
+          src="../../assets/images/img-building.png"
           width="128"
           alt="Qinvi Header Events"
           class="my-7"
@@ -193,7 +193,9 @@ const openAcara = (e: any): void => {
             @click="openMap(item)"
             class="button-date bg-linear-btn px-8 py-4 rounded-3xl flex flex-row justify-center items-center space-x-2.5 transition-all my-4 mx-6"
           >
-            <p class="body-6 text-white">{{ themeStore.isEnglish ? 'Open Map' : 'Lihat Peta' }}</p>
+            <p class="body-6 text-white">
+              {{ themeStore.isEnglish ? "Open Map" : "Lihat Peta" }}
+            </p>
           </button>
           <button
             v-if="item.google_calendar_url || item.ingatkanAcara"
@@ -202,7 +204,11 @@ const openAcara = (e: any): void => {
             data-aos-duration="2000"
             class="button-date bg-linear-btn px-8 py-4 rounded-3xl flex flex-row justify-center items-center space-x-2.5 transition-all my-4 mx-6"
           >
-            <p class="body-6 text-white">{{ themeStore.isEnglish ? 'Save to Calendar' : 'Simpan ke Kalender' }}</p>
+            <p class="body-6 text-white">
+              {{
+                themeStore.isEnglish ? "Save to Calendar" : "Simpan ke Kalender"
+              }}
+            </p>
           </button>
         </div>
       </div>

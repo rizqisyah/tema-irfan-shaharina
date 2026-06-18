@@ -21,7 +21,7 @@ const props = defineProps<GalleryPhotoPropsTypes>();
 const galleryMaxHeight = computed(() => {
   const perRow = props.perRow && props.perRow > 0 ? props.perRow : 2;
   if (!props.gallery || props.gallery.length === 0) {
-    return '0vh';
+    return "0vh";
   }
   // Calculate number of rows
   const rows = Math.ceil(props.gallery.length / perRow);
@@ -38,9 +38,15 @@ const itemWidth = computed(() => {
   return `${100 / perRow}%`;
 });
 
-const updateState = (items: { url: string; isLandscape: boolean }[], feat: { url: string; isLandscape: boolean }[]) => {
+const updateState = (
+  items: { url: string; isLandscape: boolean }[],
+  feat: { url: string; isLandscape: boolean }[]
+) => {
   const perRow = props.perRow && props.perRow > 0 ? props.perRow : 2;
-  const result: { url: string; isLandscape: boolean }[][] = Array.from({ length: perRow }, () => []);
+  const result: { url: string; isLandscape: boolean }[][] = Array.from(
+    { length: perRow },
+    () => []
+  );
   items.forEach((item, index) => {
     result[index % perRow].push(item);
   });
@@ -50,16 +56,17 @@ const updateState = (items: { url: string; isLandscape: boolean }[], feat: { url
 
 const processGallery = async () => {
   if (!props.gallery || props.gallery.length === 0) {
-      columns.value = [];
-      featuredImages.value = [];
-      return;
+    columns.value = [];
+    featuredImages.value = [];
+    return;
   }
 
   // Detect orientation for all photos
   const checks = props.gallery.map(async (url, idx) => {
     return new Promise<{ isLandscape: boolean; idx: number }>((resolve) => {
       const img = new Image();
-      img.onload = () => resolve({ isLandscape: img.naturalWidth > img.naturalHeight, idx });
+      img.onload = () =>
+        resolve({ isLandscape: img.naturalWidth > img.naturalHeight, idx });
       img.onerror = () => resolve({ isLandscape: false, idx });
       img.src = url;
     });
@@ -120,10 +127,10 @@ onMounted(() => {
 watch(
   () => props.gallery,
   () => {
-     processGallery();
-     if (props.gallery.length > 0) {
-        imgsRef.value = [...props.gallery];
-     }
+    processGallery();
+    if (props.gallery.length > 0) {
+      imgsRef.value = [...props.gallery];
+    }
   }
 );
 </script>
@@ -131,7 +138,9 @@ watch(
 <template>
   <div class="flex flex-col w-full text-center justify-center text-white py-6">
     <div class="flex flex-col items-center">
-      <div class="flex flex-col items-center bg-white rounded-xl py-10 mx-8 bg-container-shadow">
+      <div
+        class="flex flex-col items-center bg-white rounded-xl py-10 mx-8 bg-container-shadow"
+      >
         <p
           data-aos="zoom-in-up"
           data-aos-duration="2000"
@@ -139,74 +148,75 @@ watch(
         >
           Gallery
         </p>
-         <div
-        data-aos="zoom-in-up"
-        data-aos-duration="2000"
-        class="flex flex-col w-full px-2 mt-4 mb-6"
-      >
-        
-      </div>
-        <div class="flex flex-row mt-6">
         <div
-          v-for="(column, colIndex) in columns"
-          :key="colIndex"
-          class="flex flex-col px-2"
-          :style="{ width: itemWidth }"
+          data-aos="zoom-in-up"
+          data-aos-duration="2000"
+          class="flex flex-col w-full px-2 mt-4 mb-6"
+        ></div>
+        <div class="flex flex-row mt-6">
+          <div
+            v-for="(column, colIndex) in columns"
+            :key="colIndex"
+            class="flex flex-col px-2"
+            :style="{ width: itemWidth }"
+          >
+            <img
+              v-for="(item, imgIndex) in column"
+              :key="imgIndex"
+              data-aos-duration="2500"
+              :src="item.url"
+              @click="onShow(props.gallery.indexOf(item.url))"
+              class="mb-4 rounded-lg w-full aspect-[4/5] object-cover"
+            />
+          </div>
+        </div>
+
+        <div
+          v-if="featuredImages.length > 0"
+          class="flex flex-col px-2 w-full mt-4"
         >
           <img
-            v-for="(item, imgIndex) in column"
-            :key="imgIndex"
+            v-for="(item, fIdx) in featuredImages"
+            :key="fIdx"
             data-aos-duration="2500"
             :src="item.url"
             @click="onShow(props.gallery.indexOf(item.url))"
-            class="mb-4 rounded-lg w-full aspect-[4/5] object-cover"
+            :class="[
+              'w-full rounded-lg mb-4 object-cover',
+              item.isLandscape ? 'aspect-video' : 'aspect-[4/5]',
+            ]"
           />
-        </div>
-      </div>
-      
-      <div v-if="featuredImages.length > 0" class="flex flex-col px-2 w-full mt-4">
-        <img
-          v-for="(item, fIdx) in featuredImages"
-          :key="fIdx"
-          data-aos-duration="2500"
-          :src="item.url"
-          @click="onShow(props.gallery.indexOf(item.url))"
-          :class="[
-            'w-full rounded-lg mb-4 object-cover',
-            item.isLandscape ? 'aspect-video' : 'aspect-[4/5]'
-          ]"
-        />
 
-        <div v-if="loading" class="flex flex-col items-center">
-          <svg
-            class="animate-spin mb-4 mt-6 h-8 w-8 text-white"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <circle
-              class="opacity-25"
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              stroke-width="4"
-            ></circle>
-            <path
-              class="opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-            ></path>
-          </svg>
-        </div>
-        <!-- <button
+          <div v-if="loading" class="flex flex-col items-center">
+            <svg
+              class="animate-spin mb-4 mt-6 h-8 w-8 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+          </div>
+          <!-- <button
           class="button-date bg-linear-btn px-8 py-3 rounded-3xl flex flex-row justify-center items-center space-x-2.5 transition-all mt-4 mx-6"
           @click="onLoad()"
         >
           <p class="body-6 text-white">More Of Us</p>
         </button> -->
-      </div>
-      
+        </div>
+
         <!-- <div class="grid grid-cols-1 gap-2 mb-1 mx-1">
           <img
             data-aos="fade-down p-1"
@@ -251,7 +261,6 @@ watch(
       @hide="onHide"
     />
   </div>
-  
 </template>
 
 <style scoped>

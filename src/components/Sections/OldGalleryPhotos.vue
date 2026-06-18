@@ -12,7 +12,7 @@ const visibleRef: Ref<boolean> = ref(false);
 const indexRef: Ref<number> = ref(0);
 const loading: Ref<boolean> = ref(false);
 const props = defineProps<GalleryPhotoPropsTypes>();
-  const thumbnailVerticalRef: Ref<string[]> = ref([]);
+const thumbnailVerticalRef: Ref<string[]> = ref([]);
 const thumbnailLandscapeRef: Ref<string[]> = ref([]);
 const onShow = (index: number = 0): void => {
   visibleRef.value = true;

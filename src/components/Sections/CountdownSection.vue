@@ -79,8 +79,12 @@ const startCountDown = (): void => {
 
     if (distance > 0) {
       CountDown.value.days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      CountDown.value.hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      CountDown.value.minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      CountDown.value.hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      CountDown.value.minutes = Math.floor(
+        (distance % (1000 * 60 * 60)) / (1000 * 60)
+      );
       CountDown.value.seconds = Math.floor((distance % (1000 * 60)) / 1000);
     } else {
       clearInterval(intervalId.value!);
@@ -116,7 +120,9 @@ watch(
 <template>
   <div
     class="h-1/3 md:h-1/3 flex flex-col justify-center items-center bg-white py-8 container"
-    :style="themeStore.bgCountdown ? { backgroundImage: themeStore.bgCountdown } : {}"
+    :style="
+      themeStore.bgCountdown ? { backgroundImage: themeStore.bgCountdown } : {}
+    "
   >
     <p
       data-aos="zoom-in-up"

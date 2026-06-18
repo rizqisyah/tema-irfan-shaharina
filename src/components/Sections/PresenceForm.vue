@@ -55,7 +55,9 @@ watch(
 );
 
 onMounted(() => {
-  alreadyRsvp.value = localStorage.getItem(storageKey) === "true" || props.tamu?.has_rsvp === true;
+  alreadyRsvp.value =
+    localStorage.getItem(storageKey) === "true" ||
+    props.tamu?.has_rsvp === true;
 });
 
 const handleSubmit = async (): Promise<void> => {
@@ -75,7 +77,9 @@ const handleSubmit = async (): Promise<void> => {
         snackbar.add({
           type: "success",
           title: themeStore.isEnglish ? "Success" : "Berhasil",
-          text: themeStore.isEnglish ? "Attendance confirmation sent successfully" : "Konfirmasi kehadiran berhasil dikirim",
+          text: themeStore.isEnglish
+            ? "Attendance confirmation sent successfully"
+            : "Konfirmasi kehadiran berhasil dikirim",
           group: "5862a88b",
           count: 1,
         });
@@ -96,17 +100,24 @@ const handleSubmit = async (): Promise<void> => {
       snackbar.add({
         type: "error",
         title: themeStore.isEnglish ? "Failed" : "Gagal",
-        text: themeStore.isEnglish ? "Failed to send attendance confirmation" : "Gagal mengirim konfirmasi kehadiran",
+        text: themeStore.isEnglish
+          ? "Failed to send attendance confirmation"
+          : "Gagal mengirim konfirmasi kehadiran",
         group: "5862a88b",
         count: 1,
       });
     })
     .finally(() => (loading.value = false));
-  
 };
 
 const handleConfirm = (): void => {
-  if (confirm(themeStore.isEnglish ? "Are you sure about your RSVP confirmation?" : "Apakah Anda yakin dengan konfirmasi kehadiran Anda?")) {
+  if (
+    confirm(
+      themeStore.isEnglish
+        ? "Are you sure about your RSVP confirmation?"
+        : "Apakah Anda yakin dengan konfirmasi kehadiran Anda?"
+    )
+  ) {
     handleSubmit();
   }
 };
@@ -119,21 +130,40 @@ const handleConfirm = (): void => {
       data-aos-duration="2000"
       class="headline-20 text-brown-30 text-center font-extralight mb-5"
     >
-      {{ themeStore.isEnglish ? 'RSVP Confirmation' : 'Konfirmasi Kehadiran' }}
+      {{ themeStore.isEnglish ? "RSVP Confirmation" : "Konfirmasi Kehadiran" }}
     </p>
 
     <!-- Already RSVP'd Success Message -->
     <div v-if="alreadyRsvp" class="flex flex-col items-center py-6 text-center">
-      <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-4 animate-bounce">
-        <svg class="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      <div
+        class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-4 animate-bounce"
+      >
+        <svg
+          class="h-8 w-8 text-green-600"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
         </svg>
       </div>
-      <p class="headline-12 text-center text-brown-30 mb-2 font-bold" style="font-size: 1.25rem;">
-        {{ themeStore.isEnglish ? 'Thank You!' : 'Terima Kasih!' }}
+      <p
+        class="headline-12 text-center text-brown-30 mb-2 font-bold"
+        style="font-size: 1.25rem"
+      >
+        {{ themeStore.isEnglish ? "Thank You!" : "Terima Kasih!" }}
       </p>
       <p class="caption-1 text-center text-brown-30">
-        {{ themeStore.isEnglish ? 'You have submitted your RSVP for this invitation.' : 'Anda telah melakukan konfirmasi kehadiran untuk undangan ini.' }}
+        {{
+          themeStore.isEnglish
+            ? "You have submitted your RSVP for this invitation."
+            : "Anda telah melakukan konfirmasi kehadiran untuk undangan ini."
+        }}
       </p>
     </div>
 
@@ -144,12 +174,18 @@ const handleConfirm = (): void => {
         data-aos-duration="2000"
         class="headline-12 text-center text-brown-30 mb-3"
       >
-        {{ themeStore.isEnglish ? 'Please help us prepare for this event by confirming your attendance using the form below:' : 'Bantu kami mempersiapkan acara ini dengan mengonfirmasi kehadiran Anda menggunakan formulir di bawah ini:' }}
+        {{
+          themeStore.isEnglish
+            ? "Please help us prepare for this event by confirming your attendance using the form below:"
+            : "Bantu kami mempersiapkan acara ini dengan mengonfirmasi kehadiran Anda menggunakan formulir di bawah ini:"
+        }}
       </p>
-        
+
       <form action="#" @submit.prevent="handleConfirm">
         <div class="flex flex-col">
-          <p class="headline-12 text-brown-30 mb-1.5">{{ themeStore.isEnglish ? 'Name' : 'Nama' }}</p>
+          <p class="headline-12 text-brown-30 mb-1.5">
+            {{ themeStore.isEnglish ? "Name" : "Nama" }}
+          </p>
           <input
             :placeholder="themeStore.isEnglish ? 'Name' : 'Nama'"
             v-model="form.nama"
@@ -159,10 +195,14 @@ const handleConfirm = (): void => {
             class="rounded-sm mb-5 p-2 text-brown-30"
             required
           />
-          <p class="headline-12 text-brown-30 mb-1.5">{{ themeStore.isEnglish ? 'Phone Number:' : 'Nomor Handphone:' }}</p>
+          <p class="headline-12 text-brown-30 mb-1.5">
+            {{ themeStore.isEnglish ? "Phone Number:" : "Nomor Handphone:" }}
+          </p>
           <input
             v-model="form.nomor_handphone"
-            :placeholder="themeStore.isEnglish ? 'Phone Number' : 'Nomor Handphone'"
+            :placeholder="
+              themeStore.isEnglish ? 'Phone Number' : 'Nomor Handphone'
+            "
             type="text"
             id="phone"
             name="phone"
@@ -171,7 +211,9 @@ const handleConfirm = (): void => {
           />
         </div>
         <div class="flex flex-col">
-          <p class="headline-12 text-brown-30 mb-1.5">{{ themeStore.isEnglish ? 'Attendance' : 'Kehadiran' }}</p>
+          <p class="headline-12 text-brown-30 mb-1.5">
+            {{ themeStore.isEnglish ? "Attendance" : "Kehadiran" }}
+          </p>
 
           <div class="flex flex-row space-x-12">
             <div class="flex flex-row space-x-2">
@@ -183,7 +225,9 @@ const handleConfirm = (): void => {
                 v-model="form.hadir"
                 required
               />
-              <label class="text-brown-30 caption-1" for="ya">{{ themeStore.isEnglish ? 'Attending' : 'Hadir' }}</label>
+              <label class="text-brown-30 caption-1" for="ya">{{
+                themeStore.isEnglish ? "Attending" : "Hadir"
+              }}</label>
             </div>
             <div class="flex flex-row space-x-2">
               <input
@@ -194,14 +238,20 @@ const handleConfirm = (): void => {
                 v-model="form.hadir"
                 required
               />
-              <label class="text-brown-30 caption-1" for="tidak">{{ themeStore.isEnglish ? 'Not Attending' : 'Tidak Hadir' }}</label>
+              <label class="text-brown-30 caption-1" for="tidak">{{
+                themeStore.isEnglish ? "Not Attending" : "Tidak Hadir"
+              }}</label>
             </div>
           </div>
           <div v-if="form.hadir === 1" class="mt-5">
-            <p class="headline-12 text-brown-30 mb-1.5">{{ themeStore.isEnglish ? 'Number of Guests' : 'Jumlah Tamu' }}</p>
+            <p class="headline-12 text-brown-30 mb-1.5">
+              {{ themeStore.isEnglish ? "Number of Guests" : "Jumlah Tamu" }}
+            </p>
             <input
               v-model="form.total_hadir"
-              :placeholder="themeStore.isEnglish ? 'Number of Guests' : 'Jumlah Tamu'"
+              :placeholder="
+                themeStore.isEnglish ? 'Number of Guests' : 'Jumlah Tamu'
+              "
               type="number"
               id="total_hadir"
               name="total_hadir"
@@ -238,12 +288,13 @@ const handleConfirm = (): void => {
               d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
             ></path>
           </svg>
-          <p class="body-2 text-brown-30">{{ themeStore.isEnglish ? 'Submit RSVP' : 'Kirim Konfirmasi' }}</p>
+          <p class="body-2 text-brown-30">
+            {{ themeStore.isEnglish ? "Submit RSVP" : "Kirim Konfirmasi" }}
+          </p>
         </button>
       </div>
     </div>
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

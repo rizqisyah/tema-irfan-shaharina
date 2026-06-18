@@ -112,67 +112,83 @@ export const useThemeStore = defineStore("theme", () => {
   const wedding = ref<WeddingData | null>(null);
 
   const bgCover = computed(() => {
-    const override = (wedding.value?.theme_override as ThemeConfig)?.backgrounds?.cover;
+    const override = (wedding.value?.theme_override as ThemeConfig)?.backgrounds
+      ?.cover;
     const fromWedding = wedding.value?.image_cover;
     const fromTheme = themeConfig.value?.backgrounds?.cover;
-    const url = fromWedding || override || fromTheme || DEFAULT_BACKGROUND_URLS.cover;
+    const url =
+      fromWedding || override || fromTheme || DEFAULT_BACKGROUND_URLS.cover;
     return url ? `url(${url})` : "";
   });
 
   const bgMain = computed(() => {
-    const override = (wedding.value?.theme_override as ThemeConfig)?.backgrounds?.main_bg;
+    const override = (wedding.value?.theme_override as ThemeConfig)?.backgrounds
+      ?.main_bg;
     const fromWedding = wedding.value?.image_bg1;
     const fromTheme = themeConfig.value?.backgrounds?.main_bg;
-    const url = fromWedding || override || fromTheme || DEFAULT_BACKGROUND_URLS.main_bg;
+    const url =
+      fromWedding || override || fromTheme || DEFAULT_BACKGROUND_URLS.main_bg;
     return url ? `url(${url})` : "";
   });
 
   const bgSpouse = computed(() => {
-    const override = (wedding.value?.theme_override as ThemeConfig)?.backgrounds?.spouse_section;
+    const override = (wedding.value?.theme_override as ThemeConfig)?.backgrounds
+      ?.spouse_section;
     const fromWedding = wedding.value?.image_bg2;
     const fromTheme = themeConfig.value?.backgrounds?.spouse_section;
-    const url = fromWedding || override || fromTheme || DEFAULT_BACKGROUND_URLS.spouse_section;
+    const url =
+      fromWedding ||
+      override ||
+      fromTheme ||
+      DEFAULT_BACKGROUND_URLS.spouse_section;
     return url ? `url(${url})` : "";
   });
 
   const bgFooter = computed(() => {
-    const override = (wedding.value?.theme_override as ThemeConfig)?.backgrounds?.footer_bg;
+    const override = (wedding.value?.theme_override as ThemeConfig)?.backgrounds
+      ?.footer_bg;
     const fromTheme = themeConfig.value?.backgrounds?.footer_bg;
     const url = override || fromTheme || DEFAULT_BACKGROUND_URLS.footer_bg;
     return url ? `url(${url})` : "";
   });
 
   const bgCountdown = computed(() => {
-    const override = (wedding.value?.theme_override as ThemeConfig)?.backgrounds?.countdown_bg;
+    const override = (wedding.value?.theme_override as ThemeConfig)?.backgrounds
+      ?.countdown_bg;
     const fromTheme = themeConfig.value?.backgrounds?.countdown_bg;
     const url = override || fromTheme || DEFAULT_BACKGROUND_URLS.countdown_bg;
     return url ? `url(${url})` : "";
   });
 
   const imgLogo = computed(() => {
-    const override = (wedding.value?.theme_override as ThemeConfig)?.images?.logo_mempelai;
+    const override = (wedding.value?.theme_override as ThemeConfig)?.images
+      ?.logo_mempelai;
     const fromWedding = wedding.value?.image_logo;
     const fromTheme = themeConfig.value?.images?.logo_mempelai;
-    const url = fromWedding || override || fromTheme || DEFAULT_IMAGE_URLS.logo_mempelai;
+    const url =
+      fromWedding || override || fromTheme || DEFAULT_IMAGE_URLS.logo_mempelai;
     return url ? `url(${url})` : "";
   });
 
   const imgOrnament = computed(() => {
-    const override = (wedding.value?.theme_override as ThemeConfig)?.images?.ornament_divider;
+    const override = (wedding.value?.theme_override as ThemeConfig)?.images
+      ?.ornament_divider;
     const fromTheme = themeConfig.value?.images?.ornament_divider;
     const url = override || fromTheme || DEFAULT_IMAGE_URLS.ornament_divider;
     return url ? `url(${url})` : "";
   });
 
   const imgHeaderEvents = computed(() => {
-    const override = (wedding.value?.theme_override as ThemeConfig)?.images?.header_events;
+    const override = (wedding.value?.theme_override as ThemeConfig)?.images
+      ?.header_events;
     const fromTheme = themeConfig.value?.images?.header_events;
     const url = override || fromTheme || DEFAULT_IMAGE_URLS.header_events;
     return url ? `url(${url})` : "";
   });
 
   const imgBuilding = computed(() => {
-    const override = (wedding.value?.theme_override as ThemeConfig)?.images?.building_icon;
+    const override = (wedding.value?.theme_override as ThemeConfig)?.images
+      ?.building_icon;
     const fromTheme = themeConfig.value?.images?.building_icon;
     const url = override || fromTheme || DEFAULT_IMAGE_URLS.building_icon;
     return url ? `url(${url})` : "";
@@ -210,7 +226,8 @@ export const useThemeStore = defineStore("theme", () => {
     const root = document.documentElement;
     const cfg = themeConfig.value;
     // theme_override dari wedding — priority tertinggi
-    const override: ThemeConfig = (wedding.value?.theme_override as ThemeConfig) || {};
+    const override: ThemeConfig =
+      (wedding.value?.theme_override as ThemeConfig) || {};
 
     // Colors: DEFAULT < theme_config < theme_override
     const colors = {
@@ -219,7 +236,8 @@ export const useThemeStore = defineStore("theme", () => {
       ...(override.colors || {}),
     };
     Object.entries(colors).forEach(([key, value]) => {
-      if (value) root.style.setProperty(`--color-${key.replace(/_/g, "-")}`, value);
+      if (value)
+        root.style.setProperty(`--color-${key.replace(/_/g, "-")}`, value);
     });
 
     // Fonts: DEFAULT < theme_config < theme_override
@@ -233,29 +251,44 @@ export const useThemeStore = defineStore("theme", () => {
     });
 
     // Backgrounds: DEFAULT < theme_config < theme_override.backgrounds < wedding.image_*
-    const bgDefaults = { ...DEFAULT_BACKGROUND_URLS, ...(cfg?.backgrounds || {}), ...(override.backgrounds || {}) };
-    const imgDefaults = { ...DEFAULT_IMAGE_URLS, ...(cfg?.images || {}), ...(override.images || {}) };
+    const bgDefaults = {
+      ...DEFAULT_BACKGROUND_URLS,
+      ...(cfg?.backgrounds || {}),
+      ...(override.backgrounds || {}),
+    };
+    const imgDefaults = {
+      ...DEFAULT_IMAGE_URLS,
+      ...(cfg?.images || {}),
+      ...(override.images || {}),
+    };
 
     const resolvedBgs: Record<string, string> = {
-      cover:          wedding.value?.image_cover  || bgDefaults.cover          || "",
-      main_bg:        wedding.value?.image_bg1    || bgDefaults.main_bg        || "",
-      spouse_section: wedding.value?.image_bg2    || bgDefaults.spouse_section || "",
-      footer_bg:      bgDefaults.footer_bg    || "",
-      countdown_bg:   bgDefaults.countdown_bg  || "",
+      cover: wedding.value?.image_cover || bgDefaults.cover || "",
+      main_bg: wedding.value?.image_bg1 || bgDefaults.main_bg || "",
+      spouse_section:
+        wedding.value?.image_bg2 || bgDefaults.spouse_section || "",
+      footer_bg: bgDefaults.footer_bg || "",
+      countdown_bg: bgDefaults.countdown_bg || "",
     };
     Object.entries(resolvedBgs).forEach(([key, url]) => {
-      if (url) root.style.setProperty(`--bg-${key.replace(/_/g, "-")}`, `url(${url})`);
+      if (url)
+        root.style.setProperty(`--bg-${key.replace(/_/g, "-")}`, `url(${url})`);
     });
 
     // Images: DEFAULT < theme_config < theme_override < wedding.image_logo
     const resolvedImgs: Record<string, string> = {
-      logo_mempelai:    wedding.value?.image_logo || imgDefaults.logo_mempelai    || "",
+      logo_mempelai:
+        wedding.value?.image_logo || imgDefaults.logo_mempelai || "",
       ornament_divider: imgDefaults.ornament_divider || "",
-      header_events:    imgDefaults.header_events    || "",
-      building_icon:    imgDefaults.building_icon    || "",
+      header_events: imgDefaults.header_events || "",
+      building_icon: imgDefaults.building_icon || "",
     };
     Object.entries(resolvedImgs).forEach(([key, url]) => {
-      if (url) root.style.setProperty(`--img-${key.replace(/_/g, "-")}`, `url(${url})`);
+      if (url)
+        root.style.setProperty(
+          `--img-${key.replace(/_/g, "-")}`,
+          `url(${url})`
+        );
     });
   }
 

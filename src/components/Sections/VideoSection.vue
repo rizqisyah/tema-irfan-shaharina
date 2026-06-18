@@ -5,7 +5,10 @@ import { useThemeStore } from "@/stores/theme";
 const themeStore = useThemeStore();
 
 const videoUrl = computed(() => {
-  return themeStore.wedding?.video_url || "https://qinvi-worker.kesone01.workers.dev/2026/juni26/ci.mp4";
+  return (
+    themeStore.wedding?.video_url ||
+    "https://qinvi-worker.kesone01.workers.dev/2026/juni26/ci.mp4"
+  );
 });
 </script>
 
@@ -23,11 +26,9 @@ const videoUrl = computed(() => {
       playsinline
       webkit-playsinline
       class="absolute top-0 left-0 w-full h-full object-cover"
-    >
-    </video>
+    ></video>
   </div>
 </template>
-
 
 <!-- <script>
 export default {

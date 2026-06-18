@@ -15,6 +15,7 @@ type pengantinTypes = {
   updatedAt: string;
   urlPath: string;
   userId: string;
+  childOf?: string;
 };
 
 type introductionFamiliesType = {
@@ -46,36 +47,70 @@ const emptyPengantin: pengantinTypes = {
   updatedAt: "-",
   urlPath: "-",
   userId: "-",
+  childOf: "",
 };
 
-const pengantinPria = computed(() =>
-  props.pengantin.find((e) => e.gender?.toUpperCase() === "M") ?? emptyPengantin
+const pengantinPria = computed(
+  () =>
+    props.pengantin.find((e) => e.gender?.toUpperCase() === "M") ??
+    emptyPengantin
 );
 
-const pengantinWanita = computed(() =>
-  props.pengantin.find((e) => e.gender?.toUpperCase() === "F") ?? emptyPengantin
+const pengantinWanita = computed(
+  () =>
+    props.pengantin.find((e) => e.gender?.toUpperCase() === "F") ??
+    emptyPengantin
+);
+
+const isNotEmpty = (val: string | null | undefined): boolean => {
+  if (!val) return false;
+  const trimmed = val.trim();
+  return trimmed !== "" && trimmed !== "-";
+};
+
+const hasFatherPria = computed(() => isNotEmpty(pengantinPria.value.namaAyah));
+const hasMotherPria = computed(() => isNotEmpty(pengantinPria.value.namaIbu));
+const hasParentsPria = computed(
+  () => hasFatherPria.value || hasMotherPria.value
+);
+
+const hasFatherWanita = computed(() =>
+  isNotEmpty(pengantinWanita.value.namaAyah)
+);
+const hasMotherWanita = computed(() =>
+  isNotEmpty(pengantinWanita.value.namaIbu)
+);
+const hasParentsWanita = computed(
+  () => hasFatherWanita.value || hasMotherWanita.value
 );
 
 const logoUrl = computed(() => {
   const override = themeStore.wedding?.theme_override?.images?.logo_mempelai;
-  return  override  || "https://ik.imagekit.io/qinvi/3d/2026/juni2026/ClevertIvana/IMG_9692.webp?updatedAt=1781262749703";
+  return (
+    override ||
+    "https://ik.imagekit.io/qinvi/3d/2026/juni2026/ClevertIvana/IMG_9692.webp?updatedAt=1781262749703"
+  );
 });
 
 const quoteText = computed(() => {
-  return themeStore.wedding?.theme_override?.words?.quote_text || 
-    "Dan di atas semuanya itu: kenakanlah kasih, sebagai pengikat yang mempersatukan dan menyempurnakan.";
+  return (
+    themeStore.wedding?.theme_override?.words?.quote_text ||
+    "Dan di atas semuanya itu: kenakanlah kasih, sebagai pengikat yang mempersatukan dan menyempurnakan."
+  );
 });
 
 const quoteVerse = computed(() => {
-  return themeStore.wedding?.theme_override?.words?.quote_verse || "Kolose 3:14";
+  return (
+    themeStore.wedding?.theme_override?.words?.quote_verse || "Kolose 3:14"
+  );
 });
 
 const handleIgP = (): void => {
   window.open("https://www.instagram.com/razhar_");
-}
+};
 const handleIgW = (): void => {
   window.open("https://www.instagram.com/namirazzhr_");
-}
+};
 </script>
 
 <template>
@@ -99,8 +134,8 @@ const handleIgW = (): void => {
             alt="Qinvi Wedding Icon"
             class="mb-4 mt-6"
           />
-        </div> 
-        
+        </div>
+
         <!-- Ornamental divider -->
         <img
           data-aos="fade-in"
@@ -115,10 +150,9 @@ const handleIgW = (): void => {
           data-aos-duration="2000"
           class="caption-8 text-black text-center px-2"
         >
-          “{{ quoteText }}”
-          <br>{{ quoteVerse }}
+          “{{ quoteText }}” <br />{{ quoteVerse }}
         </p>
-       
+
         <!-- Bottom ornamental divider -->
         <img
           data-aos="fade-in"
@@ -127,11 +161,14 @@ const handleIgW = (): void => {
           alt="ornament divider"
           class="w-4/5 my-3"
         />
-       
-        
       </div>
     </div>
-    <div class="flex flex-col pt-7 pb-9 bg-events relative" :style="themeStore.bgSpouse ? { backgroundImage: themeStore.bgSpouse } : {}">
+    <div
+      class="flex flex-col pt-7 pb-9 bg-events relative"
+      :style="
+        themeStore.bgSpouse ? { backgroundImage: themeStore.bgSpouse } : {}
+      "
+    >
       <div
         data-aos="zoom-in-up"
         data-aos-duration="1000"
@@ -142,118 +179,172 @@ const handleIgW = (): void => {
           data-aos-duration="2500"
           class="flex flex-col items-center mb-10"
         >
-          <p class="body-777 text-black mb-5 px-8 text-center">Kedua Mempelai</p>
-          
-        <!-- Groom Section -->
-        <div
-          data-aos="zoom-in-up"
-          data-aos-duration="2500"
-          class="flex flex-col items-center mb-14 w-full"
-        >
-          <div class="relative w-full">
-            <div class="orn-couple-edge left">
-              <img src="/src/assets/images/IMG_6477.png" class="w-full flower-animate" />
-            </div>
-            <div class="orn-couple-edge right">
-              <img src="/src/assets/images/IMG_6477.png" class="w-full flower-animate" />
-            </div>
-            <div class="w-full relative z-10 block">
-              <img
-                :src="pengantinPria.urlPath"
-                alt="Qinvi Wedding Photos Groom"
-                class="mb-6 w-full !max-w-none block object-cover scale-[1.02]"
-                style="width: 100%; transform: scale(1.02); transform-origin: center;"
-              />
-            </div>
-          </div>
-          <p class="headline-11 text-black mt-2 mb-1 px-8 text-center" style="font-family: 'FormaleScript'; font-size:2rem;">
-            {{ pengantinPria.namaPanggilan }}
-          </p>
-          <p class="caption-11 text-black mb-8 px-8 text-center font-bold">
-            {{ pengantinPria.namaLengkap }}
+          <p class="body-777 text-black mb-5 px-8 text-center">
+            Kedua Mempelai
           </p>
 
-          <div class="relative w-full">
-            <div class="flex flex-col items-center w-full relative z-10">
-              <p
-                data-aos="zoom-in-up"
-                data-aos-duration="2000"
-                class="caption-10 text-black px-8 text-center mb-1"
-              >
-                Putra dari
-              </p>
-              <p data-aos="zoom-in-up" data-aos-duration="2000" class="caption-10 text-black px-8 text-center">
-                {{ pengantinPria.namaAyah }}
-              </p>
-              <p data-aos="zoom-in-up"  data-aos-duration="2000" class="caption-10 text-black px-8 text-center">
-                {{ pengantinPria.namaIbu }}
-              </p>
+          <!-- Groom Section -->
+          <div
+            data-aos="zoom-in-up"
+            data-aos-duration="2500"
+            class="flex flex-col items-center mb-14 w-full"
+          >
+            <div class="relative w-full">
+              <div class="orn-couple-edge left">
+                <img
+                  src="/src/assets/images/IMG_6477.png"
+                  class="w-full flower-animate"
+                />
+              </div>
+              <div class="orn-couple-edge right">
+                <img
+                  src="/src/assets/images/IMG_6477.png"
+                  class="w-full flower-animate"
+                />
+              </div>
+              <div class="w-full relative z-10 block">
+                <img
+                  :src="pengantinPria.urlPath"
+                  alt="Qinvi Wedding Photos Groom"
+                  class="mb-6 w-full !max-w-none block object-cover scale-[1.02]"
+                  style="
+                    width: 100%;
+                    transform: scale(1.02);
+                    transform-origin: center;
+                  "
+                />
+              </div>
+            </div>
+            <p
+              class="headline-11 text-black mt-2 mb-1 px-8 text-center"
+              style="font-family: 'FormaleScript'; font-size: 2rem"
+            >
+              {{ pengantinPria.namaPanggilan }}
+            </p>
+            <p class="caption-11 text-black mb-8 px-8 text-center font-bold">
+              {{ pengantinPria.namaLengkap }}
+            </p>
 
+            <div v-if="hasParentsPria" class="relative w-full">
+              <div class="flex flex-col items-center w-full relative z-10">
+                <p
+                  data-aos="zoom-in-up"
+                  data-aos-duration="2000"
+                  class="caption-10 text-black px-8 text-center mb-1"
+                >
+                  {{
+                    isNotEmpty(pengantinPria.childOf)
+                      ? pengantinPria.childOf
+                      : "Putra dari"
+                  }}
+                </p>
+                <p
+                  v-if="hasFatherPria"
+                  data-aos="zoom-in-up"
+                  data-aos-duration="2000"
+                  class="caption-10 text-black px-8 text-center"
+                >
+                  {{ pengantinPria.namaAyah }}
+                </p>
+                <p
+                  v-if="hasMotherPria"
+                  data-aos="zoom-in-up"
+                  data-aos-duration="2000"
+                  class="caption-10 text-black px-8 text-center"
+                >
+                  {{ pengantinPria.namaIbu }}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- Separator -->
-        <div class="flex flex-col items-center w-full px-8">
-          <img
-            src="/src/assets/images/IMG_8479.png"
-            alt="Qinvi Wedding Separator"
-            class="mb-6  w-full"
-          />
-        </div>
+          <!-- Separator -->
+          <div class="flex flex-col items-center w-full px-8">
+            <img
+              src="/src/assets/images/IMG_8479.png"
+              alt="Qinvi Wedding Separator"
+              class="mb-6 w-full"
+            />
+          </div>
 
-        <!-- Bride Section -->
-        <div
-          data-aos="zoom-in-up"
-          data-aos-duration="2500"
-          class="flex flex-col items-center mb-14 w-full"
-        >
-          <div class="relative w-full">
-           <div class="orn-couple-edge left">
-              <img src="/src/assets/images/IMG_6477.png" class="w-full flower-animate" />
+          <!-- Bride Section -->
+          <div
+            data-aos="zoom-in-up"
+            data-aos-duration="2500"
+            class="flex flex-col items-center mb-14 w-full"
+          >
+            <div class="relative w-full">
+              <div class="orn-couple-edge left">
+                <img
+                  src="/src/assets/images/IMG_6477.png"
+                  class="w-full flower-animate"
+                />
+              </div>
+              <div class="orn-couple-edge right">
+                <img
+                  src="/src/assets/images/IMG_6477.png"
+                  class="w-full flower-animate"
+                />
+              </div>
+              <div class="w-full relative z-10 block">
+                <img
+                  :src="pengantinWanita.urlPath"
+                  alt="Qinvi Wedding Photos Bride"
+                  class="mb-6 w-full !max-w-none block object-cover scale-[1.02]"
+                  style="
+                    width: 100%;
+                    transform: scale(1.02);
+                    transform-origin: center;
+                  "
+                />
+              </div>
             </div>
-            <div class="orn-couple-edge right">
-              <img src="/src/assets/images/IMG_6477.png" class="w-full flower-animate" />
-            </div>
-            <div class="w-full relative z-10 block">
-              <img
-                :src="pengantinWanita.urlPath"
-                alt="Qinvi Wedding Photos Bride"
-                class="mb-6 w-full !max-w-none block object-cover scale-[1.02]"
-                style="width: 100%; transform: scale(1.02); transform-origin: center;"
-              />
+            <p
+              class="headline-11 text-black mt-2 mb-1 px-8 text-center"
+              style="font-family: 'FormaleScript'; font-size: 2rem"
+            >
+              {{ pengantinWanita.namaPanggilan }}
+            </p>
+            <p class="caption-11 text-black mb-8 px-8 text-center font-bold">
+              {{ pengantinWanita.namaLengkap }}
+            </p>
+            <!-- Nama Lengkap Mempelai Wanita -->
+
+            <div v-if="hasParentsWanita" class="relative w-full">
+              <div class="flex flex-col items-center w-full relative z-10">
+                <p
+                  data-aos="zoom-in-up"
+                  data-aos-duration="2000"
+                  class="caption-10 text-black px-8 text-center mb-1"
+                >
+                  {{
+                    isNotEmpty(pengantinWanita.childOf)
+                      ? pengantinWanita.childOf
+                      : "Putri dari"
+                  }}
+                </p>
+                <p
+                  v-if="hasFatherWanita"
+                  data-aos="zoom-in-up"
+                  data-aos-duration="2000"
+                  class="caption-10 text-black px-8 text-center"
+                >
+                  {{ pengantinWanita.namaAyah }}
+                </p>
+                <p
+                  v-if="hasMotherWanita"
+                  data-aos="zoom-in-up"
+                  data-aos-duration="2000"
+                  class="caption-10 text-black px-8 text-center"
+                >
+                  {{ pengantinWanita.namaIbu }}
+                </p>
+              </div>
             </div>
           </div>
-          <p class="headline-11 text-black mt-2 mb-1 px-8 text-center" style="font-family: 'FormaleScript'; font-size: 2rem;">
-            {{ pengantinWanita.namaPanggilan }}
-          </p>
-          <p class="caption-11 text-black mb-8 px-8 text-center font-bold">
-            {{ pengantinWanita.namaLengkap }}
-          </p>
-           <!-- Nama Lengkap Mempelai Wanita -->
 
-          <div class="relative w-full">
-            <div class="flex flex-col items-center w-full relative z-10">
-              <p
-                data-aos="zoom-in-up"
-                data-aos-duration="2000"
-                class="caption-10 text-black px-8 text-center mb-1"
-              >
-                Putri dari
-              </p>
-              <p data-aos="zoom-in-up" data-aos-duration="2000" class="caption-10 text-black px-8 text-center">
-                {{ pengantinWanita.namaAyah }}
-              </p>
-              <p data-aos="zoom-in-up" data-aos-duration="2000" class="caption-10 text-black px-8 text-center">
-                {{ pengantinWanita.namaIbu }}
-              </p>
-
-            </div>
-          </div>
-        </div>
-
-        <!-- Closing Quote -->
-        <!-- <div class="mt-4 mb-10 flex flex-col items-center w-full">
+          <!-- Closing Quote -->
+          <!-- <div class="mt-4 mb-10 flex flex-col items-center w-full">
           <p data-aos="zoom-in-up" data-aos-duration="2000" class="caption-8 text-black text-center px-4" style="line-height: 1.5;">
             "May every step forward always be embraced by the gentleness of destiny, strengthened by the love of the Most Loving, and blessed with eternal happiness, Amen."
           </p>
@@ -287,7 +378,8 @@ const handleIgW = (): void => {
 }
 /* Fix for iOS devices */
 @supports (-webkit-touch-callout: none) {
-  .bg-quotes, .bg-events {
+  .bg-quotes,
+  .bg-events {
     background-attachment: scroll;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -302,8 +394,8 @@ const handleIgW = (): void => {
 }
 
 .flower-animate {
-    transform-origin: 10% 100%;
-    animation: goyang 6s ease-in-out infinite alternate;
+  transform-origin: 10% 100%;
+  animation: goyang 6s ease-in-out infinite alternate;
 }
 
 .orn-couple-edge {
@@ -372,8 +464,12 @@ const handleIgW = (): void => {
 }
 
 @keyframes goyang {
-    0% { transform: rotate(-6deg); }
-    100% { transform: rotate(4deg); }
+  0% {
+    transform: rotate(-6deg);
+  }
+  100% {
+    transform: rotate(4deg);
+  }
 }
 
 .arch-line {
@@ -382,7 +478,7 @@ const handleIgW = (): void => {
   left: 10px;
   right: 10px;
   bottom: 10px;
-  border: 1.5px solid var(--color-accent, #D4AF37);
+  border: 1.5px solid var(--color-accent, #d4af37);
   border-top-left-radius: 340px;
   border-top-right-radius: 340px;
   border-bottom-left-radius: 25px;

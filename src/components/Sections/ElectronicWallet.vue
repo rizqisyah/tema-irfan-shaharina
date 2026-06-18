@@ -18,11 +18,10 @@ import Seabank_logo from "@/assets/images/logo-seabank.png";
 import Jago_logo from "@/assets/images/bank-jago.png";
 import Mualamat_logo from "@/assets/images/logo_muamalat.png";
 import common_logo from "@/assets/images/common-bank.png";
-import kado_logo  from  "@/assets/images/Kado.png";
+import kado_logo from "@/assets/images/Kado.png";
 
 const themeStore = useThemeStore();
 const snackbar = useSnackbar();
-
 
 type RekeningTypes = {
   id: string | number;
@@ -76,7 +75,7 @@ const handleCopy = (i: number, bankName: string): void => {
   ) as HTMLInputElement;
   codeToCopy?.setAttribute("type", "text");
   codeToCopy?.select();
-  const isKado = (bankName || '').toLowerCase().trim() === 'kado';
+  const isKado = (bankName || "").toLowerCase().trim() === "kado";
   const isEng = themeStore.isEnglish;
   try {
     var successful = document.execCommand("copy");
@@ -85,8 +84,12 @@ const handleCopy = (i: number, bankName: string): void => {
       type: "success",
       title: isEng ? "Success" : "Berhasil",
       text: isKado
-        ? (isEng ? "Address copied successfully" : "Alamat berhasil disalin")
-        : (isEng ? "Account number copied successfully" : "Nomor rekening berhasil disalin"),
+        ? isEng
+          ? "Address copied successfully"
+          : "Alamat berhasil disalin"
+        : isEng
+        ? "Account number copied successfully"
+        : "Nomor rekening berhasil disalin",
       group: "5862a88b",
       count: 1,
     });
@@ -104,17 +107,15 @@ const handleCopy = (i: number, bankName: string): void => {
 };
 
 const getAccountLabel = (bankName: string): string => {
-  const name = (bankName || '').toLowerCase().trim();
+  const name = (bankName || "").toLowerCase().trim();
   const isEng = themeStore.isEnglish;
-  if (name === 'kado') return isEng ? 'Address' : 'Alamat';
-  if (name === 'commonwealth bank') return 'PayId';
-  return isEng ? 'Account No.' : 'No. Rekening';
+  if (name === "kado") return isEng ? "Address" : "Alamat";
+  if (name === "commonwealth bank") return "PayId";
+  return isEng ? "Account No." : "No. Rekening";
 };
 
 const handleCopyAddress = (): void => {
-  let codeToCopy = document.getElementById(
-    `copy-address`
-  ) as HTMLInputElement;
+  let codeToCopy = document.getElementById(`copy-address`) as HTMLInputElement;
   codeToCopy?.setAttribute("type", "text");
   codeToCopy?.select();
   try {
@@ -152,10 +153,14 @@ const showQris = ref(false);
         class="flex flex-col bg-container-shadow rounded-xl p-6 mb-8 text-center items-center"
       >
         <p class="headline-188 text-black mb-4 font-extralight">
-          {{ themeStore.isEnglish ? 'Digital Gift' : 'Kado Digital' }}
+          {{ themeStore.isEnglish ? "Digital Gift" : "Kado Digital" }}
         </p>
         <p class="caption-1 text-black">
-          {{ themeStore.isEnglish ? 'Your presence and prayers are the most beautiful gift for us. However, if you wish to send a token of love, you may send it through:' : 'Doa restu Anda merupakan karunia terindah bagi kami. Namun, apabila Anda ingin memberikan tanda kasih kepada kami, Anda dapat mengirimkannya melalui:' }}
+          {{
+            themeStore.isEnglish
+              ? "Your presence and prayers are the most beautiful gift for us. However, if you wish to send a token of love, you may send it through:"
+              : "Doa restu Anda merupakan karunia terindah bagi kami. Namun, apabila Anda ingin memberikan tanda kasih kepada kami, Anda dapat mengirimkannya melalui:"
+          }}
         </p>
       </div>
 
@@ -176,10 +181,12 @@ const showQris = ref(false);
           class="mb-3"
         />
         <p class="caption-1 text-blue-10 mb-3">
-          {{ getAccountLabel(e.bank_name || e.namaBank || '') }} : {{ e.account_number || e.noRekening }}
+          {{ getAccountLabel(e.bank_name || e.namaBank || "") }} :
+          {{ e.account_number || e.noRekening }}
         </p>
         <p class="caption-1 text-blue-10 mb-3">
-          {{ themeStore.isEnglish ? 'Account Name' : 'Atas Nama' }}: {{ e.account_name || e.namaPemilik }}
+          {{ themeStore.isEnglish ? "Account Name" : "Atas Nama" }}:
+          {{ e.account_name || e.namaPemilik }}
         </p>
         <div class="flex flex-col items-center">
           <button
@@ -193,15 +200,22 @@ const showQris = ref(false);
               width="18"
             />
             <p class="body-2 text-white">
-              {{ (e.bank_name || e.namaBank || '').toLowerCase().trim() === 'kado' ? (themeStore.isEnglish ? 'Copy Address' : 'Salin Alamat') : (themeStore.isEnglish ? 'Copy Number' : 'Salin Nomor') }}
+              {{
+                (e.bank_name || e.namaBank || "").toLowerCase().trim() ===
+                "kado"
+                  ? themeStore.isEnglish
+                    ? "Copy Address"
+                    : "Salin Alamat"
+                  : themeStore.isEnglish
+                  ? "Copy Number"
+                  : "Salin Nomor"
+              }}
             </p>
           </button>
         </div>
       </div>
-
     </div>
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
