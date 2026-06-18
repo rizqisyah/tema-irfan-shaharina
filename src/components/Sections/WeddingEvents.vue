@@ -83,12 +83,16 @@ const formattedEvents = computed(() => {
         ? "Selesai"
         : rawJamSelesai;
 
+    const title = e.title || e.namaAcara || "";
+    const titleLines = title.split(/[|\n]/).map((line) => line.trim());
+
     return {
       ...e,
       hari,
       tanggal,
       jamMulai: e.waktuMulai?.split(":").splice(0, 2).join(":"),
       jamSelesai,
+      titleLines,
     };
   });
 });
@@ -150,7 +154,13 @@ const openAcara = (e: any): void => {
         class="flex flex-col mt-2.5 items-center rounded-xl py-10 mx-8"
       >
         <p class="headline-21 text-black mt-2 uppercase text-center">
-          {{ item.title || item.namaAcara }}<br />
+          <span
+            v-for="(line, lineIdx) in item.titleLines"
+            :key="lineIdx"
+            class="block"
+          >
+            {{ line }}
+          </span>
         </p>
         <hr class="border-gold-10 mt-5 mb-7" style="width: 40%" />
         <p class="body-777 text-black my-2">{{ item.hari }}</p>
