@@ -158,6 +158,11 @@ const openAcara = (e: any): void => {
             v-for="(line, lineIdx) in item.titleLines"
             :key="lineIdx"
             class="block"
+            :style="
+              lineIdx > 0
+                ? { fontSize: '50%', marginTop: '4px', opacity: 0.8 }
+                : {}
+            "
           >
             {{ line }}
           </span>

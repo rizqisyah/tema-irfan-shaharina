@@ -84,6 +84,16 @@ const hasParentsWanita = computed(
   () => hasFatherWanita.value || hasMotherWanita.value
 );
 
+const groomOrder = computed(() => {
+  const groomFirst = themeStore.wedding?.order_groom_first !== false;
+  return groomFirst ? 1 : 3;
+});
+
+const brideOrder = computed(() => {
+  const groomFirst = themeStore.wedding?.order_groom_first !== false;
+  return groomFirst ? 3 : 1;
+});
+
 const logoUrl = computed(() => {
   const override = themeStore.wedding?.theme_override?.images?.logo_mempelai;
   return (
@@ -188,6 +198,7 @@ const handleIgW = (): void => {
             data-aos="zoom-in-up"
             data-aos-duration="2500"
             class="flex flex-col items-center mb-14 w-full"
+            :style="{ order: groomOrder }"
           >
             <div class="relative w-full">
               <div class="orn-couple-edge left">
@@ -259,7 +270,7 @@ const handleIgW = (): void => {
           </div>
 
           <!-- Separator -->
-          <div class="flex flex-col items-center w-full px-8">
+          <div class="flex flex-col items-center w-full px-8" style="order: 2">
             <img
               src="/src/assets/images/IMG_8479.png"
               alt="Qinvi Wedding Separator"
@@ -272,6 +283,7 @@ const handleIgW = (): void => {
             data-aos="zoom-in-up"
             data-aos-duration="2500"
             class="flex flex-col items-center mb-14 w-full"
+            :style="{ order: brideOrder }"
           >
             <div class="relative w-full">
               <div class="orn-couple-edge left">
