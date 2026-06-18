@@ -15,7 +15,7 @@
           data-aos="zoom-in-up"
           data-aos-duration="2000"
           class="title-livestream text-black mb-4 font-bold"
-          style="font-family: 'Wonderia'; font-size: 24px"
+          style="font-family: var(--font-accent); font-size: calc(24px * var(--font-scale-accent, 1))"
         >
           Live Streaming
         </p>
@@ -56,7 +56,7 @@
           data-aos-duration="2000"
           class="mt-6 bg-[#6D735B] px-6 py-2.5 rounded-full text-white flex items-center space-x-2 hover:bg-[#5a5f4a] transition-colors"
         >
-          <span style="font-family: 'Wonderia'; font-size: 16px"
+          <span style="font-family: var(--font-accent); font-size: calc(16px * var(--font-scale-accent, 1))"
             >Buka di YouTube</span
           >
         </a>

@@ -18,6 +18,7 @@ interface ThemeFontsConfig {
   accent: string;
   script: string;
   italic: string;
+  section?: string;
 }
 
 interface ThemeBackgroundsConfig {
@@ -48,6 +49,8 @@ interface ThemeConfig {
   backgrounds?: Partial<ThemeBackgroundsConfig>;
   images?: Partial<ThemeImagesConfig>;
   words?: Partial<ThemeWordsConfig>;
+  fonts_custom?: Record<string, { url: string; family: string }>;
+  font_scales?: Record<string, number>;
 }
 
 interface WeddingData {
@@ -90,6 +93,7 @@ const DEFAULT_FONTS: ThemeFontsConfig = {
   accent: "'Wonderia'",
   script: "'FormaleScript'",
   italic: "'Cormorant Garamond'",
+  section: "'Aston Script'",
 };
 
 const DEFAULT_BACKGROUND_URLS: Record<string, string> = {
@@ -222,12 +226,40 @@ export const useThemeStore = defineStore("theme", () => {
     wedding.value = data || null;
   }
 
+  function injectCustomFont(family: string, url: string) {
+    if (typeof document === "undefined") return;
+    const cleanFamily = family.replace(/['"]/g, "").trim();
+    const id = `custom-font-${cleanFamily.replace(/\s+/g, "-")}`;
+    if (document.getElementById(id)) return;
+    const style = document.createElement("style");
+    style.id = id;
+    style.textContent = `@font-face { font-family: '${cleanFamily}'; src: url('${url}'); font-display: swap; }`;
+    document.head.appendChild(style);
+  }
+
   function applyTheme() {
     const root = document.documentElement;
     const cfg = themeConfig.value;
     // theme_override dari wedding — priority tertinggi
     const override: ThemeConfig =
       (wedding.value?.theme_override as ThemeConfig) || {};
+
+    // Inject custom uploaded fonts first
+    if (override.fonts_custom) {
+      Object.entries(override.fonts_custom).forEach(([_, val]) => {
+        if (val && val.url && val.family) {
+          injectCustomFont(val.family, val.url);
+        }
+      });
+    }
+
+    // Set font scales
+    const fontScales = override.font_scales || {};
+    const slots = ["headline", "body", "accent", "script", "italic", "section"];
+    slots.forEach((slot) => {
+      const scale = fontScales[slot] !== undefined ? fontScales[slot] : 1;
+      root.style.setProperty(`--font-scale-${slot}`, String(scale));
+    });
 
     // Colors: DEFAULT < theme_config < theme_override
     const colors = {

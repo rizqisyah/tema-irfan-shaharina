@@ -454,8 +454,8 @@ watch(
           class="relative z-10"
           :style="{
             color: 'var(--color-primary)',
-            fontFamily: 'Wonderia',
-            fontSize: '32px',
+            fontFamily: 'var(--font-accent)',
+            fontSize: 'calc(32px * var(--font-scale-accent, 1))',
           }"
         >
           The Wedding Of
@@ -466,8 +466,8 @@ watch(
           class="text-center mt-2 relative z-10"
           :style="{
             color: 'var(--color-primary)',
-            fontFamily: 'Aston Script',
-            fontSize: '24px',
+            fontFamily: 'var(--font-section)',
+            fontSize: 'calc(24px * var(--font-scale-section, 1))',
             lineHeight: '1.2',
           }"
         >
@@ -511,8 +511,8 @@ watch(
           <p
             class="text-white tracking-wide"
             style="
-              font-family: 'Wonderia';
-              font-size: 20px;
+              font-family: var(--font-accent);
+              font-size: calc(20px * var(--font-scale-accent, 1));
               text-transform: none;
             "
           >

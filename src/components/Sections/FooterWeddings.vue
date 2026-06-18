@@ -74,8 +74,8 @@ const handleWa = (): void => {
           class="font-bold tracking-widest"
           :style="{
             color: 'var(--color-primary)',
-            fontFamily: 'Wonderia',
-            fontSize: '24px',
+            fontFamily: 'var(--font-accent)',
+            fontSize: 'calc(24px * var(--font-scale-accent, 1))',
           }"
         >
           {{ hashtag }}

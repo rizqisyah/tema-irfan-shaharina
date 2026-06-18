@@ -228,7 +228,7 @@ const handleIgW = (): void => {
             </div>
             <p
               class="headline-11 text-black mt-2 mb-1 px-8 text-center"
-              style="font-family: 'FormaleScript'; font-size: 2rem"
+              style="font-family: var(--font-script); font-size: calc(2rem * var(--font-scale-script, 1))"
             >
               {{ pengantinPria.namaPanggilan }}
             </p>
@@ -313,7 +313,7 @@ const handleIgW = (): void => {
             </div>
             <p
               class="headline-11 text-black mt-2 mb-1 px-8 text-center"
-              style="font-family: 'FormaleScript'; font-size: 2rem"
+              style="font-family: var(--font-script); font-size: calc(2rem * var(--font-scale-script, 1))"
             >
               {{ pengantinWanita.namaPanggilan }}
             </p>

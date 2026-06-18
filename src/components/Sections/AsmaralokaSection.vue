@@ -15,7 +15,7 @@
 
       <p
         class="text-[#6D735B] mb-8 relative z-10"
-        style="font-family: 'Wonderia', cursive; font-size: 32px"
+        style="font-family: var(--font-accent); font-size: calc(32px * var(--font-scale-accent, 1))"
       >
         Asmaraloka
       </p>

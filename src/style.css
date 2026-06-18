@@ -12,6 +12,7 @@
   --font-accent: 'Wonderia';
   --font-script: 'FormaleScript';
   --font-italic: 'Cormorant Garamond';
+  --font-section: 'Aston Script';
 }
 
 @tailwind base;

@@ -39,10 +39,10 @@
 }
 
 .caption-6 {
-  font-family: "Cormorant Garamond";
+  font-family: var(--font-italic);
   font-style: normal;
   font-weight: 700;
-  font-size: 16px;
+  font-size: calc(16px * var(--font-scale-italic, 1));
   line-height: 21px;
   letter-spacing: 1.8px;
 }
@@ -80,10 +80,10 @@
 }
 
 .caption-11 {
-  font-family: "Cormorant Garamond";
+  font-family: var(--font-italic);
   font-style: italic;
   font-weight: 700;
-  font-size: 20.8px;
+  font-size: calc(20.8px * var(--font-scale-italic, 1));
   line-height: 27px;
   letter-spacing: 0.2px;
 }
@@ -178,10 +178,10 @@
 }
 
 .body-777 {
-  font-family: "Aston Script";
+  font-family: var(--font-section);
   font-style: normal;
   font-weight: 600;
-  font-size: 19.2px;
+  font-size: calc(19.2px * var(--font-scale-section, 1));
   line-height: 25px;
   letter-spacing: 1px;
 }
@@ -299,10 +299,10 @@
 }
 
 .headline-99 {
-  font-family: 'Bon Vivant Family Serif';
+  font-family: var(--font-headline);
   font-style: normal;
   font-weight: 400;
-  font-size: 32px;
+  font-size: calc(32px * var(--font-scale-headline, 1));
   line-height: 52px;
 }
 
@@ -315,10 +315,10 @@
 }
 
 .headline-11 {
-  font-family: 'Bon Vivant Family Serif';
+  font-family: var(--font-headline);
   font-style: normal;
   font-weight: 400;
-  font-size: 48px;
+  font-size: calc(48px * var(--font-scale-headline, 1));
   line-height: 52px;
 }
 
@@ -372,18 +372,18 @@
 }
 
 .headline-18 {
-  font-family: 'Bon Vivant Family Serif';
+  font-family: var(--font-headline);
   font-style: normal;
   font-weight: 400;
-  font-size: 20px;
+  font-size: calc(20px * var(--font-scale-headline, 1));
   line-height: 27px;
 }
 
 .headline-188 {
-  font-family: 'Bon Vivant Family Serif';
+  font-family: var(--font-headline);
   font-style: normal;
   font-weight: 400;
-  font-size: 24px;
+  font-size: calc(24px * var(--font-scale-headline, 1));
   line-height: 27px;
 }
 
@@ -404,9 +404,9 @@
 }
 
 .headline-21 {
-  font-family: 'Bon Vivant Family Serif';
+  font-family: var(--font-headline);
   font-style: normal;
   font-weight: 400;
-  font-size: 29px;
+  font-size: calc(29px * var(--font-scale-headline, 1));
   line-height: 22px;
 }
