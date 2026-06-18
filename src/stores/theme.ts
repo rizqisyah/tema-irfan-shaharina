@@ -231,10 +231,19 @@ export const useThemeStore = defineStore("theme", () => {
     const cleanFamily = family.replace(/['"]/g, "").trim();
     const id = `custom-font-${cleanFamily.replace(/\s+/g, "-")}`;
     if (document.getElementById(id)) return;
-    const style = document.createElement("style");
-    style.id = id;
-    style.textContent = `@font-face { font-family: '${cleanFamily}'; src: url('${url}'); font-display: swap; }`;
-    document.head.appendChild(style);
+
+    if (url.includes("fonts.googleapis.com")) {
+      const link = document.createElement("link");
+      link.id = id;
+      link.rel = "stylesheet";
+      link.href = url;
+      document.head.appendChild(link);
+    } else {
+      const style = document.createElement("style");
+      style.id = id;
+      style.textContent = `@font-face { font-family: '${cleanFamily}'; src: url('${url}'); font-display: swap; }`;
+      document.head.appendChild(style);
+    }
   }
 
   function applyTheme() {
