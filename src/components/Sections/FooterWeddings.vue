@@ -12,10 +12,25 @@ const logoUrl = computed(() => {
   );
 });
 
+const isImageHashtag = computed(() => {
+  const raw = themeStore.wedding?.theme_override?.words?.hashtag;
+  if (!raw) return false;
+  const val = raw.trim();
+  return (
+    val.includes("imagekit.io") ||
+    /^https?:\/\/.*\.(png|jpg|jpeg|gif|webp|svg)/i.test(val)
+  );
+});
+
 const hashtag = computed(() => {
   const raw = themeStore.wedding?.theme_override?.words?.hashtag;
-  if (raw === "" || raw === null) return "";
-  const val = raw || "#ClevtoIvy";
+  if (!raw || raw.trim() === "") return "";
+
+  if (isImageHashtag.value) {
+    return raw.trim();
+  }
+
+  const val = raw.trim();
   return val.startsWith("#") ? val : `#${val}`;
 });
 
@@ -47,17 +62,25 @@ const handleWa = (): void => {
         Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu kepada
         kedua mempelai. Terima kasih atas doa restu dan dukungannya.
       </p>
-      <p
-        v-if="hashtag"
-        class="mt-4 font-bold tracking-widest"
-        :style="{
-          color: 'var(--color-primary)',
-          fontFamily: 'Wonderia',
-          fontSize: '24px',
-        }"
-      >
-        {{ hashtag }}
-      </p>
+      <div v-if="hashtag" class="mt-4 w-full flex justify-center">
+        <img
+          v-if="isImageHashtag"
+          :src="hashtag"
+          alt="Hashtag"
+          class="max-w-[80%] max-h-16 object-contain"
+        />
+        <p
+          v-else
+          class="font-bold tracking-widest"
+          :style="{
+            color: 'var(--color-primary)',
+            fontFamily: 'Wonderia',
+            fontSize: '24px',
+          }"
+        >
+          {{ hashtag }}
+        </p>
+      </div>
     </div>
     <div class="flex flex-row space-x-2 mb-8 mt-6">
       <img src="../../assets/icons/icon-ig.png" @click="handleIg" width="32" />
