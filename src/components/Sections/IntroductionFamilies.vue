@@ -190,7 +190,7 @@ const handleIgW = (): void => {
           class="flex flex-col items-center mb-10"
         >
           <p class="body-777 text-black mb-5 px-8 text-center">
-            Kedua Mempelai
+            {{ themeStore.isEnglish ? 'The Bride & Groom' : 'Kedua Mempelai' }}
           </p>
 
           <!-- Groom Section -->
