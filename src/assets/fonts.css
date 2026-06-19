@@ -408,5 +408,5 @@
   font-style: normal;
   font-weight: 400;
   font-size: calc(29px * var(--font-scale-headline, 1));
-  line-height: 22px;
+  line-height: 1.3;
 }
