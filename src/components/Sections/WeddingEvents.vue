@@ -86,13 +86,28 @@ const formattedEvents = computed(() => {
     const title = e.title || e.namaAcara || "";
     const titleLines = title.split(/[|\n]/).map((line) => line.trim());
 
+    const jamMulai = e.waktuMulai?.split(":").splice(0, 2).join(":");
+    let rawTime = "";
+    if (e.event_time) {
+      rawTime = e.event_time;
+    } else if (jamMulai) {
+      rawTime = `${jamMulai} WITA`;
+      if (jamSelesai) {
+        rawTime += ` - ${jamSelesai}`;
+      }
+    }
+    const timeLines = rawTime
+      ? rawTime.split(/[|\n]/).map((line) => line.trim()).filter(Boolean)
+      : [];
+
     return {
       ...e,
       hari,
       tanggal,
-      jamMulai: e.waktuMulai?.split(":").splice(0, 2).join(":"),
+      jamMulai,
       jamSelesai,
       titleLines,
+      timeLines,
     };
   });
 });
@@ -170,12 +185,12 @@ const openAcara = (e: any): void => {
         <hr class="border-gold-10 mt-5 mb-7" style="width: 40%" />
         <p class="body-777 text-black my-2">{{ item.hari }}</p>
         <p class="body-7 text-black my-5">{{ item.tanggal }}</p>
-        <p class="text-black my-2" v-if="item.event_time">
-          {{ item.event_time }}
-        </p>
-        <p class="text-black my-2" v-else-if="item.jamMulai">
-          {{ item.jamMulai }} WITA
-          <span v-if="item.jamSelesai">- {{ item.jamSelesai }}</span>
+        <p
+          v-for="(timeLine, timeIdx) in item.timeLines"
+          :key="timeIdx"
+          class="text-black my-1"
+        >
+          {{ timeLine }}
         </p>
 
         <img
