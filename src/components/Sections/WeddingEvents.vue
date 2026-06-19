@@ -130,6 +130,7 @@ const formattedEvents = computed(() => {
       jamSelesai,
       titleLines,
       timeLines,
+      hasDanOrAnd,
     };
   });
 });
@@ -197,7 +198,7 @@ const openAcara = (e: any): void => {
             class="block"
             :style="
               lineIdx > 0
-                ? { fontSize: '50%', marginTop: '4px', opacity: 0.8 }
+                ? (item.hasDanOrAnd ? { marginTop: '4px' } : { fontSize: '50%', marginTop: '4px', opacity: 0.8 })
                 : {}
             "
           >
