@@ -84,7 +84,18 @@ const formattedEvents = computed(() => {
         : rawJamSelesai;
 
     const title = e.title || e.namaAcara || "";
-    const titleLines = title.split(/[|\n]/).map((line) => line.trim());
+    const titleLines = title.split(/[|\n]/).map((line) => {
+      const trimmed = line.trim();
+      const hasDanOrAnd = /\b(dan|and)\b/i.test(trimmed);
+      if (hasDanOrAnd) {
+        return trimmed
+          .toLowerCase()
+          .split(/\s+/)
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(" ");
+      }
+      return trimmed.toUpperCase();
+    });
 
     const jamMulai = e.waktuMulai?.split(":").splice(0, 2).join(":");
     let rawTime = "";
@@ -168,7 +179,7 @@ const openAcara = (e: any): void => {
         data-aos-duration="2000"
         class="flex flex-col mt-2.5 items-center rounded-xl py-10 mx-8"
       >
-        <p class="headline-21 text-black mt-2 uppercase text-center">
+        <p class="headline-21 text-black mt-2 text-center">
           <span
             v-for="(line, lineIdx) in item.titleLines"
             :key="lineIdx"
