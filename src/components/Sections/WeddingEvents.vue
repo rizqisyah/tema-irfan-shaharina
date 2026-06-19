@@ -84,17 +84,28 @@ const formattedEvents = computed(() => {
         : rawJamSelesai;
 
     const title = e.title || e.namaAcara || "";
-    const titleLines = title.split(/[|\n]/).map((line) => {
-      const trimmed = line.trim();
-      const hasDanOrAnd = /\b(dan|and)\b/i.test(trimmed);
+    const hasDanOrAnd = /\b(dan|and)\b/i.test(title);
+    const rawLines = title.split(/[|\n]/).map((line) => line.trim()).filter(Boolean);
+    const rawTitleLines: string[] = [];
+    rawLines.forEach((line) => {
+      const splitParts = line.split(/\s+(?=dan\b|and\b)/i).map((s) => s.trim()).filter(Boolean);
+      rawTitleLines.push(...splitParts);
+    });
+
+    const titleLines = rawTitleLines.map((line) => {
       if (hasDanOrAnd) {
-        return trimmed
+        return line
           .toLowerCase()
           .split(/\s+/)
-          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .map((word) => {
+            if (word === "dan" || word === "and") {
+              return word;
+            }
+            return word.charAt(0).toUpperCase() + word.slice(1);
+          })
           .join(" ");
       }
-      return trimmed.toUpperCase();
+      return line.toUpperCase();
     });
 
     const jamMulai = e.waktuMulai?.split(":").splice(0, 2).join(":");
