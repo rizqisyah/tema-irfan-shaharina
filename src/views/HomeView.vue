@@ -14,6 +14,7 @@ import FooterWeddings from "@/components/Sections/FooterWeddings.vue";
 import MenusFloating from "@/components/MenusFloating.vue";
 import WishesList from "@/components/Sections/WishesList.vue";
 import VideoSection from "@/components/Sections/VideoSection.vue";
+import InfoSection from "@/components/Sections/InfoSection.vue";
 import { useRoute } from "vue-router";
 import { useSnackbar } from "vue3-snackbar";
 import { useHead } from "@vueuse/head";
@@ -567,6 +568,9 @@ watch(
         v-if="dataPernikahan.acara && dataPernikahan.acara.length > 0"
         id="acaraSection"
         :acara="dataPernikahan.acara"
+      />
+      <InfoSection
+        v-if="themeStore.wedding?.theme_override?.words?.info_show !== false && themeStore.wedding?.theme_override?.words?.info_show !== 'false'"
       />
       <GalleryPhotos
         v-if="dataPernikahan.gallery && dataPernikahan.gallery.length > 0"

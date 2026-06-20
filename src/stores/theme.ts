@@ -41,6 +41,9 @@ interface ThemeWordsConfig {
   quote_verse?: string;
   opening_message?: string;
   hashtag?: string;
+  info_show?: boolean;
+  info_title?: string;
+  info_items?: string;
 }
 
 interface ThemeConfig {
