@@ -46,6 +46,9 @@ interface CoverInvitationProps {
 
 const props = defineProps<CoverInvitationProps>();
 const themeStore = useThemeStore();
+const groomFirst = computed(() => {
+  return themeStore.wedding?.order_groom_first !== false;
+});
 
 const spouseImgUrl = computed(() => {
   return (
@@ -218,7 +221,7 @@ watch(
         data-aos-duration="2000"
         class="headline-11 mb-10"
       >
-        {{ mempelaiPria }}
+        {{ groomFirst ? mempelaiPria : mempelaiWanita }}
       </p>
 
       <p
@@ -233,7 +236,7 @@ watch(
         data-aos-duration="2000"
         class="headline-11 mb-10"
       >
-        {{ mempelaiWanita }}
+        {{ groomFirst ? mempelaiWanita : mempelaiPria }}
       </p>
       <img
         data-aos="zoom-in-up"

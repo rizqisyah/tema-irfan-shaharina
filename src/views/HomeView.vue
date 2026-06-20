@@ -20,6 +20,9 @@ import { useHead } from "@vueuse/head";
 import HomeService from "@/services/resources/home.service";
 import { useThemeStore } from "@/stores/theme";
 const themeStore = useThemeStore();
+const groomFirst = computed(() => {
+  return themeStore.wedding?.order_groom_first !== false;
+});
 const isOpen: Ref<boolean> = ref(false);
 const loading: Ref<boolean> = ref(false);
 const mempelaiPria: Ref<string> = ref("-");
@@ -480,7 +483,7 @@ watch(
             lineHeight: '1.2',
           }"
         >
-          {{ mempelaiPria }} & {{ mempelaiWanita }}
+          {{ groomFirst ? mempelaiPria : mempelaiWanita }} & {{ groomFirst ? mempelaiWanita : mempelaiPria }}
         </p>
       </div>
     </div>
