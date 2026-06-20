@@ -151,9 +151,19 @@ const capitalize = (text: string): string => {
 };
 
 const splittingUsername = (username: string): void => {
-  const result = username.split("-");
-  mempelaiPria.value = capitalize(result[0]);
-  mempelaiWanita.value = capitalize(result[1]);
+  if (props.mempelaiPria && props.mempelaiPria !== "-") {
+    mempelaiPria.value = props.mempelaiPria;
+  } else {
+    const result = username.split("-");
+    mempelaiPria.value = capitalize(result[0]);
+  }
+
+  if (props.mempelaiWanita && props.mempelaiWanita !== "-") {
+    mempelaiWanita.value = props.mempelaiWanita;
+  } else {
+    const result = username.split("-");
+    mempelaiWanita.value = capitalize(result[1]);
+  }
 };
 
 onMounted(() => {
