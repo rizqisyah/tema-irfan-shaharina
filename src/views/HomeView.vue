@@ -269,6 +269,15 @@ const fetchHomeData = () => {
           childOf: p.child_of || "",
         }));
 
+        const pria = mappedPengantin.find((p: any) => p.gender === "M");
+        const wanita = mappedPengantin.find((p: any) => p.gender === "F");
+        if (pria && pria.namaPanggilan && pria.namaPanggilan !== "-") {
+          mempelaiPria.value = pria.namaPanggilan;
+        }
+        if (wanita && wanita.namaPanggilan && wanita.namaPanggilan !== "-") {
+          mempelaiWanita.value = wanita.namaPanggilan;
+        }
+
         dataPernikahan.value = {
           acara: content?.acara || [],
           ceritaCinta: content?.ceritaCinta || [],
@@ -536,6 +545,8 @@ watch(
         v-if="dataPernikahan.acara && dataPernikahan.acara.length > 0"
         :acara="dataPernikahan.acara"
         :countdownDate="countdownDate"
+        :mempelaiPria="mempelaiPria"
+        :mempelaiWanita="mempelaiWanita"
         id="welcomeSection"
       />
       <IntroductionFamilies

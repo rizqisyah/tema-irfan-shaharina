@@ -40,6 +40,8 @@ type CountDownTypes = {
 interface CoverInvitationProps {
   acara: Array<acaraTypes>;
   countdownDate?: string | null;
+  mempelaiPria?: string;
+  mempelaiWanita?: string;
 }
 
 const props = defineProps<CoverInvitationProps>();
@@ -171,6 +173,19 @@ watch(
     bindingData();
   },
   { deep: true }
+);
+
+watch(
+  () => [props.mempelaiPria, props.mempelaiWanita],
+  ([pria, wanita]) => {
+    if (pria && pria !== "-") {
+      mempelaiPria.value = pria;
+    }
+    if (wanita && wanita !== "-") {
+      mempelaiWanita.value = wanita;
+    }
+  },
+  { immediate: true }
 );
 </script>
 
