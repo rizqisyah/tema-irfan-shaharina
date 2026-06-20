@@ -18,6 +18,7 @@ import Seabank_logo from "@/assets/images/logo-seabank.png";
 import Jago_logo from "@/assets/images/bank-jago.png";
 import Mualamat_logo from "@/assets/images/logo_muamalat.png";
 import common_logo from "@/assets/images/common-bank.png";
+import hsbc_logo from "@/assets/images/hsbc_logo.png";
 import kado_logo from "@/assets/images/Kado.png";
 
 const themeStore = useThemeStore();
@@ -64,6 +65,7 @@ const handleIconBank = (e: string): string => {
   else if (bank == "seabank") return Seabank_logo;
   else if (bank == "jago") return Jago_logo;
   else if (bank == "muamalat") return Mualamat_logo;
+  else if (bank == "hsbc") return hsbc_logo;
   else if (bank == "commonwealth bank") return common_logo;
   else if (bank == "kado") return kado_logo;
   return "";
