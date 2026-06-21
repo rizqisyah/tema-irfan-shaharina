@@ -26,6 +26,7 @@ const groomFirst = computed(() => {
 });
 const isOpen: Ref<boolean> = ref(false);
 const loading: Ref<boolean> = ref(false);
+const isRestricted: Ref<boolean> = ref(false);
 const mempelaiPria: Ref<string> = ref("-");
 const mempelaiWanita: Ref<string> = ref("-");
 const fotoFooter: Ref<string> = ref("-");
@@ -307,6 +308,9 @@ const fetchHomeData = () => {
     })
     .catch((err) => {
       console.error(err);
+      if (err.response && err.response.status === 403) {
+        isRestricted.value = true;
+      }
       return false;
     });
 };
@@ -443,7 +447,20 @@ watch(
 </script>
 
 <template>
-  <div class="flex flex-col mx-auto" style="max-width: 480px">
+  <div v-if="isRestricted" class="restricted-container">
+    <div class="restricted-card">
+      <div class="lock-icon-container">
+        <svg class="lock-icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+      </div>
+      <h1>Akses Terbatas</h1>
+      <p>Mohon maaf, undangan ini bersifat privat dan hanya dapat diakses melalui link resmi yang dikirimkan oleh penyelenggara kepada tamu undangan yang terdaftar.</p>
+      <div class="restricted-footer">{{ mempelaiPria }} & {{ mempelaiWanita }}</div>
+    </div>
+  </div>
+  <div v-else class="flex flex-col mx-auto" style="max-width: 480px">
     <!-- Cover Section -->
     <div
       v-if="!isOpen"
@@ -673,5 +690,69 @@ watch(
 
 .bg-combo-linear {
   background: rgba(245, 243, 241, 0.77);
+}
+
+.restricted-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  height: 100dvh;
+  width: 100%;
+  max-width: 480px;
+  background: linear-gradient(135deg, #0d0e15 0%, #171926 100%);
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+.restricted-card {
+  text-align: center;
+  padding: 3rem 2rem;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  width: 100%;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.lock-icon-container {
+  margin-bottom: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.lock-icon {
+  color: #ff4d4d;
+  filter: drop-shadow(0 4px 12px rgba(255, 77, 77, 0.3));
+  animation: pulse 2s infinite ease-in-out;
+}
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+.restricted-card h1 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  background: linear-gradient(to right, #ff4d4d, #f9ca24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.restricted-card p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  font-family: 'Outfit', sans-serif;
+}
+.restricted-footer {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-family: 'Outfit', sans-serif;
 }
 </style>
