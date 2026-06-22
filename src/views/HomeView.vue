@@ -15,6 +15,8 @@ import MenusFloating from "@/components/MenusFloating.vue";
 import WishesList from "@/components/Sections/WishesList.vue";
 import VideoSection from "@/components/Sections/VideoSection.vue";
 import InfoSection from "@/components/Sections/InfoSection.vue";
+import AturCaraSection from "@/components/Sections/AturCaraSection.vue";
+import ContactPersonSection from "@/components/Sections/ContactPersonSection.vue";
 import { useRoute } from "vue-router";
 import { useSnackbar } from "vue3-snackbar";
 import { useHead } from "@vueuse/head";
@@ -586,6 +588,9 @@ watch(
         id="acaraSection"
         :acara="dataPernikahan.acara"
       />
+      <AturCaraSection 
+        :words="themeStore.wedding?.theme_override?.words" 
+      />
       <InfoSection
         v-if="themeStore.wedding?.theme_override?.words?.info_show !== false && themeStore.wedding?.theme_override?.words?.info_show !== 'false'"
       />
@@ -615,6 +620,9 @@ watch(
           />
         </div>
       </div>
+      <ContactPersonSection 
+        :words="themeStore.wedding?.theme_override?.words" 
+      />
       <StorySection
         v-if="
           dataPernikahan.ceritaCinta && dataPernikahan.ceritaCinta.length > 0

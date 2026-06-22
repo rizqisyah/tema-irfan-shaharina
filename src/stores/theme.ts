@@ -10,6 +10,9 @@ interface ThemeColorsConfig {
   text_light: string;
   text_body: string;
   bg_body: string;
+  atur_cara_primary?: string;
+  atur_cara_time?: string;
+  contact_primary?: string;
 }
 
 interface ThemeFontsConfig {
@@ -44,6 +47,12 @@ interface ThemeWordsConfig {
   info_show?: boolean;
   info_title?: string;
   info_items?: string;
+  atur_cara_show?: boolean;
+  atur_cara_title?: string;
+  atur_cara_items?: string;
+  contact_show?: boolean;
+  contact_title?: string;
+  contact_items?: string;
 }
 
 interface ThemeConfig {
@@ -226,6 +235,13 @@ export const useThemeStore = defineStore("theme", () => {
   }
 
   function setWedding(data: any) {
+    if (data && typeof data.theme_override === "string") {
+      try {
+        data.theme_override = JSON.parse(data.theme_override);
+      } catch (e) {
+        console.error("Failed to parse theme_override:", e);
+      }
+    }
     wedding.value = data || null;
   }
 
@@ -252,9 +268,14 @@ export const useThemeStore = defineStore("theme", () => {
   function applyTheme() {
     const root = document.documentElement;
     const cfg = themeConfig.value;
-    // theme_override dari wedding — priority tertinggi
-    const override: ThemeConfig =
-      (wedding.value?.theme_override as ThemeConfig) || {};
+    let override: ThemeConfig = {};
+    try {
+      override = typeof wedding.value?.theme_override === "string"
+        ? JSON.parse(wedding.value.theme_override)
+        : wedding.value?.theme_override || {};
+    } catch (e) {
+      override = {};
+    }
 
     // Inject custom uploaded fonts first
     if (override.fonts_custom) {
@@ -279,6 +300,7 @@ export const useThemeStore = defineStore("theme", () => {
       ...(cfg?.colors || {}),
       ...(override.colors || {}),
     };
+    console.log("APPLYING THEME COLORS:", colors);
     Object.entries(colors).forEach(([key, value]) => {
       if (value)
         root.style.setProperty(`--color-${key.replace(/_/g, "-")}`, value);
