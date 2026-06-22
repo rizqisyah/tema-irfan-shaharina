@@ -4,6 +4,7 @@ import type { Ref } from "vue";
 
 import WelcomeSection from "@/components/Sections/WelcomeSection.vue";
 import StorySection from "@/components/Sections/StorySections.vue";
+import AsmaralokaSection from "@/components/Sections/AsmaralokaSection.vue";
 import IntroductionFamilies from "@/components/Sections/IntroductionFamilies.vue";
 import WeddingEvents from "@/components/Sections/WeddingEvents.vue";
 import PresenceForm from "@/components/Sections/PresenceForm.vue";
@@ -188,6 +189,15 @@ interface dataPernikahanType {
     updatedAt?: string;
     userId?: number;
   }>;
+  asmaraloka: Array<{
+    id: string | number;
+    wedding_id?: string;
+    title?: string;
+    content?: string;
+    image_url?: string | null;
+    sort_order?: number;
+    created_at?: string;
+  }>;
 }
 
 const dataPernikahan: Ref<dataPernikahanType> = ref({
@@ -209,6 +219,7 @@ const dataPernikahan: Ref<dataPernikahanType> = ref({
     userId: 0,
   },
   ucapan: [],
+  asmaraloka: [],
 });
 
 const fetchHomeData = () => {
@@ -293,6 +304,7 @@ const fetchHomeData = () => {
           rekening: content?.rekening || [],
           tamu: mappedGuest,
           ucapan: content?.ucapan || [],
+          asmaraloka: content?.asmaraloka || [],
         };
 
         return true;
@@ -605,7 +617,10 @@ watch(
         id="walletSection"
         :rekening="dataPernikahan.rekening"
       />
-      <!-- <AsmaralokaSection /> -->
+      <AsmaralokaSection
+        v-if="dataPernikahan.asmaraloka && dataPernikahan.asmaraloka.length > 0"
+        :asmaraloka="dataPernikahan.asmaraloka"
+      />
       <div class="flex flex-col px-8 pt-9">
         <div
           data-aos="zoom-in-up"
