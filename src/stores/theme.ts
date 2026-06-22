@@ -22,6 +22,8 @@ interface ThemeFontsConfig {
   script: string;
   italic: string;
   section?: string;
+  spouse_nickname?: string;
+  spouse_fullname?: string;
 }
 
 interface ThemeBackgroundsConfig {
@@ -106,6 +108,8 @@ const DEFAULT_FONTS: ThemeFontsConfig = {
   script: "'FormaleScript'",
   italic: "'Cormorant Garamond'",
   section: "'Aston Script'",
+  spouse_nickname: "'FormaleScript'",
+  spouse_fullname: "'Cormorant Garamond'",
 };
 
 const DEFAULT_BACKGROUND_URLS: Record<string, string> = {
@@ -288,7 +292,7 @@ export const useThemeStore = defineStore("theme", () => {
 
     // Set font scales
     const fontScales = override.font_scales || {};
-    const slots = ["headline", "body", "accent", "script", "italic", "section"];
+    const slots = ["headline", "body", "accent", "script", "italic", "section", "spouse_nickname", "spouse_fullname"];
     slots.forEach((slot) => {
       const scale = fontScales[slot] !== undefined ? fontScales[slot] : 1;
       root.style.setProperty(`--font-scale-${slot}`, String(scale));

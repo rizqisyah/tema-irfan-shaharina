@@ -228,11 +228,14 @@ const handleIgW = (): void => {
             </div>
             <p
               class="headline-11 text-black mt-2 mb-1 px-8 text-center"
-              style="font-family: var(--font-script); font-size: calc(2rem * var(--font-scale-script, 1))"
+              style="font-family: var(--font-spouse_nickname, var(--font-spouse-nickname, var(--font-script))); font-size: calc(2rem * var(--font-scale-spouse_nickname, var(--font-scale-spouse-nickname, var(--font-scale-script, 1))))"
             >
               {{ pengantinPria.namaPanggilan }}
             </p>
-            <p class="caption-11 text-black mb-8 px-8 text-center font-bold">
+            <p
+              class="caption-11 text-black mb-8 px-8 text-center font-bold"
+              style="font-family: var(--font-spouse_fullname, var(--font-spouse-fullname, var(--font-italic))); font-size: calc(20.8px * var(--font-scale-spouse_fullname, var(--font-scale-spouse-fullname, var(--font-scale-italic, 1))))"
+            >
               {{ pengantinPria.namaLengkap }}
             </p>
 
@@ -313,11 +316,14 @@ const handleIgW = (): void => {
             </div>
             <p
               class="headline-11 text-black mt-2 mb-1 px-8 text-center"
-              style="font-family: var(--font-script); font-size: calc(2rem * var(--font-scale-script, 1))"
+              style="font-family: var(--font-spouse_nickname, var(--font-spouse-nickname, var(--font-script))); font-size: calc(2rem * var(--font-scale-spouse_nickname, var(--font-scale-spouse-nickname, var(--font-scale-script, 1))))"
             >
               {{ pengantinWanita.namaPanggilan }}
             </p>
-            <p class="caption-11 text-black mb-8 px-8 text-center font-bold">
+            <p
+              class="caption-11 text-black mb-8 px-8 text-center font-bold"
+              style="font-family: var(--font-spouse_fullname, var(--font-spouse-fullname, var(--font-italic))); font-size: calc(20.8px * var(--font-scale-spouse_fullname, var(--font-scale-spouse-fullname, var(--font-scale-italic, 1))))"
+            >
               {{ pengantinWanita.namaLengkap }}
             </p>
             <!-- Nama Lengkap Mempelai Wanita -->
