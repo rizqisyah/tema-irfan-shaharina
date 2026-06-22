@@ -214,7 +214,7 @@ watch(
         data-aos-duration="2000"
         class="headline-99 mb-4 text-black"
       >
-        The Wedding Of
+        {{ themeStore.wedding?.theme_override?.words?.the_wedding_of || 'The Wedding Of' }}
       </p>
       <p
         data-aos="zoom-in-up"

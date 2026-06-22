@@ -488,7 +488,7 @@ watch(
             fontSize: 'calc(32px * var(--font-scale-accent, 1))',
           }"
         >
-          The Wedding Of
+          {{ themeStore.wedding?.theme_override?.words?.the_wedding_of || 'The Wedding Of' }}
         </p>
         <p
           data-aos="zoom-in-up"
