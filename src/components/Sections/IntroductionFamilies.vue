@@ -160,7 +160,8 @@ const handleIgW = (): void => {
           data-aos-duration="2000"
           class="caption-8 text-black text-center px-2"
         >
-          “{{ quoteText }}” <br />{{ quoteVerse }}
+          “{{ quoteText }}”
+          <span class="block mt-5 font-bold">{{ quoteVerse }}</span>
         </p>
 
         <!-- Bottom ornamental divider -->
