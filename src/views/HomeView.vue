@@ -329,14 +329,26 @@ const fetchHomeData = () => {
     });
 };
 
-const handleClick = (): void => {
-  loading.value = true;
+let initialFetchPromise: Promise<boolean> | null = null;
 
-  fetchHomeData()
+const handleClick = (): void => {
+  if (weddingData.value) {
+    isOpen.value = true;
+    return;
+  }
+
+  loading.value = true;
+  const promise = initialFetchPromise || fetchHomeData();
+  promise
     .then((success) => {
       if (success) {
         isOpen.value = true;
+      } else {
+        initialFetchPromise = null;
       }
+    })
+    .catch(() => {
+      initialFetchPromise = null;
     })
     .finally(() => (loading.value = false));
 };
@@ -373,7 +385,7 @@ onMounted(() => {
   splittingUsername(username);
   isVideoSectionShown.value = true;
 
-  fetchHomeData();
+  initialFetchPromise = fetchHomeData();
 });
 
 const headData = reactive({
