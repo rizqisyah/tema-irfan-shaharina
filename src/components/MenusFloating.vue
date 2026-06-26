@@ -24,7 +24,17 @@ const audioPlayer = ref<HTMLAudioElement | null>(null);
 
 const onAudioLoaded = (event: Event) => {
   const audio = event.target as HTMLAudioElement;
-  audio.currentTime = 0;
+  const start = themeStore.wedding?.music_start || 0;
+  audio.currentTime = start;
+};
+
+const onTimeUpdate = (event: Event) => {
+  const audio = event.target as HTMLAudioElement;
+  const start = themeStore.wedding?.music_start || 0;
+  const end = themeStore.wedding?.music_end;
+  if (end && audio.currentTime >= end) {
+    audio.currentTime = start;
+  }
 };
 
 const changeStatePlay = (): void => {
@@ -32,6 +42,11 @@ const changeStatePlay = (): void => {
     if (isPlay.value) {
       audioPlayer.value.pause();
     } else {
+      const start = themeStore.wedding?.music_start || 0;
+      const end = themeStore.wedding?.music_end;
+      if (audioPlayer.value.currentTime < start || (end && audioPlayer.value.currentTime >= end)) {
+        audioPlayer.value.currentTime = start;
+      }
       audioPlayer.value.play();
     }
     // isPlay state will be updated by the @play/@pause event listeners on the audio element
@@ -97,6 +112,7 @@ const changeStatePlay = (): void => {
       loop
       class="hidden"
       @loadedmetadata="onAudioLoaded"
+      @timeupdate="onTimeUpdate"
       @play="isPlay = true"
       @pause="isPlay = false"
     ></audio>
