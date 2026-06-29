@@ -84,6 +84,8 @@ interface WeddingData {
   theme_override?: Record<string, any>;
   countdown_date?: string | null;
   music_url?: string | null;
+  music_start?: number | null;
+  music_end?: number | null;
   video_url?: string | null;
   image_cover?: string | null;
   image_bg1?: string | null;
