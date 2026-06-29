@@ -6,11 +6,11 @@ const props = defineProps<{
 }>();
 
 const primaryColor = computed(() => {
-  return 'var(--color-atur-cara-primary, var(--color-primary, #8B0000))';
+  return 'var(--color-atur-cara-primary, var(--color-primary, #1F1C1F))';
 });
 
 const timeColor = computed(() => {
-  return 'var(--color-atur-cara-time, var(--color-atur-cara-primary, var(--color-primary, #8B0000)))';
+  return 'var(--color-atur-cara-time, var(--color-atur-cara-primary, var(--color-primary, #1F1C1F)))';
 });
 
 const textColor = computed(() => {

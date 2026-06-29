@@ -1,32 +1,32 @@
 .caption-1 {
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-body, "Noto Sans"), sans-serif;
   /* font-style: normal; */
   font-weight: 400;
-  font-size: 12px;
+  font-size: calc(12px * var(--font-scale-body, 1));
   line-height: 16px;
 }
 
 .caption-2 {
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-body, "Noto Sans"), sans-serif;
   font-style: normal;
   font-weight: 600;
-  font-size: 14px;
+  font-size: calc(14px * var(--font-scale-body, 1));
   line-height: 20px;
 }
 
 .caption-3 {
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-body, "Noto Sans"), sans-serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 12px;
+  font-size: calc(12px * var(--font-scale-body, 1));
   line-height: 20px;
 }
 
 .caption-4 {
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-body, "Noto Sans"), sans-serif;
   font-style: normal;
   font-weight: 300;
-  font-size: 12px;
+  font-size: calc(12px * var(--font-scale-body, 1));
   line-height: 18px;
 }
 
@@ -48,34 +48,34 @@
 }
 
 .caption-7 {
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-body, "Noto Sans"), sans-serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 10px;
+  font-size: calc(10px * var(--font-scale-body, 1));
   line-height: 13px;
 }
 
 .caption-8 {
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-body, "Noto Sans"), sans-serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 14px;
+  font-size: calc(14px * var(--font-scale-body, 1));
   line-height: 20px;
 }
 
 .caption-9 {
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-body, "Noto Sans"), sans-serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 12px;
+  font-size: calc(12px * var(--font-scale-body, 1));
   line-height: 16px;
 }
 
 .caption-10 {
-  font-family: "Monesta Bpld";
+  font-family: var(--font-parents, "Monesta Bpld");
   font-style: normal;
   font-weight: 400;
-  font-size: 16px;
+  font-size: calc(16px * var(--font-scale-parents, 1));
   line-height: 19px;
 }
 
@@ -105,18 +105,19 @@
 }
 
 .caption-14 {
-  font-family: "Cormorant Garamond";
+  font-family: var(--font-event_opening, "Cormorant Garamond");
   font-style: normal;
   font-weight: 500;
-  font-size: 16px;
+  font-size: calc(16px * var(--font-scale-event_opening, 1));
   line-height: 22px;
+  color: var(--color-event-opening-color, var(--color-text-dark, #1F1C1F));
 }
 
 .body-1 {
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-body, "Noto Sans"), sans-serif;
   font-style: normal;
   font-weight: 700;
-  font-size: 14px;
+  font-size: calc(14px * var(--font-scale-body, 1));
   line-height: 19px;
   /* identical to box height */
 
@@ -124,18 +125,18 @@
 }
 
 .body-2 {
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-body, "Noto Sans"), sans-serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 14px;
+  font-size: calc(14px * var(--font-scale-body, 1));
   line-height: 24px;
 }
 
 .body-3 {
-  font-family: "Noto Sans", sans-serif;
+  font-family: var(--font-body, "Noto Sans"), sans-serif;
   font-style: normal;
   font-weight: 500;
-  font-size: 14px;
+  font-size: calc(14px * var(--font-scale-body, 1));
   line-height: 19px;
   text-align: center;
 }
@@ -184,6 +185,7 @@
   font-size: calc(19.2px * var(--font-scale-section, 1));
   line-height: 25px;
   letter-spacing: 1px;
+  color: var(--color-section-title, var(--color-text-dark, #1F1C1F));
 }
 
 .body-77 {
@@ -323,12 +325,13 @@
 }
 
 .headline-12 {
-  font-family: "Cormorant Garamond";
+  font-family: var(--font-form_label, "Cormorant Garamond");
   font-style: normal;
   font-weight: 600;
-  font-size: 14px;
+  font-size: calc(14px * var(--font-scale-form_label, 1));
   line-height: 22px;
   letter-spacing: 0.1px;
+  color: var(--color-form-label-color, var(--color-primary, #55391C));
 }
 
 .headline-13 {

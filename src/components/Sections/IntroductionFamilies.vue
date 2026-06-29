@@ -190,7 +190,7 @@ const handleIgW = (): void => {
           data-aos-duration="2500"
           class="flex flex-col items-center mb-10"
         >
-          <p class="body-777 text-black mb-5 px-8 text-center">
+          <p class="body-777 mb-5 px-8 text-center">
             {{ themeStore.isEnglish ? 'The Bride & Groom' : 'Kedua Mempelai' }}
           </p>
 
@@ -228,13 +228,13 @@ const handleIgW = (): void => {
               </div>
             </div>
             <p
-              class="headline-11 text-black mt-2 mb-1 px-8 text-center"
-              style="font-family: var(--font-spouse_nickname, var(--font-spouse-nickname, var(--font-script))); font-size: calc(2rem * var(--font-scale-spouse_nickname, var(--font-scale-spouse-nickname, var(--font-scale-script, 1))))"
+              class="headline-11 mt-2 mb-1 px-8 text-center"
+              style="font-family: var(--font-spouse_nickname, var(--font-spouse-nickname, var(--font-headline, var(--font-script)))); font-size: calc(2rem * var(--font-scale-spouse_nickname, var(--font-scale-spouse-nickname, var(--font-scale-headline, var(--font-scale-script, 1)))))"
             >
               {{ pengantinPria.namaPanggilan }}
             </p>
             <p
-              class="caption-11 text-black mb-8 px-8 text-center font-bold"
+              class="caption-11 mb-8 px-8 text-center font-bold"
               style="font-family: var(--font-spouse_fullname, var(--font-spouse-fullname, var(--font-italic))); font-size: calc(20.8px * var(--font-scale-spouse_fullname, var(--font-scale-spouse-fullname, var(--font-scale-italic, 1))))"
             >
               {{ pengantinPria.namaLengkap }}
@@ -245,7 +245,7 @@ const handleIgW = (): void => {
                 <p
                   data-aos="zoom-in-up"
                   data-aos-duration="2000"
-                  class="caption-10 text-black px-8 text-center mb-1"
+                  class="caption-10 px-8 text-center mb-1"
                 >
                   {{
                     isNotEmpty(pengantinPria.childOf)
@@ -257,7 +257,7 @@ const handleIgW = (): void => {
                   v-if="hasFatherPria"
                   data-aos="zoom-in-up"
                   data-aos-duration="2000"
-                  class="caption-10 text-black px-8 text-center"
+                  class="caption-10 px-8 text-center"
                 >
                   {{ pengantinPria.namaAyah }}
                 </p>
@@ -265,7 +265,7 @@ const handleIgW = (): void => {
                   v-if="hasMotherPria"
                   data-aos="zoom-in-up"
                   data-aos-duration="2000"
-                  class="caption-10 text-black px-8 text-center"
+                  class="caption-10 px-8 text-center"
                 >
                   {{ pengantinPria.namaIbu }}
                 </p>
@@ -316,13 +316,13 @@ const handleIgW = (): void => {
               </div>
             </div>
             <p
-              class="headline-11 text-black mt-2 mb-1 px-8 text-center"
-              style="font-family: var(--font-spouse_nickname, var(--font-spouse-nickname, var(--font-script))); font-size: calc(2rem * var(--font-scale-spouse_nickname, var(--font-scale-spouse-nickname, var(--font-scale-script, 1))))"
+              class="headline-11 mt-2 mb-1 px-8 text-center"
+              style="font-family: var(--font-spouse_nickname, var(--font-spouse-nickname, var(--font-headline, var(--font-script)))); font-size: calc(2rem * var(--font-scale-spouse_nickname, var(--font-scale-spouse-nickname, var(--font-scale-headline, var(--font-scale-script, 1)))))"
             >
               {{ pengantinWanita.namaPanggilan }}
             </p>
             <p
-              class="caption-11 text-black mb-8 px-8 text-center font-bold"
+              class="caption-11 mb-8 px-8 text-center font-bold"
               style="font-family: var(--font-spouse_fullname, var(--font-spouse-fullname, var(--font-italic))); font-size: calc(20.8px * var(--font-scale-spouse_fullname, var(--font-scale-spouse-fullname, var(--font-scale-italic, 1))))"
             >
               {{ pengantinWanita.namaLengkap }}
@@ -334,7 +334,7 @@ const handleIgW = (): void => {
                 <p
                   data-aos="zoom-in-up"
                   data-aos-duration="2000"
-                  class="caption-10 text-black px-8 text-center mb-1"
+                  class="caption-10 px-8 text-center mb-1"
                 >
                   {{
                     isNotEmpty(pengantinWanita.childOf)
@@ -346,7 +346,7 @@ const handleIgW = (): void => {
                   v-if="hasFatherWanita"
                   data-aos="zoom-in-up"
                   data-aos-duration="2000"
-                  class="caption-10 text-black px-8 text-center"
+                  class="caption-10 px-8 text-center"
                 >
                   {{ pengantinWanita.namaAyah }}
                 </p>
@@ -354,7 +354,7 @@ const handleIgW = (): void => {
                   v-if="hasMotherWanita"
                   data-aos="zoom-in-up"
                   data-aos-duration="2000"
-                  class="caption-10 text-black px-8 text-center"
+                  class="caption-10 px-8 text-center"
                 >
                   {{ pengantinWanita.namaIbu }}
                 </p>
@@ -394,6 +394,7 @@ const handleIgW = (): void => {
   position: relative;
   overflow: hidden;
   background-attachment: fixed;
+  color: var(--color-spouse-text, var(--color-text-dark, #1F1C1F));
 }
 /* Fix for iOS devices */
 @supports (-webkit-touch-callout: none) {

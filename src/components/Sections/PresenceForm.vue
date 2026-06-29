@@ -128,7 +128,7 @@ const handleConfirm = (): void => {
     <p
       data-aos="zoom-in-up"
       data-aos-duration="2000"
-      class="headline-20 text-brown-30 text-center font-extralight mb-5"
+      class="body-777 text-center font-extralight mb-5"
     >
       {{ themeStore.isEnglish ? "RSVP Confirmation" : "Konfirmasi Kehadiran" }}
     </p>
@@ -153,7 +153,7 @@ const handleConfirm = (): void => {
         </svg>
       </div>
       <p
-        class="headline-12 text-center text-brown-30 mb-2 font-bold"
+        class="headline-12 text-center mb-2 font-bold"
         style="font-size: 1.25rem"
       >
         {{ themeStore.isEnglish ? "Thank You!" : "Terima Kasih!" }}
@@ -172,7 +172,7 @@ const handleConfirm = (): void => {
       <p
         data-aos="zoom-in-up"
         data-aos-duration="2000"
-        class="headline-12 text-center text-brown-30 mb-3"
+        class="headline-12 text-center mb-3"
       >
         {{
           themeStore.isEnglish
@@ -183,7 +183,7 @@ const handleConfirm = (): void => {
 
       <form action="#" @submit.prevent="handleConfirm">
         <div class="flex flex-col">
-          <p class="headline-12 text-brown-30 mb-1.5">
+          <p class="headline-12 mb-1.5">
             {{ themeStore.isEnglish ? "Name" : "Nama" }}
           </p>
           <input
@@ -195,7 +195,7 @@ const handleConfirm = (): void => {
             class="rounded-sm mb-5 p-2 text-brown-30"
             required
           />
-          <p class="headline-12 text-brown-30 mb-1.5">
+          <p class="headline-12 mb-1.5">
             {{ themeStore.isEnglish ? "Phone Number:" : "Nomor Handphone:" }}
           </p>
           <input
@@ -211,7 +211,7 @@ const handleConfirm = (): void => {
           />
         </div>
         <div class="flex flex-col">
-          <p class="headline-12 text-brown-30 mb-1.5">
+          <p class="headline-12 mb-1.5">
             {{ themeStore.isEnglish ? "Attendance" : "Kehadiran" }}
           </p>
 
@@ -244,7 +244,7 @@ const handleConfirm = (): void => {
             </div>
           </div>
           <div v-if="form.hadir === 1" class="mt-5">
-            <p class="headline-12 text-brown-30 mb-1.5">
+            <p class="headline-12 mb-1.5">
               {{ themeStore.isEnglish ? "Number of Guests" : "Jumlah Tamu" }}
             </p>
             <input

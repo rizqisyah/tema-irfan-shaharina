@@ -522,8 +522,8 @@ watch(
           class="text-center mt-2 relative z-10"
           :style="{
             color: 'var(--color-primary)',
-            fontFamily: 'var(--font-section)',
-            fontSize: 'calc(24px * var(--font-scale-section, 1))',
+            fontFamily: 'var(--font-spouse_nickname)',
+            fontSize: 'calc(32px * var(--font-scale-spouse_nickname)',
             lineHeight: '1.2',
           }"
         >

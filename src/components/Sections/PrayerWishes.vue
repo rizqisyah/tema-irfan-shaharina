@@ -92,13 +92,13 @@ const handleSubmit = async (): Promise<void> => {
       <p
         data-aos="zoom-in-up"
         data-aos-duration="2000"
-        class="headline-20 text-brown-30 mb-2 text-center"
+        class="body-777 mb-2 text-center"
       >
         {{ themeStore.isEnglish ? "Wishes and Prayers" : "Doa dan Ucapan" }}
       </p>
 
       <div class="flex flex-col">
-        <p class="headline-12 text-brown-30 mb-1.5">
+        <p class="headline-12 mb-1.5">
           {{ themeStore.isEnglish ? "Name" : "Nama" }}
         </p>
         <input
@@ -108,7 +108,7 @@ const handleSubmit = async (): Promise<void> => {
           name="fname"
           class="rounded-sm mb-5 p-2 text-brown-30"
         />
-        <p class="headline-12 text-brown-30 mb-1.5">
+        <p class="headline-12 mb-1.5">
           {{
             themeStore.isEnglish
               ? "Send your wishes and prayers:"

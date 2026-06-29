@@ -154,7 +154,7 @@ const showQris = ref(false);
         data-aos-duration="2000"
         class="flex flex-col bg-container-shadow rounded-xl p-6 mb-8 text-center items-center"
       >
-        <p class="headline-188 text-black mb-4 font-extralight">
+        <p class="body-777 mb-4 font-extralight">
           {{ themeStore.isEnglish ? "Digital Gift" : "Kado Digital" }}
         </p>
         <p class="caption-1 text-black">

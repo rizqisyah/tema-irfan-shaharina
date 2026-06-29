@@ -144,7 +144,7 @@ watch(
         <p
           data-aos="zoom-in-up"
           data-aos-duration="2000"
-          class="body-777 text-black mb-4"
+          class="body-777 mb-4"
         >
           Gallery
         </p>

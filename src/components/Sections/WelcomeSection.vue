@@ -213,6 +213,10 @@ watch(
         data-aos="zoom-in-up"
         data-aos-duration="2000"
         class="headline-99 mb-4 text-black"
+        :style="{
+          fontFamily: 'var(--font-accent)',
+          fontSize: 'calc(32px * var(--font-scale-accent, 1))',
+        }"
       >
         {{ themeStore.wedding?.theme_override?.words?.the_wedding_of || 'The Wedding Of' }}
       </p>
@@ -220,6 +224,10 @@ watch(
         data-aos="zoom-in-up"
         data-aos-duration="2000"
         class="headline-11 mb-10"
+        :style="{
+          fontFamily: 'var(--font-spouse_nickname, var(--font-spouse-nickname, var(--font-headline)))',
+          fontSize: 'calc(48px * var(--font-scale-spouse_nickname, var(--font-scale-spouse-nickname, var(--font-scale-headline, 1))))'
+        }"
       >
         {{ groomFirst ? mempelaiPria : mempelaiWanita }}
       </p>
@@ -228,6 +236,10 @@ watch(
         data-aos="zoom-in-up"
         data-aos-duration="2000"
         class="headline-11 mb-10"
+        :style="{
+          fontFamily: 'var(--font-spouse_nickname, var(--font-spouse-nickname, var(--font-headline)))',
+          fontSize: 'calc(48px * var(--font-scale-spouse_nickname, var(--font-scale-spouse-nickname, var(--font-scale-headline, 1))))'
+        }"
       >
         &
       </p>
@@ -235,6 +247,10 @@ watch(
         data-aos="zoom-in-up"
         data-aos-duration="2000"
         class="headline-11 mb-10"
+        :style="{
+          fontFamily: 'var(--font-spouse_nickname, var(--font-spouse-nickname, var(--font-headline)))',
+          fontSize: 'calc(48px * var(--font-scale-spouse_nickname, var(--font-scale-spouse-nickname, var(--font-scale-headline, 1))))'
+        }"
       >
         {{ groomFirst ? mempelaiWanita : mempelaiPria }}
       </p>

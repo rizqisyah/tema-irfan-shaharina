@@ -169,7 +169,7 @@ const openAcara = (e: any): void => {
         <p
           data-aos="zoom-in-up"
           data-aos-duration="2000"
-          class="headline-20 text-black"
+          class="body-777"
         >
           With Love
         </p>
@@ -177,7 +177,7 @@ const openAcara = (e: any): void => {
         <p
           data-aos="zoom-in-up"
           data-aos-duration="2000"
-          class="caption-14 text-black text-center mx-7 mb-4"
+          class="caption-14 text-center mx-7 mb-4"
         >
           {{ openingMessage }}
         </p>
@@ -206,7 +206,7 @@ const openAcara = (e: any): void => {
           </span>
         </p>
         <hr class="border-gold-10 mt-5 mb-7" style="width: 40%" />
-        <p class="body-777 text-black my-2">{{ item.hari }}</p>
+        <p class="body-777 my-2">{{ item.hari }}</p>
         <p class="body-7 text-black my-5">{{ item.tanggal }}</p>
         <p
           v-for="(timeLine, timeIdx) in item.timeLines"

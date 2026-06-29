@@ -13,6 +13,10 @@ interface ThemeColorsConfig {
   atur_cara_primary?: string;
   atur_cara_time?: string;
   contact_primary?: string;
+  spouse_text?: string;
+  section_title?: string;
+  event_opening_color?: string;
+  form_label_color?: string;
 }
 
 interface ThemeFontsConfig {
@@ -24,6 +28,9 @@ interface ThemeFontsConfig {
   section?: string;
   spouse_nickname?: string;
   spouse_fullname?: string;
+  parents?: string;
+  event_opening?: string;
+  form_label?: string;
 }
 
 interface ThemeBackgroundsConfig {
@@ -99,6 +106,10 @@ const DEFAULT_COLORS: ThemeColorsConfig = {
   text_light: "#FFFFFF",
   text_body: "#424242",
   bg_body: "#F5F3F1",
+  spouse_text: "#1F1C1F",
+  section_title: "#1F1C1F",
+  event_opening_color: "#1F1C1F",
+  form_label_color: "#55391C",
 };
 
 const DEFAULT_FONTS: ThemeFontsConfig = {
@@ -110,6 +121,9 @@ const DEFAULT_FONTS: ThemeFontsConfig = {
   section: "'Aston Script'",
   spouse_nickname: "'FormaleScript'",
   spouse_fullname: "'Cormorant Garamond'",
+  parents: "'Monesta Bpld'",
+  event_opening: "'Cormorant Garamond'",
+  form_label: "'Cormorant Garamond'",
 };
 
 const DEFAULT_BACKGROUND_URLS: Record<string, string> = {
@@ -251,7 +265,7 @@ export const useThemeStore = defineStore("theme", () => {
 
   function injectCustomFont(family: string, url: string) {
     if (typeof document === "undefined") return;
-    const cleanFamily = family.replace(/['"]/g, "").trim();
+    const cleanFamily = family.replace(/['"]/g, "").replace(/\+/g, " ").trim();
     const id = `custom-font-${cleanFamily.replace(/\s+/g, "-")}`;
     if (document.getElementById(id)) return;
 
@@ -292,7 +306,7 @@ export const useThemeStore = defineStore("theme", () => {
 
     // Set font scales
     const fontScales = override.font_scales || {};
-    const slots = ["headline", "body", "accent", "script", "italic", "section", "spouse_nickname", "spouse_fullname"];
+    const slots = ["headline", "body", "accent", "script", "italic", "section", "spouse_nickname", "spouse_fullname", "parents", "event_opening", "form_label"];
     slots.forEach((slot) => {
       const scale = fontScales[slot] !== undefined ? fontScales[slot] : 1;
       root.style.setProperty(`--font-scale-${slot}`, String(scale));
@@ -317,7 +331,10 @@ export const useThemeStore = defineStore("theme", () => {
       ...(override.fonts || {}),
     };
     Object.entries(fonts).forEach(([key, value]) => {
-      if (value) root.style.setProperty(`--font-${key}`, value);
+      if (value) {
+        const cleanedValue = value.replace(/\+/g, " ");
+        root.style.setProperty(`--font-${key}`, cleanedValue);
+      }
     });
 
     // Backgrounds: DEFAULT < theme_config < theme_override.backgrounds < wedding.image_*
