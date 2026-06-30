@@ -616,12 +616,21 @@ watch(
         :words="themeStore.wedding?.theme_override?.words" 
       />
       <InfoSection
-        v-if="themeStore.wedding?.theme_override?.words?.info_show !== false && themeStore.wedding?.theme_override?.words?.info_show !== 'false'"
+        v-if="
+          (themeStore.wedding?.theme_override?.words?.info_show !== false && themeStore.wedding?.theme_override?.words?.info_show !== 'false') &&
+          themeStore.wedding?.theme_override?.words?.info_position !== 'below_gallery'
+        "
       />
       <GalleryPhotos
         v-if="dataPernikahan.gallery && dataPernikahan.gallery.length > 0"
         id="gallerySection"
         :gallery="dataPernikahan.gallery"
+      />
+      <InfoSection
+        v-if="
+          (themeStore.wedding?.theme_override?.words?.info_show !== false && themeStore.wedding?.theme_override?.words?.info_show !== 'false') &&
+          themeStore.wedding?.theme_override?.words?.info_position === 'below_gallery'
+        "
       />
 
       <ElectronicWallet

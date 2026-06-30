@@ -56,6 +56,7 @@ interface ThemeWordsConfig {
   info_show?: boolean;
   info_title?: string;
   info_items?: string;
+  info_position?: string;
   atur_cara_show?: boolean;
   atur_cara_title?: string;
   atur_cara_items?: string;
