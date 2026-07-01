@@ -497,6 +497,7 @@ watch(
       <div class="flex flex-col items-center pt-16 mt-4 relative">
         <!-- Background Image -->
         <img
+          v-if="themeStore.wedding?.theme_override?.words?.show_the_wedding_of !== false"
           data-aos="zoom-in-up"
           data-aos-duration="2000"
           src="@/assets/images/IMG_1289.png"
@@ -505,6 +506,7 @@ watch(
         />
         <!-- Text Content -->
         <p
+          v-if="themeStore.wedding?.theme_override?.words?.show_the_wedding_of !== false"
           data-aos="zoom-in-up"
           data-aos-duration="2000"
           class="relative z-10"
@@ -517,6 +519,7 @@ watch(
           {{ themeStore.wedding?.theme_override?.words?.the_wedding_of || 'The Wedding Of' }}
         </p>
         <p
+          v-if="themeStore.wedding?.theme_override?.words?.show_the_wedding_of !== false"
           data-aos="zoom-in-up"
           data-aos-duration="2000"
           class="text-center mt-2 relative z-10"

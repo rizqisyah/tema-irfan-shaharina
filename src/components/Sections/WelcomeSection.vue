@@ -210,6 +210,7 @@ watch(
       class="flex flex-col mx-9 pb-10 pt-24 bg-container-shadow rounded-tema-jawa px-7"
     >
       <p
+        v-if="themeStore.wedding?.theme_override?.words?.show_the_wedding_of !== false"
         data-aos="zoom-in-up"
         data-aos-duration="2000"
         class="headline-99 mb-4 text-black"
