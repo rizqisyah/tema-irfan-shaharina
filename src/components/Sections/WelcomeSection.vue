@@ -211,7 +211,7 @@ watch(
     <div
       data-aos="zoom-in-up"
       data-aos-duration="1000"
-      class="flex flex-col mx-9 pb-10 pt-24 bg-container-shadow rounded-tema-jawa px-7"
+      class="flex flex-col mx-4 sm:mx-9 pb-10 pt-24 bg-container-shadow rounded-tema-jawa px-4 sm:px-7"
     >
       <p
         data-aos="zoom-in-up"

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, computed, watch, reactive } from "vue";
+import { ref, onMounted, onUnmounted, computed, watch, reactive } from "vue";
 import type { Ref } from "vue";
 
 import WelcomeSection from "@/components/Sections/WelcomeSection.vue";
@@ -406,12 +406,38 @@ const handleMenuClick = (e: string): void => {
 
 // Layout is styled statically with immediate visibility to prevent viewport-bound scroll bugs
 
+const handlePreviewMessage = (event: MessageEvent) => {
+  if (event.data && event.data.type === "QINVI_PREVIEW_UPDATE") {
+    console.log("RECEIVED PREVIEW UPDATE:", event.data);
+    const { wedding, theme } = event.data;
+    if (wedding) {
+      let resolvedWedding = { ...wedding };
+      if (typeof resolvedWedding.theme_override === "string") {
+        try {
+          resolvedWedding.theme_override = JSON.parse(resolvedWedding.theme_override);
+        } catch (e) {}
+      }
+      themeStore.setWedding(resolvedWedding);
+      weddingData.value = resolvedWedding;
+    }
+    if (theme) {
+      themeStore.setTheme(theme);
+    }
+    themeStore.applyTheme();
+  }
+};
+
 onMounted(() => {
   const username: string | null = route.params?.username as string;
   splittingUsername(username);
   isVideoSectionShown.value = true;
 
   initialFetchPromise = fetchHomeData();
+  window.addEventListener("message", handlePreviewMessage);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("message", handlePreviewMessage);
 });
 
 const headData = reactive({
@@ -731,7 +757,7 @@ watch(
             v-if="dataPernikahan.asmaraloka && dataPernikahan.asmaraloka.length > 0"
             :asmaraloka="dataPernikahan.asmaraloka"
           />
-          <div class="flex flex-col px-8 pt-9">
+          <div class="flex flex-col px-4 sm:px-8 pt-9">
             <div
               data-aos="zoom-in-up"
               data-aos-duration="1000"

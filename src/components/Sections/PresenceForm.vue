@@ -124,7 +124,7 @@ const handleConfirm = (): void => {
 </script>
 
 <template>
-  <div class="flex flex-col px-6 py-6">
+  <div class="flex flex-col px-4 sm:px-6 py-6">
     <p
       data-aos="zoom-in-up"
       data-aos-duration="2000"
