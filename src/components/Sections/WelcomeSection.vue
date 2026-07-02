@@ -153,19 +153,23 @@ const capitalize = (text: string): string => {
     .join(" ");
 };
 
-const splittingUsername = (username: string): void => {
+const splittingUsername = (username: any): void => {
   if (props.mempelaiPria && props.mempelaiPria !== "-") {
     mempelaiPria.value = props.mempelaiPria;
-  } else {
+  } else if (typeof username === "string") {
     const result = username.split("-");
-    mempelaiPria.value = capitalize(result[0]);
+    mempelaiPria.value = capitalize(result[0] || "");
+  } else {
+    mempelaiPria.value = "";
   }
 
   if (props.mempelaiWanita && props.mempelaiWanita !== "-") {
     mempelaiWanita.value = props.mempelaiWanita;
-  } else {
+  } else if (typeof username === "string") {
     const result = username.split("-");
-    mempelaiWanita.value = capitalize(result[1]);
+    mempelaiWanita.value = capitalize(result[1] || "");
+  } else {
+    mempelaiWanita.value = "";
   }
 };
 

@@ -56,7 +56,7 @@ const changeStatePlay = (): void => {
 </script>
 <template>
   <div
-    class="flex flex-row fixed bottom-2 bg-white menus-shadow z-50 justify-around py-2.5 rounded-full sm:right-1/3 sm:left-1/3 right-2 left-2"
+    class="flex flex-row md:absolute fixed bottom-2 md:bottom-4 bg-white menus-shadow z-50 justify-around py-2.5 rounded-full md:left-1/2 md:-translate-x-1/2 md:w-[90%] md:max-w-[440px] md:right-auto sm:right-1/3 sm:left-1/3 right-2 left-2"
   >
     <button
       class="flex flex-col items-center px-1"

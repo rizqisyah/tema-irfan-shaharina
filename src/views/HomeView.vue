@@ -361,13 +361,37 @@ const capitalize = (text: string): string => {
     .join(" ");
 };
 
-const splittingUsername = (username: string): string => {
+const splittingUsername = (username: any): string => {
+  if (typeof username !== "string") {
+    return "Qinvi Invitation";
+  }
   const result = username.split("-");
-  mempelaiPria.value = capitalize(result[0]);
-  mempelaiWanita.value = capitalize(result[1]);
+  mempelaiPria.value = capitalize(result[0] || "");
+  mempelaiWanita.value = capitalize(result[1] || "");
 
   return `The Wedding  Of  ${mempelaiPria.value} and ${mempelaiWanita.value}`;
 };
+
+const leftBackground = computed(() => {
+  const customLeftBg = themeStore.wedding?.theme_override?.backgrounds?.left_bg;
+  if (customLeftBg) {
+    return themeStore.bgLeft;
+  }
+  return themeStore.bgMain;
+});
+
+const quoteText = computed(() => {
+  return (
+    themeStore.wedding?.theme_override?.words?.quote_text ||
+    "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa cinta dan kasih sayang. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir"
+  );
+});
+
+const quoteVerse = computed(() => {
+  return (
+    themeStore.wedding?.theme_override?.words?.quote_verse || "Ar Rum ayat 21"
+  );
+});
 
 const handleMenuClick = (e: string): void => {
   const $element = document.getElementById(e);
@@ -379,6 +403,8 @@ const handleMenuClick = (e: string): void => {
     });
   }
 };
+
+// Layout is styled statically with immediate visibility to prevent viewport-bound scroll bugs
 
 onMounted(() => {
   const username: string | null = route.params?.username as string;
@@ -486,193 +512,253 @@ watch(
       <div class="restricted-footer">{{ mempelaiPria }} & {{ mempelaiWanita }}</div>
     </div>
   </div>
-  <div v-else class="flex flex-col mx-auto" style="max-width: 480px">
-    <!-- Cover Section -->
+  <div v-else class="w-full min-h-screen flex flex-col md:flex-row overflow-hidden bg-[#f5f3f1]">
+    <!-- Left Column (Desktop Only, fills remaining space) -->
     <div
-      v-if="!isOpen"
-      class="cover-section"
-      :style="{ backgroundImage: themeStore.bgCover }"
+      class="hidden md:flex md:flex-1 h-screen relative flex-col justify-between p-12 text-white bg-cover bg-center overflow-hidden"
+      :style="{
+        background: leftBackground,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat'
+      }"
     >
-      <!-- Title and Names at Top with Background Image -->
-      <div class="flex flex-col items-center pt-16 mt-4 relative">
-        <!-- Background Image -->
-        <img
-          v-if="themeStore.wedding?.theme_override?.words?.show_the_wedding_of !== false"
-          data-aos="zoom-in-up"
-          data-aos-duration="2000"
-          src="@/assets/images/IMG_1289.png"
-          alt="Decoration"
-          class="absolute top-8 w-64 opacity-80"
-        />
-        <!-- Text Content -->
-        <p
-          v-if="themeStore.wedding?.theme_override?.words?.show_the_wedding_of !== false"
-          data-aos="zoom-in-up"
-          data-aos-duration="2000"
-          class="relative z-10"
-          :style="{
-            color: 'var(--color-primary)',
-            fontFamily: 'var(--font-accent)',
-            fontSize: 'calc(32px * var(--font-scale-accent, 1))',
-          }"
-        >
-          {{ themeStore.wedding?.theme_override?.words?.the_wedding_of || 'The Wedding Of' }}
-        </p>
-        <p
-          v-if="themeStore.wedding?.theme_override?.words?.show_the_wedding_of !== false"
-          data-aos="zoom-in-up"
-          data-aos-duration="2000"
-          class="text-center mt-2 relative z-10"
-          :style="{
-            color: 'var(--color-primary)',
-            fontFamily: 'var(--font-spouse_nickname)',
-            fontSize: 'calc(32px * var(--font-scale-spouse_nickname)',
-            lineHeight: '1.2',
-          }"
-        >
-          {{ groomFirst ? mempelaiPria : mempelaiWanita }} & {{ groomFirst ? mempelaiWanita : mempelaiPria }}
-        </p>
-      </div>
-    </div>
-    <!-- Bottom Section - Separate from cover for fixed positioning -->
-    <div v-if="!isOpen" class="bottom-section">
-      <!-- Inner container with background -->
-      <div
-        class="bg-combo-linear rounded-3xl px-10 py-2 flex flex-col items-center"
-      >
-        <p
-          data-aos="zoom-in-up"
-          data-aos-duration="2000"
-          class="text-gray-600 text-center mb-0.5"
-          style="font-family: 'Cochin Italic'; font-size: 14px"
-        >
-          {{
-            themeStore.isEnglish
-              ? "Dear Mr/Mrs/Ms"
-              : "Kepada Yth. Bapak/Ibu/Saudara/i"
-          }}
-        </p>
-        <p
-          data-aos="zoom-in-up"
-          data-aos-duration="2000"
-          class="text-gray-700 text-center mt-0"
-          style="font-family: 'Cochin Italic'; font-size: 20px"
-        >
-          {{ invitedPerson }}
-        </p>
-        <button
-          @click="handleClick"
-          data-aos-duration="2000"
-          data-aos="zoom-in-up"
-          class="px-6 py-2.5 rounded-full mt-3"
-          :style="{ backgroundColor: 'var(--color-primary)' }"
-        >
+      <!-- Overlay for better text readability -->
+      <div class="absolute inset-0 bg-black/40 z-0"></div>
+      
+      <div class="relative z-10 flex flex-col justify-between h-full">
+        <!-- Top: Title and Names -->
+        <div class="flex flex-col pt-12">
           <p
-            class="text-white tracking-wide"
-            style="
-              font-family: var(--font-accent);
-              font-size: calc(20px * var(--font-scale-accent, 1));
-              text-transform: none;
-            "
+            class="text-sm tracking-[0.2em] uppercase opacity-90 mb-4"
+            :style="{ fontFamily: 'var(--font-accent)' }"
           >
-            {{ themeStore.isEnglish ? "Open Invitation" : "Buka Undangan" }}
+            {{ themeStore.wedding?.theme_override?.words?.the_wedding_of || 'The Wedding Of' }}
           </p>
-        </button>
-      </div>
-    </div>
-    <div
-      v-show="isOpen"
-      class="ios-fixed-background"
-      :style="{ backgroundImage: themeStore.bgMain }"
-    ></div>
-    <div
-      v-show="isOpen"
-      class="flex flex-col mx-none md:mx-auto relative z-10"
-      style="max-width: 480px"
-    >
-      <VideoSection v-if="weddingData?.video_url" />
-      <WelcomeSection
-        v-if="dataPernikahan.acara && dataPernikahan.acara.length > 0"
-        :acara="dataPernikahan.acara"
-        :countdownDate="countdownDate"
-        :mempelaiPria="mempelaiPria"
-        :mempelaiWanita="mempelaiWanita"
-        id="welcomeSection"
-      />
-      <IntroductionFamilies
-        v-if="dataPernikahan.pengantin && dataPernikahan.pengantin.length > 0"
-        id="mempelaiSection"
-        :tamu="dataPernikahan.tamu"
-        :pengantin="dataPernikahan.pengantin"
-      />
-      <!-- <img
-        src="https://ik.imagekit.io/AdminQinvi2/3d/Mar24/MaidaHazmi/03-8.webp?updatedAt=1711864752444"
-        alt="Qinvi Wedding Photos Groom"
-      /> -->
-
-      <WeddingEvents
-        v-if="dataPernikahan.acara && dataPernikahan.acara.length > 0"
-        id="acaraSection"
-        :acara="dataPernikahan.acara"
-      />
-      <AturCaraSection 
-        :words="themeStore.wedding?.theme_override?.words" 
-      />
-      <InfoSection
-        v-if="
-          (themeStore.wedding?.theme_override?.words?.info_show !== false && themeStore.wedding?.theme_override?.words?.info_show !== 'false') &&
-          themeStore.wedding?.theme_override?.words?.info_position !== 'below_gallery'
-        "
-      />
-      <GalleryPhotos
-        v-if="dataPernikahan.gallery && dataPernikahan.gallery.length > 0"
-        id="gallerySection"
-        :gallery="dataPernikahan.gallery"
-      />
-      <InfoSection
-        v-if="
-          (themeStore.wedding?.theme_override?.words?.info_show !== false && themeStore.wedding?.theme_override?.words?.info_show !== 'false') &&
-          themeStore.wedding?.theme_override?.words?.info_position === 'below_gallery'
-        "
-      />
-
-      <ElectronicWallet
-        v-if="dataPernikahan.rekening && dataPernikahan.rekening.length > 0"
-        id="walletSection"
-        :rekening="dataPernikahan.rekening"
-      />
-      <AsmaralokaSection
-        v-if="dataPernikahan.asmaraloka && dataPernikahan.asmaraloka.length > 0"
-        :asmaraloka="dataPernikahan.asmaraloka"
-      />
-      <div class="flex flex-col px-8 pt-9">
-        <div
-          data-aos="zoom-in-up"
-          data-aos-duration="1000"
-          class="flex flex-col pt-20 bg-container-shadow rounded-tema-jawa mb-10"
-        >
-          <PresenceForm :tamu="dataPernikahan.tamu" />
-          <PrayerWishes @refresh-wishes="fetchHomeData" />
-          <WishesList
-            v-if="dataPernikahan.ucapan && dataPernikahan.ucapan.length > 0"
-            :wishes="dataPernikahan.ucapan"
-          />
+          <h1
+            class="text-5xl leading-tight mb-8"
+            :style="{
+              fontFamily: 'var(--font-spouse_nickname, var(--font-spouse-nickname, var(--font-headline)))',
+              fontSize: 'calc(3rem * var(--font-scale-spouse_nickname, 1))'
+            }"
+          >
+            {{ groomFirst ? mempelaiPria : mempelaiWanita }} & {{ groomFirst ? mempelaiWanita : mempelaiPria }}
+          </h1>
+        </div>
+        
+        <!-- Middle: Quotes -->
+        <div class="flex flex-col max-w-md my-auto">
+          <p
+            class="text-sm italic leading-relaxed mb-4 opacity-90"
+            :style="{ fontFamily: 'var(--font-italic)' }"
+          >
+            “{{ quoteText }}”
+          </p>
+          <span
+            class="text-xs font-bold tracking-wider opacity-80"
+            :style="{ fontFamily: 'var(--font-italic)' }"
+          >
+            {{ quoteVerse }}
+          </span>
         </div>
       </div>
-      <ContactPersonSection 
-        :words="themeStore.wedding?.theme_override?.words" 
-      />
-      <StorySection
-        v-if="
-          dataPernikahan.ceritaCinta && dataPernikahan.ceritaCinta.length > 0
-        "
-        :ceritaCinta="dataPernikahan.ceritaCinta"
-      />
-
-      <!-- <HealthProtocols /> -->
-
-      <FooterWeddings />
-      <!-- <FooterSections /> -->
+    </div>
+    
+    <!-- Right Column (Desktop fixed width, mobile full screen, non-scrollable parent) -->
+    <div
+      class="w-full md:w-[480px] h-screen overflow-hidden relative flex flex-col mx-auto"
+      :style="isOpen ? (themeStore.bgMain ? {
+        background: themeStore.bgMain,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'scroll'
+      } : {}) : (themeStore.bgCover ? {
+        background: themeStore.bgCover,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'scroll'
+      } : {})"
+    >
+      <!-- Scrollable wrapper for invitation contents -->
+      <div class="w-full h-full overflow-y-auto relative flex flex-col">
+        <!-- Cover Section -->
+        <div
+          v-if="!isOpen"
+          class="cover-section-absolute"
+        >
+          <!-- Title and Names at Top with Background Image -->
+          <div class="flex flex-col items-center pt-16 mt-4 relative">
+            <!-- Background Image -->
+            <img
+              v-if="themeStore.wedding?.theme_override?.words?.show_the_wedding_of !== false"
+              data-aos="zoom-in-up"
+              data-aos-duration="2000"
+              src="@/assets/images/IMG_1289.png"
+              alt="Decoration"
+              class="absolute top-8 w-64 opacity-80"
+            />
+            <!-- Text Content -->
+            <p
+              v-if="themeStore.wedding?.theme_override?.words?.show_the_wedding_of !== false"
+              data-aos="zoom-in-up"
+              data-aos-duration="2000"
+              class="relative z-10"
+              :style="{
+                color: 'var(--color-primary)',
+                fontFamily: 'var(--font-accent)',
+                fontSize: 'calc(32px * var(--font-scale-accent, 1))',
+              }"
+            >
+              {{ themeStore.wedding?.theme_override?.words?.the_wedding_of || 'The Wedding Of' }}
+            </p>
+            <p
+              v-if="themeStore.wedding?.theme_override?.words?.show_the_wedding_of !== false"
+              data-aos="zoom-in-up"
+              data-aos-duration="2000"
+              class="text-center mt-2 relative z-10"
+              :style="{
+                color: 'var(--color-primary)',
+                fontFamily: 'var(--font-spouse_nickname)',
+                fontSize: 'calc(32px * var(--font-scale-spouse_nickname)',
+                lineHeight: '1.2',
+              }"
+            >
+              {{ groomFirst ? mempelaiPria : mempelaiWanita }} & {{ groomFirst ? mempelaiWanita : mempelaiPria }}
+            </p>
+          </div>
+        </div>
+        
+        <!-- Bottom Section - Absolute positioning relative to the right column -->
+        <div v-if="!isOpen" class="bottom-section-absolute">
+          <!-- Inner container with background -->
+          <div
+            class="bg-combo-linear rounded-3xl px-10 py-4 flex flex-col items-center shadow-lg"
+          >
+            <p
+              data-aos="zoom-in-up"
+              data-aos-duration="2000"
+              class="text-gray-600 text-center mb-0.5"
+              style="font-family: 'Cochin Italic'; font-size: 14px"
+            >
+              {{
+                themeStore.isEnglish
+                  ? "Dear Mr/Mrs/Ms"
+                  : "Kepada Yth. Bapak/Ibu/Saudara/i"
+              }}
+            </p>
+            <p
+              data-aos="zoom-in-up"
+              data-aos-duration="2000"
+              class="text-gray-700 text-center mt-0 font-semibold"
+              style="font-family: 'Cochin Italic'; font-size: 20px"
+            >
+              {{ invitedPerson }}
+            </p>
+            <button
+              @click="handleClick"
+              data-aos-duration="2000"
+              data-aos="zoom-in-up"
+              class="px-6 py-2.5 rounded-full mt-3 hover:opacity-90 active:scale-95 transition-all"
+              :style="{ backgroundColor: 'var(--color-primary)' }"
+            >
+              <p
+                class="text-white tracking-wide"
+                style="
+                  font-family: var(--font-accent);
+                  font-size: calc(20px * var(--font-scale-accent, 1));
+                  text-transform: none;
+                "
+              >
+                {{ themeStore.isEnglish ? "Open Invitation" : "Buka Undangan" }}
+              </p>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Opened Content -->
+        <div
+          v-show="isOpen"
+          class="flex flex-col w-full relative z-10"
+        >
+          <VideoSection v-if="weddingData?.video_url" />
+          <WelcomeSection
+            v-if="dataPernikahan.acara && dataPernikahan.acara.length > 0"
+            :acara="dataPernikahan.acara"
+            :countdownDate="countdownDate"
+            :mempelaiPria="mempelaiPria"
+            :mempelaiWanita="mempelaiWanita"
+            id="welcomeSection"
+          />
+          <IntroductionFamilies
+            v-if="dataPernikahan.pengantin && dataPernikahan.pengantin.length > 0"
+            id="mempelaiSection"
+            :tamu="dataPernikahan.tamu"
+            :pengantin="dataPernikahan.pengantin"
+          />
+          <WeddingEvents
+            v-if="dataPernikahan.acara && dataPernikahan.acara.length > 0"
+            id="acaraSection"
+            :acara="dataPernikahan.acara"
+          />
+          <AturCaraSection 
+            :words="themeStore.wedding?.theme_override?.words" 
+          />
+          <InfoSection
+            v-if="
+              (themeStore.wedding?.theme_override?.words?.info_show !== false && themeStore.wedding?.theme_override?.words?.info_show !== 'false') &&
+              themeStore.wedding?.theme_override?.words?.info_position !== 'below_gallery'
+            "
+          />
+          <GalleryPhotos
+            v-if="dataPernikahan.gallery && dataPernikahan.gallery.length > 0"
+            id="gallerySection"
+            :gallery="dataPernikahan.gallery"
+          />
+          <InfoSection
+            v-if="
+              (themeStore.wedding?.theme_override?.words?.info_show !== false && themeStore.wedding?.theme_override?.words?.info_show !== 'false') &&
+              themeStore.wedding?.theme_override?.words?.info_position === 'below_gallery'
+            "
+          />
+          <ElectronicWallet
+            v-if="dataPernikahan.rekening && dataPernikahan.rekening.length > 0"
+            id="walletSection"
+            :rekening="dataPernikahan.rekening"
+          />
+          <AsmaralokaSection
+            v-if="dataPernikahan.asmaraloka && dataPernikahan.asmaraloka.length > 0"
+            :asmaraloka="dataPernikahan.asmaraloka"
+          />
+          <div class="flex flex-col px-8 pt-9">
+            <div
+              data-aos="zoom-in-up"
+              data-aos-duration="1000"
+              class="flex flex-col pt-20 bg-container-shadow rounded-tema-jawa mb-10"
+            >
+              <PresenceForm :tamu="dataPernikahan.tamu" />
+              <PrayerWishes @refresh-wishes="fetchHomeData" />
+              <WishesList
+                v-if="dataPernikahan.ucapan && dataPernikahan.ucapan.length > 0"
+                :wishes="dataPernikahan.ucapan"
+              />
+            </div>
+          </div>
+          <ContactPersonSection 
+            :words="themeStore.wedding?.theme_override?.words" 
+          />
+          <StorySection
+            v-if="
+              dataPernikahan.ceritaCinta && dataPernikahan.ceritaCinta.length > 0
+            "
+            :ceritaCinta="dataPernikahan.ceritaCinta"
+          />
+          <FooterWeddings />
+        </div>
+      </div>
+      
+      <!-- Floating Menu (Absolute/Fixed relative to right column, outside scrollable viewport) -->
       <Transition name="fade">
         <MenusFloating v-if="isOpen" @fnClick="(e) => handleMenuClick(e)" />
       </Transition>
@@ -681,6 +767,12 @@ watch(
 </template>
 
 <style scoped>
+:deep([data-aos]) {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
 .cover-section {
   background-color: var(--color-secondary);
   background-position: center;
@@ -688,6 +780,19 @@ watch(
   background-size: cover;
   height: 100vh;
   height: 100dvh;
+  position: relative;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.cover-section-absolute {
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  height: 100dvh;
+  width: 100%;
   position: relative;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
@@ -705,6 +810,19 @@ watch(
   align-items: center;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+  z-index: 50;
+}
+
+.bottom-section-absolute {
+  position: absolute;
+  bottom: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   z-index: 50;
 }
 

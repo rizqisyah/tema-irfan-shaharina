@@ -177,7 +177,12 @@ const handleIgW = (): void => {
     <div
       class="flex flex-col pt-7 pb-9 bg-events relative"
       :style="
-        themeStore.bgSpouse ? { backgroundImage: themeStore.bgSpouse } : {}
+        themeStore.bgSpouse ? {
+          background: themeStore.bgSpouse,
+          backgroundPosition: 'center',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat'
+        } : {}
       "
     >
       <div

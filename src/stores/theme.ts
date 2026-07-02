@@ -39,6 +39,7 @@ interface ThemeBackgroundsConfig {
   spouse_section: string;
   footer_bg: string;
   countdown_bg: string;
+  left_bg?: string;
 }
 
 interface ThemeImagesConfig {
@@ -135,6 +136,7 @@ const DEFAULT_BACKGROUND_URLS: Record<string, string> = {
   spouse_section: "",
   footer_bg: "",
   countdown_bg: "",
+  left_bg: "",
 };
 
 const DEFAULT_IMAGE_URLS: Record<string, string> = {
@@ -142,6 +144,25 @@ const DEFAULT_IMAGE_URLS: Record<string, string> = {
   ornament_divider: "",
   header_events: "",
   building_icon: "",
+};
+
+const formatBackgroundCSS = (url: any): string => {
+  if (typeof url !== "string") return "";
+  const trimmed = url.trim();
+  if (
+    trimmed.startsWith("url(") ||
+    trimmed.startsWith("linear-gradient(") ||
+    trimmed.startsWith("radial-gradient(") ||
+    trimmed.startsWith("#") ||
+    trimmed.startsWith("rgb(") ||
+    trimmed.startsWith("rgba(") ||
+    trimmed.startsWith("hsl(") ||
+    trimmed.startsWith("hsla(") ||
+    trimmed.startsWith("transparent")
+  ) {
+    return trimmed;
+  }
+  return `url(${trimmed})`;
 };
 
 export const useThemeStore = defineStore("theme", () => {
@@ -155,7 +176,14 @@ export const useThemeStore = defineStore("theme", () => {
     const fromTheme = themeConfig.value?.backgrounds?.cover;
     const url =
       fromWedding || override || fromTheme || DEFAULT_BACKGROUND_URLS.cover;
-    return url ? `url(${url})` : "";
+    return formatBackgroundCSS(url);
+  });
+
+  const bgLeft = computed(() => {
+    const override = (wedding.value?.theme_override as ThemeConfig)?.backgrounds
+      ?.left_bg;
+    const url = override || (wedding.value?.theme_override as ThemeConfig)?.backgrounds?.cover || wedding.value?.image_cover;
+    return formatBackgroundCSS(url);
   });
 
   const bgMain = computed(() => {
@@ -165,7 +193,7 @@ export const useThemeStore = defineStore("theme", () => {
     const fromTheme = themeConfig.value?.backgrounds?.main_bg;
     const url =
       fromWedding || override || fromTheme || DEFAULT_BACKGROUND_URLS.main_bg;
-    return url ? `url(${url})` : "";
+    return formatBackgroundCSS(url);
   });
 
   const bgSpouse = computed(() => {
@@ -178,7 +206,7 @@ export const useThemeStore = defineStore("theme", () => {
       override ||
       fromTheme ||
       DEFAULT_BACKGROUND_URLS.spouse_section;
-    return url ? `url(${url})` : "";
+    return formatBackgroundCSS(url);
   });
 
   const bgFooter = computed(() => {
@@ -186,7 +214,7 @@ export const useThemeStore = defineStore("theme", () => {
       ?.footer_bg;
     const fromTheme = themeConfig.value?.backgrounds?.footer_bg;
     const url = override || fromTheme || DEFAULT_BACKGROUND_URLS.footer_bg;
-    return url ? `url(${url})` : "";
+    return formatBackgroundCSS(url);
   });
 
   const bgCountdown = computed(() => {
@@ -194,7 +222,7 @@ export const useThemeStore = defineStore("theme", () => {
       ?.countdown_bg;
     const fromTheme = themeConfig.value?.backgrounds?.countdown_bg;
     const url = override || fromTheme || DEFAULT_BACKGROUND_URLS.countdown_bg;
-    return url ? `url(${url})` : "";
+    return formatBackgroundCSS(url);
   });
 
   const imgLogo = computed(() => {
@@ -354,6 +382,7 @@ export const useThemeStore = defineStore("theme", () => {
 
     const resolvedBgs: Record<string, string> = {
       cover: wedding.value?.image_cover || bgDefaults.cover || "",
+      left_bg: bgDefaults.left_bg || wedding.value?.image_cover || bgDefaults.cover || "",
       main_bg: wedding.value?.image_bg1 || bgDefaults.main_bg || "",
       spouse_section:
         wedding.value?.image_bg2 || bgDefaults.spouse_section || "",
@@ -386,6 +415,7 @@ export const useThemeStore = defineStore("theme", () => {
     themeConfig,
     wedding,
     bgCover,
+    bgLeft,
     bgMain,
     bgSpouse,
     bgFooter,

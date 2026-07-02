@@ -121,7 +121,12 @@ watch(
   <div
     class="h-1/3 md:h-1/3 flex flex-col justify-center items-center bg-white py-8 container"
     :style="
-      themeStore.bgCountdown ? { backgroundImage: themeStore.bgCountdown } : {}
+      themeStore.bgCountdown ? {
+        background: themeStore.bgCountdown,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat'
+      } : {}
     "
   >
     <p
