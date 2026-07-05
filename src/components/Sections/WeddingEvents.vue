@@ -191,7 +191,7 @@ const openAcara = (e: any): void => {
         data-aos-duration="2000"
         class="flex flex-col mt-2.5 items-center rounded-xl py-10 mx-8"
       >
-        <p class="headline-21 text-black mt-2 text-center">
+        <p class="headline-21 mt-2 text-center">
           <span
             v-for="(line, lineIdx) in item.titleLines"
             :key="lineIdx"
@@ -207,11 +207,11 @@ const openAcara = (e: any): void => {
         </p>
         <hr class="border-gold-10 mt-5 mb-7" style="width: 40%" />
         <p class="body-777 my-2">{{ item.hari }}</p>
-        <p class="body-7 text-black my-5">{{ item.tanggal }}</p>
+        <p class="body-7 my-5">{{ item.tanggal }}</p>
         <p
           v-for="(timeLine, timeIdx) in item.timeLines"
           :key="timeIdx"
-          class="text-black my-1"
+          class="event-time my-1"
         >
           {{ timeLine }}
         </p>
@@ -225,13 +225,13 @@ const openAcara = (e: any): void => {
           class="my-7"
         />
         <p
-          class="body-7 text-black text-center mt-2 mb-6"
+          class="body-7 text-center mt-2 mb-6"
           style="max-width: 300px"
         >
           {{ item.location_name || item.lokasi }}
         </p>
         <p
-          class="body-77 text-black text-center mt-2 mb-6"
+          class="body-77 text-center mt-2 mb-6"
           style="max-width: 300px"
         >
           {{ item.address || item.alamat }}
@@ -276,5 +276,11 @@ const openAcara = (e: any): void => {
 
 .bg-linear-btn {
   background: linear-gradient(282.22deg, #000000 0%, #a98466 100%);
+}
+
+.event-time {
+  font-family: var(--font-event_detail, "Cormorant Garamond");
+  font-size: calc(14.4px * var(--font-scale-event_detail, 1));
+  color: var(--color-event-detail-color, var(--color-text-dark, #1F1C1F));
 }
 </style>

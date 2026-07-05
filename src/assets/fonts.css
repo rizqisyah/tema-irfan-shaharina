@@ -170,12 +170,13 @@
 }
 
 .body-7 {
-  font-family: "Cormorant Garamond";
+  font-family: var(--font-event_detail, "Cormorant Garamond");
   font-style: normal;
   font-weight: 600;
-  font-size: 19.2px;
+  font-size: calc(19.2px * var(--font-scale-event_detail, 1));
   line-height: 25px;
   letter-spacing: 1px;
+  color: var(--color-event-detail-color, var(--color-text-dark, #1F1C1F));
 }
 
 .body-777 {
@@ -189,12 +190,13 @@
 }
 
 .body-77 {
-  font-family: "Cormorant Garamond";
+  font-family: var(--font-event_detail, "Cormorant Garamond");
   font-style: normal;
   font-weight: 600;
-  font-size: 12.2px;
+  font-size: calc(12.2px * var(--font-scale-event_detail, 1));
   line-height: 25px;
   letter-spacing: 0.1px;
+  color: var(--color-event-detail-color, var(--color-text-dark, #1F1C1F));
 }
 
 .body-8 {
@@ -407,9 +409,10 @@
 }
 
 .headline-21 {
-  font-family: var(--font-headline);
+  font-family: var(--font-event_title, var(--font-headline));
   font-style: normal;
   font-weight: 400;
-  font-size: calc(29px * var(--font-scale-headline, 1));
+  font-size: calc(29px * var(--font-scale-event_title, var(--font-scale-headline, 1)));
   line-height: 1.3;
+  color: var(--color-event-title-color, var(--color-text-dark, #1F1C1F));
 }

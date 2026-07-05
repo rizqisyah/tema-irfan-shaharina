@@ -17,6 +17,8 @@ interface ThemeColorsConfig {
   section_title?: string;
   event_opening_color?: string;
   form_label_color?: string;
+  event_title_color?: string;
+  event_detail_color?: string;
 }
 
 interface ThemeFontsConfig {
@@ -31,6 +33,8 @@ interface ThemeFontsConfig {
   parents?: string;
   event_opening?: string;
   form_label?: string;
+  event_title?: string;
+  event_detail?: string;
 }
 
 interface ThemeBackgroundsConfig {
@@ -128,6 +132,8 @@ const DEFAULT_FONTS: ThemeFontsConfig = {
   parents: "'Monesta Bpld'",
   event_opening: "'Cormorant Garamond'",
   form_label: "'Cormorant Garamond'",
+  event_title: "'Bon Vivant Family Serif'",
+  event_detail: "'Cormorant Garamond'",
 };
 
 const DEFAULT_BACKGROUND_URLS: Record<string, string> = {
@@ -337,7 +343,7 @@ export const useThemeStore = defineStore("theme", () => {
 
     // Set font scales
     const fontScales = override.font_scales || {};
-    const slots = ["headline", "body", "accent", "script", "italic", "section", "spouse_nickname", "spouse_fullname", "parents", "event_opening", "form_label"];
+    const slots = ["headline", "body", "accent", "script", "italic", "section", "spouse_nickname", "spouse_fullname", "parents", "event_opening", "form_label", "event_title", "event_detail"];
     slots.forEach((slot) => {
       const scale = fontScales[slot] !== undefined ? fontScales[slot] : 1;
       root.style.setProperty(`--font-scale-${slot}`, String(scale));
