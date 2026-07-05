@@ -409,7 +409,12 @@ const handleMenuClick = (e: string): void => {
 const handlePreviewMessage = (event: MessageEvent) => {
   if (event.data && event.data.type === "QINVI_PREVIEW_UPDATE") {
     console.log("RECEIVED PREVIEW UPDATE:", event.data);
-    const { wedding, theme } = event.data;
+    const { wedding, theme, refetch } = event.data;
+
+    if (refetch) {
+      fetchHomeData();
+    }
+
     if (wedding) {
       let resolvedWedding = { ...wedding };
       if (typeof resolvedWedding.theme_override === "string") {
