@@ -23,7 +23,7 @@ export default defineConfig(({ mode }) => {
         },
       }),
     ],
-    base: isProd ? "/themes-assets/" : "/",
+    base: isProd ? "/Tema3dBasic/" : "/",
     resolve: {
       alias: {
         "@": fileURLToPath(new URL("./src", import.meta.url)),
