@@ -20,6 +20,7 @@ import Mualamat_logo from "@/assets/images/logo_muamalat.png";
 import common_logo from "@/assets/images/common-bank.png";
 import hsbc_logo from "@/assets/images/hsbc-logo.png";
 import kado_logo from "@/assets/images/Kado.png";
+import bsg_logo from "@/assets/images/bsg.png";
 
 const themeStore = useThemeStore();
 const snackbar = useSnackbar();
@@ -68,6 +69,7 @@ const handleIconBank = (e: string): string => {
   else if (bank == "hsbc") return hsbc_logo;
   else if (bank == "commonwealth bank") return common_logo;
   else if (bank == "kado") return kado_logo;
+  else if (bank == "bsg") return bsg_logo;
   return "";
 };
 
