@@ -38,17 +38,6 @@ const infoItemsRaw = computed(() => {
     : "- Tidak meninggalkan sholat wajib\n- Mendo'akan kedua mempelai\n- Memperhatikan adab makan dan minum\n- Berpakaian sopan serta menutup aurat";
 });
 
-const hasBullets = computed(() => {
-  if (Array.isArray(infoItemsRaw.value)) {
-    return true;
-  }
-  const str = String(infoItemsRaw.value);
-  return str.split("\n").some((line) => {
-    const trimmed = line.trim();
-    return trimmed.startsWith("-") || trimmed.startsWith("*") || trimmed.startsWith("•");
-  });
-});
-
 interface ParsedInfoItem {
   id: string;
   isBullet: boolean;
@@ -57,28 +46,6 @@ interface ParsedInfoItem {
   imageUrl: string;
   altText: string;
 }
-
-const isImageSource = (str: string): boolean => {
-  if (!str) return false;
-  const lower = str.toLowerCase();
-  
-  // Direct HTTP/HTTPS or data URI check
-  const isUrl = lower.startsWith("http://") || lower.startsWith("https://") || lower.startsWith("data:image/");
-  if (!isUrl) return false;
-
-  // Known CDN/Storage domains or image file extensions
-  const isKnownCdn = 
-    lower.includes("imagekit.io") || 
-    lower.includes("r2.dev") || 
-    lower.includes("cloudflarestorage.com") ||
-    lower.includes("cloudinary.com") ||
-    lower.includes("supabase.co");
-
-  const hasImageExt = /\.(jpeg|jpg|png|webp|gif|svg|avif)(\?.*)?$/i.test(lower);
-
-  // If it's a URL, treat as image if CDN, extension matched, or general URL in single item context
-  return isUrl && (isKnownCdn || hasImageExt || true);
-};
 
 const parsedItems = computed<ParsedInfoItem[]>(() => {
   let lines: string[] = [];
@@ -94,6 +61,8 @@ const parsedItems = computed<ParsedInfoItem[]>(() => {
   return lines
     .map((item, idx) => {
       const trimmed = item.trim();
+      if (!trimmed) return null;
+
       const isBullet = trimmed.startsWith("-") || trimmed.startsWith("*") || trimmed.startsWith("•");
       let content = isBullet ? trimmed.replace(/^[-*•]\s*/, "").trim() : trimmed;
 
@@ -101,15 +70,33 @@ const parsedItems = computed<ParsedInfoItem[]>(() => {
       let imageUrl = "";
       let altText = "Informasi Custom";
 
-      // Markdown image syntax check: ![alt](url)
-      const markdownImageMatch = content.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
-      if (markdownImageMatch) {
+      const htmlImgMatch = content.match(/<img[^>]+src=["']([^"']+)["'][^>]*>/i);
+      const markdownImgMatch = content.match(/!\[([^\]]*)\]\(([^)]+)\)/);
+      const rawUrlMatch = content.match(/(https?:\/\/[^\s"'<>()]+|data:image\/[^\s"'<>()]+)/i);
+
+      if (htmlImgMatch) {
         isImage = true;
-        altText = markdownImageMatch[1] || "Informasi Custom";
-        imageUrl = markdownImageMatch[2].trim();
-      } else if (isImageSource(content)) {
+        imageUrl = htmlImgMatch[1].trim();
+      } else if (markdownImgMatch) {
         isImage = true;
-        imageUrl = content;
+        altText = markdownImgMatch[1] || "Informasi Custom";
+        imageUrl = markdownImgMatch[2].trim();
+      } else if (rawUrlMatch) {
+        const urlCandidate = rawUrlMatch[1].trim();
+        const lower = urlCandidate.toLowerCase();
+        if (
+          lower.includes("imagekit.io") ||
+          lower.includes("r2.dev") ||
+          lower.includes("cloudflarestorage.com") ||
+          lower.includes("cloudinary.com") ||
+          lower.includes("supabase.co") ||
+          /\.(jpeg|jpg|png|webp|gif|svg|avif)(\?.*)?$/i.test(lower) ||
+          lower.startsWith("http://") ||
+          lower.startsWith("https://")
+        ) {
+          isImage = true;
+          imageUrl = urlCandidate;
+        }
       }
 
       return {
@@ -121,7 +108,14 @@ const parsedItems = computed<ParsedInfoItem[]>(() => {
         altText,
       };
     })
-    .filter((item) => item.content.length > 0);
+    .filter((item): item is ParsedInfoItem => item !== null && item.content.length > 0);
+});
+
+const hasBullets = computed(() => {
+  if (Array.isArray(infoItemsRaw.value)) {
+    return true;
+  }
+  return parsedItems.value.some((item) => item.isBullet || item.isImage) || parsedItems.value.length > 1;
 });
 </script>
 

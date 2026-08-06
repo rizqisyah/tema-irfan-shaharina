@@ -48,9 +48,14 @@ const hashtag = computed(() => {
 });
 
 const footerMessage = computed(() => {
-  const raw = parsedOverride.value?.words?.footer_message;
-  if (raw !== undefined && raw !== null) {
+  const words = parsedOverride.value?.words;
+  const raw = words?.footer_message ?? words?.footer_text ?? words?.closing_message;
+
+  if (raw !== undefined && raw !== null && raw !== "") {
     return raw;
+  }
+  if (raw === "") {
+    return "";
   }
   return themeStore.isEnglish
     ? "It is our honor and happiness if you would be pleased to attend and give your blessings to the bride & groom. Thank you for your blessings and support."
