@@ -49,17 +49,30 @@ const hashtag = computed(() => {
 
 const footerMessage = computed(() => {
   const words = parsedOverride.value?.words;
-  const raw = words?.footer_message ?? words?.footer_text ?? words?.closing_message;
 
-  if (raw !== undefined && raw !== null && raw !== "") {
-    return raw;
+  if (themeStore.isEnglish) {
+    const rawEn = words?.footer_message_en ?? words?.footer_text_en ?? words?.closing_message_en;
+    if (rawEn !== undefined && rawEn !== null && rawEn !== "") {
+      return rawEn;
+    }
+    const rawDefault = words?.footer_message ?? words?.footer_text ?? words?.closing_message;
+    if (rawDefault !== undefined && rawDefault !== null && rawDefault !== "") {
+      return rawDefault;
+    }
+    if (rawEn === "" || rawDefault === "") {
+      return "";
+    }
+    return "It is our honor and happiness if you would be pleased to attend and give your blessings to the bride & groom. Thank you for your blessings and support.";
+  } else {
+    const raw = words?.footer_message ?? words?.footer_text ?? words?.closing_message;
+    if (raw !== undefined && raw !== null && raw !== "") {
+      return raw;
+    }
+    if (raw === "") {
+      return "";
+    }
+    return "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu kepada kedua mempelai. Terima kasih atas doa restu dan dukungannya.";
   }
-  if (raw === "") {
-    return "";
-  }
-  return themeStore.isEnglish
-    ? "It is our honor and happiness if you would be pleased to attend and give your blessings to the bride & groom. Thank you for your blessings and support."
-    : "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu kepada kedua mempelai. Terima kasih atas doa restu dan dukungannya.";
 });
 
 const handleIg = (): void => {

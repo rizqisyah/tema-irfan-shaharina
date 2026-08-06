@@ -130,7 +130,7 @@ const handleConfirm = (): void => {
       data-aos-duration="2000"
       class="body-777 text-center font-extralight mb-5"
     >
-      {{ themeStore.isEnglish ? "RSVP Confirmation" : "Konfirmasi Kehadiran" }}
+      {{ themeStore.isEnglish ? "Rsvp Confirmation" : "Konfirmasi Kehadiran" }}
     </p>
 
     <!-- Already RSVP'd Success Message -->

@@ -59,6 +59,7 @@ interface ThemeWordsConfig {
   opening_message?: string;
   hashtag?: string;
   footer_message?: string;
+  footer_message_en?: string;
   info_show?: boolean;
   info_title?: string;
   info_items?: string;
