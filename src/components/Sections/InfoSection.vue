@@ -14,12 +14,25 @@ const closeModal = () => {
   selectedImage.value = null;
 };
 
+const parsedOverride = computed(() => {
+  const override = themeStore.wedding?.theme_override;
+  if (!override) return {};
+  if (typeof override === "string") {
+    try {
+      return JSON.parse(override);
+    } catch (e) {
+      return {};
+    }
+  }
+  return override;
+});
+
 const infoTitle = computed(() => {
-  return themeStore.wedding?.theme_override?.words?.info_title || "";
+  return parsedOverride.value?.words?.info_title || "";
 });
 
 const infoItemsRaw = computed(() => {
-  const raw = themeStore.wedding?.theme_override?.words?.info_items;
+  const raw = parsedOverride.value?.words?.info_items;
   return raw !== undefined && raw !== null
     ? raw
     : "- Tidak meninggalkan sholat wajib\n- Mendo'akan kedua mempelai\n- Memperhatikan adab makan dan minum\n- Berpakaian sopan serta menutup aurat";

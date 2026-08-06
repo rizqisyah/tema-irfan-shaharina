@@ -4,8 +4,21 @@ import { useThemeStore } from "@/stores/theme";
 
 const themeStore = useThemeStore();
 
+const parsedOverride = computed(() => {
+  const override = themeStore.wedding?.theme_override;
+  if (!override) return {};
+  if (typeof override === "string") {
+    try {
+      return JSON.parse(override);
+    } catch (e) {
+      return {};
+    }
+  }
+  return override;
+});
+
 const logoUrl = computed(() => {
-  const override = themeStore.wedding?.theme_override?.images?.logo_mempelai;
+  const override = parsedOverride.value?.images?.logo_mempelai;
   return (
     override ||
     "https://ik.imagekit.io/qinvi/3d/2026/juni2026/ClevertIvana/IMG_9692.webp?updatedAt=1781262749703"
@@ -13,7 +26,7 @@ const logoUrl = computed(() => {
 });
 
 const isImageHashtag = computed(() => {
-  const raw = themeStore.wedding?.theme_override?.words?.hashtag;
+  const raw = parsedOverride.value?.words?.hashtag;
   if (!raw) return false;
   const val = raw.trim();
   return (
@@ -23,7 +36,7 @@ const isImageHashtag = computed(() => {
 });
 
 const hashtag = computed(() => {
-  const raw = themeStore.wedding?.theme_override?.words?.hashtag;
+  const raw = parsedOverride.value?.words?.hashtag;
   if (!raw || raw.trim() === "") return "";
 
   if (isImageHashtag.value) {
@@ -35,7 +48,7 @@ const hashtag = computed(() => {
 });
 
 const footerMessage = computed(() => {
-  const raw = themeStore.wedding?.theme_override?.words?.footer_message;
+  const raw = parsedOverride.value?.words?.footer_message;
   if (raw !== undefined && raw !== null) {
     return raw;
   }
