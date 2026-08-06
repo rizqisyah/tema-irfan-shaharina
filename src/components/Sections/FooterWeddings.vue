@@ -34,6 +34,16 @@ const hashtag = computed(() => {
   return val.startsWith("#") ? val : `#${val}`;
 });
 
+const footerMessage = computed(() => {
+  const raw = themeStore.wedding?.theme_override?.words?.footer_message;
+  if (raw !== undefined && raw !== null) {
+    return raw;
+  }
+  return themeStore.isEnglish
+    ? "It is our honor and happiness if you would be pleased to attend and give your blessings to the bride & groom. Thank you for your blessings and support."
+    : "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu kepada kedua mempelai. Terima kasih atas doa restu dan dukungannya.";
+});
+
 const handleIg = (): void => {
   window.open("https://instagram.com/25ribuaja");
 };
@@ -57,12 +67,8 @@ const handleWa = (): void => {
         alt="Qinvi Wedding Icon"
         class="mb-6"
       />
-      <p>
-        {{
-          themeStore.isEnglish
-            ? "It is our honor and happiness if you would be pleased to attend and give your blessings to the bride & groom. Thank you for your blessings and support."
-            : "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu kepada kedua mempelai. Terima kasih atas doa restu dan dukungannya."
-        }}
+      <p v-if="footerMessage" class="whitespace-pre-line">
+        {{ footerMessage }}
       </p>
       <div v-if="hashtag" class="mt-4 w-full flex justify-center">
         <img
