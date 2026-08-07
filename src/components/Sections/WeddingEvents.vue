@@ -176,7 +176,7 @@ const openAcara = (e: any): void => {
         <p
           data-aos="zoom-in-up"
           data-aos-duration="2000"
-          class="caption-14 text-center mx-7 mb-4"
+          class="caption-14 text-center mx-7 mb-4 whitespace-pre-line"
         >
           {{ openingMessage }}
         </p>

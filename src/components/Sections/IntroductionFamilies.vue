@@ -188,7 +188,7 @@ const handleIgW = (): void => {
       <div
         data-aos="zoom-in-up"
         data-aos-duration="1000"
-        class="flex flex-col pt-20 pb-32 relative z-10"
+        class="flex flex-col pt-4 pb-6 relative z-10"
       >
         <div
           data-aos="zoom-in-up"

@@ -294,6 +294,44 @@ const handleConfirm = (): void => {
         </button>
       </div>
     </div>
+
+    <!-- RSVP Note & Contact Info -->
+    <div
+      data-aos="zoom-in-up"
+      data-aos-duration="2000"
+      class="mt-8 pt-6 border-t border-brown-30/20 text-center flex flex-col items-center"
+    >
+      <p class="caption-1 text-brown-30 leading-relaxed max-w-md mx-auto mb-4 italic">
+        We look forward to your presence on our special day. Each invitation includes two guests; please contact us should you wish to bring more.
+      </p>
+
+      <div class="flex flex-col items-center space-y-1.5 mt-2">
+        <p class="font-bold text-xs tracking-widest text-brown-30 uppercase">
+          CONTACT :
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-4 text-sm text-brown-30">
+          <a
+            href="https://wa.me/60122162522"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:underline flex items-center gap-1 transition-opacity hover:opacity-80"
+          >
+            <span>Mysha</span>
+            <span class="font-medium">+60122162522</span>
+          </a>
+          <span class="hidden sm:inline text-brown-30/40">•</span>
+          <a
+            href="https://wa.me/60139336322"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:underline flex items-center gap-1 transition-opacity hover:opacity-80"
+          >
+            <span>Asif</span>
+            <span class="font-medium">+60139336322</span>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

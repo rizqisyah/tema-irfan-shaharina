@@ -23,7 +23,7 @@ export default defineConfig(({ mode }) => {
         },
       }),
     ],
-    base: isProd ? "/Tema3dBasic/" : "/",
+    base: isProd ? "/TemaIrfanShaharina/" : "/",
     resolve: {
       alias: {
         "@": fileURLToPath(new URL("./src", import.meta.url)),

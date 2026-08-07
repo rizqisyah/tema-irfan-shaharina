@@ -763,12 +763,21 @@ watch(
             :asmaraloka="dataPernikahan.asmaraloka"
           />
           <div class="flex flex-col px-4 sm:px-8 pt-9">
+            <!-- RSVP Section -->
             <div
               data-aos="zoom-in-up"
               data-aos-duration="1000"
-              class="flex flex-col pt-20 bg-container-shadow rounded-tema-jawa mb-10"
+              class="flex flex-col pt-12 pb-8 bg-container-shadow rounded-tema-jawa mb-10"
             >
               <PresenceForm :tamu="dataPernikahan.tamu" />
+            </div>
+
+            <!-- Wishes & Prayers Section -->
+            <div
+              data-aos="zoom-in-up"
+              data-aos-duration="1000"
+              class="flex flex-col pt-10 pb-8 bg-container-shadow rounded-tema-jawa mb-10"
+            >
               <PrayerWishes @refresh-wishes="fetchHomeData" />
               <WishesList
                 v-if="dataPernikahan.ucapan && dataPernikahan.ucapan.length > 0"
