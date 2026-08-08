@@ -108,7 +108,7 @@
   font-family: var(--font-event_opening, "Cormorant Garamond");
   font-style: normal;
   font-weight: 500;
-  font-size: calc(16px * var(--font-scale-event_opening, 1));
+  font-size: calc(21px * var(--font-scale-event_opening, 1));
   line-height: 22px;
   color: var(--color-event-opening-color, var(--color-text-dark, #1F1C1F));
 }
