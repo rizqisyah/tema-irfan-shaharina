@@ -2,7 +2,7 @@
   font-family: var(--font-body, "Noto Sans"), sans-serif;
   /* font-style: normal; */
   font-weight: 400;
-  font-size: calc(16px * var(--font-scale-body, 1));
+  font-size: calc(18px * var(--font-scale-body, 1));
   line-height: 16px;
 }
 
