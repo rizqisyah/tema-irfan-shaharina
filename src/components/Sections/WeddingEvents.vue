@@ -59,7 +59,7 @@ const openingImageUrl = computed(() => {
 
 const defaultOpeningMessage = `Together with our families
 
-DATUK MOHD ARIF ASLAM & WIFE
+Datuk Mohd Arif Aslam & Wife
 
 With hearts filled with joy and gratitude we request the honour of your presence at the wedding of our beloved son Irfan & his partner Shaharina.`;
 
