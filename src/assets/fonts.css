@@ -113,6 +113,11 @@
   color: var(--color-event-opening-color, var(--color-text-dark, #1F1C1F));
 }
 
+.font-snell {
+  font-family: "Snell Roundhand", "Snell Roundhand Bold", "SnellRoundhand-Bold", "SnellRoundhand", "FormaleScript", cursive;
+  font-weight: 700;
+}
+
 .body-1 {
   font-family: var(--font-body, "Noto Sans"), sans-serif;
   font-style: normal;

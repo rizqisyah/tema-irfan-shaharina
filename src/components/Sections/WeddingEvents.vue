@@ -57,11 +57,29 @@ const openingImageUrl = computed(() => {
   return "";
 });
 
+const defaultOpeningMessage = `Together with our families
+
+DATUK MOHD ARIF ASLAM & WIFE
+
+With hearts filled with joy and gratitude we request the honour of your presence at the wedding of our beloved son Irfan & his partner Shaharina.`;
+
 const openingMessage = computed(() => {
   return (
     themeStore.wedding?.theme_override?.words?.opening_message ||
-    "Dengan segala kerendahan hati dan dengan ucapan syukur atas karunia Tuhan, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk hadir di acara pernikahan kami yang akan dilaksanakan pada:"
+    defaultOpeningMessage
   );
+});
+
+const parsedOpeningLines = computed(() => {
+  const text = openingMessage.value;
+  return text.split("\n").map((line) => {
+    const trimmed = line.trim();
+    const isSnellFont = /DATUK MOHD|DATOK MOHD/i.test(trimmed);
+    return {
+      text: line,
+      isSnellFont,
+    };
+  });
 });
 
 type acaraTypes = {
@@ -220,14 +238,25 @@ const openAcara = (e: any): void => {
           data-aos-duration="2000"
           class="max-w-md w-full h-auto mx-auto mb-4 rounded-lg object-contain px-4"
         />
-        <p
+        <div
           v-else
           data-aos="zoom-in-up"
           data-aos-duration="2000"
-          class="caption-14 text-center mx-7 mb-4 whitespace-pre-line"
+          class="caption-14 text-center mx-7 mb-4 flex flex-col items-center"
         >
-          {{ openingMessage }}
-        </p>
+          <template v-for="(line, idx) in parsedOpeningLines" :key="idx">
+            <p
+              v-if="line.isSnellFont"
+              class="font-snell text-[22px] sm:text-[24px] font-bold tracking-wide my-1 text-center"
+            >
+              {{ line.text }}
+            </p>
+            <p v-else-if="line.text.trim()" class="leading-relaxed text-center">
+              {{ line.text }}
+            </p>
+            <div v-else class="h-2"></div>
+          </template>
+        </div>
       </div>
 
       <!-- Events Loop -->
