@@ -32,7 +32,7 @@ const isOpeningImage = computed(() => {
   const dedicatedImg = words?.opening_message_image || words?.opening_image || images?.opening_message || images?.opening_image;
   if (dedicatedImg) return true;
 
-  const msg = words?.opening_message;
+  const msg = words?.opening_message || defaultOpeningMessage;
   if (msg && typeof msg === "string") {
     const trimmed = msg.trim();
     const isUrl = /^https?:\/\//i.test(trimmed) || /^data:image\//i.test(trimmed) || /^\/storage\//i.test(trimmed) || /^\/uploads\//i.test(trimmed);
@@ -50,18 +50,14 @@ const openingImageUrl = computed(() => {
   const dedicatedImg = words?.opening_message_image || words?.opening_image || images?.opening_message || images?.opening_image;
   if (dedicatedImg) return dedicatedImg;
 
-  const msg = words?.opening_message;
+  const msg = words?.opening_message || defaultOpeningMessage;
   if (msg && typeof msg === "string") {
     return msg.trim();
   }
-  return "";
+  return defaultOpeningMessage;
 });
 
-const defaultOpeningMessage = `Together with our families
-
-Datuk Mohd Arif Aslam & Wife
-
-With hearts filled with joy and gratitude we request the honour of your presence at the wedding of our beloved son Irfan & his partner Shaharina.`;
+const defaultOpeningMessage = `https://ik.imagekit.io/qinviVideo/IMG_1843.PNG`;
 
 const openingMessage = computed(() => {
   return (
