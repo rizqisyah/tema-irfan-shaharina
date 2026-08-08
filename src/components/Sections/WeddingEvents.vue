@@ -247,7 +247,7 @@ const openAcara = (e: any): void => {
           <template v-for="(line, idx) in parsedOpeningLines" :key="idx">
             <p
               v-if="line.isSnellFont"
-              class="font-snell text-[22px] sm:text-[24px] font-bold tracking-wide my-1 text-center"
+              class="font-snell text-[22px] sm:text-[22px] font-bold tracking-wide my-1 text-center"
             >
               {{ line.text }}
             </p>
