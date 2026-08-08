@@ -306,10 +306,10 @@ const handleConfirm = (): void => {
       </p>
 
       <div class="flex flex-col items-center space-y-1.5 mt-2">
-        <p class="font-bold text-xs tracking-widest text-brown-30 uppercase">
+        <p class="font-bold text-[8px] tracking-widest text-brown-30 uppercase">
           CONTACT :
         </p>
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-4 text-sm text-brown-30">
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-4 text-[10px] text-brown-30">
           <a
             href="https://wa.me/60122162522"
             target="_blank"
