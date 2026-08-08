@@ -18,6 +18,45 @@ const buildingIconUrl = computed(() => {
   return override || fromTheme || defaultBuildingIcon;
 });
 
+const isOpeningImage = computed(() => {
+  const words = themeStore.wedding?.theme_override?.words;
+  const images = themeStore.wedding?.theme_override?.images;
+
+  if (words?.opening_message_type === "image" || words?.opening_type === "image") {
+    return true;
+  }
+  if (words?.opening_message_type === "text" || words?.opening_type === "text") {
+    return false;
+  }
+
+  const dedicatedImg = words?.opening_message_image || words?.opening_image || images?.opening_message || images?.opening_image;
+  if (dedicatedImg) return true;
+
+  const msg = words?.opening_message;
+  if (msg && typeof msg === "string") {
+    const trimmed = msg.trim();
+    const isUrl = /^https?:\/\//i.test(trimmed) || /^data:image\//i.test(trimmed) || /^\/storage\//i.test(trimmed) || /^\/uploads\//i.test(trimmed);
+    const isImgExt = /\.(jpg|jpeg|png|webp|gif|svg)(\?.*)?$/i.test(trimmed);
+    return isUrl || isImgExt;
+  }
+
+  return false;
+});
+
+const openingImageUrl = computed(() => {
+  const words = themeStore.wedding?.theme_override?.words;
+  const images = themeStore.wedding?.theme_override?.images;
+
+  const dedicatedImg = words?.opening_message_image || words?.opening_image || images?.opening_message || images?.opening_image;
+  if (dedicatedImg) return dedicatedImg;
+
+  const msg = words?.opening_message;
+  if (msg && typeof msg === "string") {
+    return msg.trim();
+  }
+  return "";
+});
+
 const openingMessage = computed(() => {
   return (
     themeStore.wedding?.theme_override?.words?.opening_message ||
@@ -173,7 +212,16 @@ const openAcara = (e: any): void => {
           With Love
         </p>
         <hr class="border-black my-4" style="width: 40%" />
+        <img
+          v-if="isOpeningImage"
+          :src="openingImageUrl"
+          alt="Opening Message"
+          data-aos="zoom-in-up"
+          data-aos-duration="2000"
+          class="max-w-md w-full h-auto mx-auto mb-4 rounded-lg object-contain px-4"
+        />
         <p
+          v-else
           data-aos="zoom-in-up"
           data-aos-duration="2000"
           class="caption-14 text-center mx-7 mb-4 whitespace-pre-line"

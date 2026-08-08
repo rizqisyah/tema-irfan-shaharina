@@ -51,12 +51,18 @@ interface ThemeImagesConfig {
   ornament_divider: string;
   header_events: string;
   building_icon: string;
+  opening_message?: string;
+  opening_image?: string;
 }
 
 interface ThemeWordsConfig {
   quote_text?: string;
   quote_verse?: string;
   opening_message?: string;
+  opening_message_type?: "text" | "image";
+  opening_message_image?: string;
+  opening_type?: "text" | "image";
+  opening_image?: string;
   hashtag?: string;
   footer_message?: string;
   footer_message_en?: string;
