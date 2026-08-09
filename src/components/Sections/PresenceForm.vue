@@ -301,7 +301,7 @@ const handleConfirm = (): void => {
       data-aos-duration="2000"
       class="mt-8 pt-6 border-t border-brown-30/20 text-center flex flex-col items-center"
     >
-      <p class="caption-1 text-brown-30 leading-relaxed max-w-md mx-auto mb-4 italic">
+      <p class="text-xs sm:text-sm text-brown-30 leading-relaxed max-w-md mx-auto mb-4 italic">
         We look forward to your presence on our special day. Each invitation includes two guests; please contact us should you wish to bring more.
       </p>
 
